@@ -19,9 +19,9 @@ const EMBED_URL = `https://www.google.com/maps?q=${encodeURIComponent(
 )}&output=embed`;
 
 const HOURS = [
-  { day: "Monday – Friday", hours: "9:00 AM – 5:00 PM" },
-  { day: "Saturday", hours: "9:00 AM – 1:00 PM" },
-  { day: "Sunday", hours: "By appointment" },
+  { day: "Monday – Friday", hours: "9:00 AM – 4:30 PM" },
+  { day: "Saturday", hours: "Closed" },
+  { day: "Sunday", hours: "Closed" },
 ];
 
 export function MapLocation() {
