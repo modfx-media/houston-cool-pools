@@ -183,8 +183,7 @@ export function ArticlesIndex() {
           <div className="mx-auto max-w-7xl px-6 md:px-10">
             <motion.p
               initial={{ opacity: 0, y: 12 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.6 }}
+              animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, ease }}
               className="text-[11px] font-bold uppercase tracking-[0.28em] text-[var(--color-pool)]"
             >
@@ -199,9 +198,9 @@ export function ArticlesIndex() {
       <section className="bg-white pb-24 pt-6 md:pb-32">
         <div className="mx-auto max-w-7xl px-6 md:px-10">
           <motion.div
+            key={category}
             initial="hidden"
-            whileInView="show"
-            viewport={{ once: true, amount: 0.1 }}
+            animate="show"
             variants={{ show: { transition: { staggerChildren: 0.08 } } }}
             className="mt-10 grid gap-6 md:grid-cols-2 lg:grid-cols-3 lg:gap-7"
           >
@@ -254,9 +253,9 @@ export function ArticlesIndex() {
 function FeaturedCard({ article }: { article: Article }) {
   return (
     <motion.article
+      key={article.slug}
       initial={{ opacity: 0, y: 26 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, amount: 0.2 }}
+      animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.7, ease }}
       className="group mt-6 grid overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-[0_20px_50px_-25px_rgba(0,0,0,0.25)] lg:grid-cols-2"
     >
@@ -276,10 +275,15 @@ function FeaturedCard({ article }: { article: Article }) {
       </Link>
 
       <div className="flex flex-col justify-center gap-5 p-8 md:p-10 lg:p-12">
-        <div className="flex items-center gap-3 text-[11px] font-semibold uppercase tracking-[0.18em] text-slate-500">
-          <span>{article.date}</span>
-          <span aria-hidden>•</span>
-          <span>{article.readTime}</span>
+        <div className="flex flex-wrap items-center gap-3">
+          <span className="rounded-full bg-[var(--color-pool)]/10 px-3 py-1 text-[11px] font-bold uppercase tracking-[0.16em] text-[var(--color-pool-deep)]">
+            {article.category}
+          </span>
+          <div className="flex items-center gap-3 text-[11px] font-semibold uppercase tracking-[0.18em] text-slate-500">
+            <span>{article.date}</span>
+            <span aria-hidden>•</span>
+            <span>{article.readTime}</span>
+          </div>
         </div>
         <h3 className="font-display text-2xl font-extrabold text-[var(--color-navy-deep)] sm:text-3xl md:text-4xl">
           <Link
@@ -342,6 +346,9 @@ function ArticleCard({ article }: { article: Article }) {
           />
         </div>
         <div className="flex h-full flex-col gap-3 p-6">
+          <span className="w-fit rounded-full bg-[var(--color-pool)]/10 px-3 py-1 text-[10px] font-bold uppercase tracking-[0.16em] text-[var(--color-pool-deep)]">
+            {article.category}
+          </span>
           <div className="flex items-center gap-3 text-[11px] font-semibold uppercase tracking-[0.18em] text-slate-500">
             <span>{article.date}</span>
             <span aria-hidden>•</span>

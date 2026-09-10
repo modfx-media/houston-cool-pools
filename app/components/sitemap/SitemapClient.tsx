@@ -106,6 +106,8 @@ const FEATURES: SectionLink[] = Array.from({ length: 13 }, (_, i) => ({
 }));
 
 const ARTICLES: SectionLink[] = [
+  { label: "Freeform or Geometric Pool Designs for Houston", href: "/blogs/freeform-or-geometric-pool-designs-for-houston" },
+  { label: "Plan Better Views With Houston Custom Pool Sightlines", href: "/blogs/plan-better-views-with-houston-custom-pool-sightlines" },
   { label: "A Homeowner's Guide to Houston Pool Construction", href: "/blogs/a-homeowners-guide-to-houston-pool-construction" },
   { label: "How Pool Builders in Greater Houston Design for Heavy Rain", href: "/blogs/how-pool-builders-in-greater-houston-design-for-heavy-rain" },
   { label: "What to Expect From a Houston Pool Site Evaluation", href: "/blogs/what-to-expect-from-a-houston-pool-site-evaluation" },

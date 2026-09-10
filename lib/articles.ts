@@ -47,6 +47,301 @@ const AUTHOR = {
 
 export const ARTICLES: Article[] = [
   {
+    slug: "freeform-or-geometric-pool-designs-for-houston",
+    title: "Freeform or Geometric Pool Designs for Houston",
+    excerpt:
+      "Compare freeform and geometric designs to choose between custom pools in Greater Houston that suit your backyard, lifestyle, budget, and vision.",
+    category: "Custom Features",
+    tag: "Custom Features",
+    readTime: "7 min",
+    date: "Sep 9, 2026",
+    publishedAt: "2026-09-09",
+    author: AUTHOR,
+    hero: {
+      src: "/images/blogs/freeform-or-geometric-pool-designs-for-houston/hero.jpg",
+      alt: "Side-by-side comparison of a geometric rectangular pool patio and a freeform lagoon-style pool with a rock waterfall",
+    },
+    card: {
+      src: "/images/blogs/freeform-or-geometric-pool-designs-for-houston/card.jpg",
+      alt: "Side-by-side comparison of a geometric rectangular pool patio and a freeform lagoon-style pool with a rock waterfall",
+    },
+    keywords: [
+      "custom pools in Greater Houston",
+      "freeform pool design",
+      "geometric pool design",
+      "Houston pool builder",
+      "gunite pool construction",
+    ],
+    related: [
+      { label: "Freeform Pools Gallery", href: "/gallery-free-form-pools-1" },
+      { label: "Geometric Pools Gallery", href: "/geometric-pools-1" },
+      { label: "Custom Pool Types", href: "/custom-pool-types" },
+      { label: "Contact Us", href: "/contact" },
+    ],
+    body: [
+      {
+        type: "p",
+        text: "A pool's shape does much more than set its look. It affects how the water fits your property, how people move through the backyard, and how the pool connects with patios, spas, outdoor kitchens, and gathering areas. The best choice should feel natural with the way you live at home.",
+      },
+      {
+        type: "p",
+        text: "For custom pools in Greater Houston, freeform and geometric designs offer two very different moods. Freeform pools feel relaxed and nature-inspired, while geometric pools bring clean structure and modern polish. At Houston Cool Pools, we help you weigh both approaches while keeping your home, yard, and daily plans in view.",
+      },
+      { type: "h2", text: "Find a Pool Shape That Suits Houston Backyard Living" },
+      {
+        type: "p",
+        text: "Before settling on curves or straight lines, we recommend looking at the whole backyard. Your lot size, existing trees, patio area, home style, and favorite outdoor activities all help guide the design. A pool that looks great in an inspiration photo may not be the best fit for your particular space.",
+      },
+      {
+        type: "p",
+        text: "Some families want room for active swimming and games. Others care most about a calm spa area, a shallow tanning ledge, or a patio layout built for long evenings with friends. Those priorities matter just as much as the pool's appearance.",
+      },
+      {
+        type: "p",
+        text: "As we create a custom design, we consider details such as:",
+      },
+      {
+        type: "list",
+        items: [
+          "The architecture and lines of your home",
+          "The amount of usable yard space and access around the pool",
+          "How you plan to swim, relax, play, and entertain",
+          "Existing landscape features, patios, and outdoor living areas",
+          "The mood you want your backyard to have",
+        ],
+      },
+      {
+        type: "p",
+        text: "Our custom gunite construction process gives us flexibility to shape a pool around your property rather than forcing your yard to fit a standard layout.",
+      },
+      { type: "h2", text: "Let Natural Curves Shape Your Backyard Escape" },
+      {
+        type: "p",
+        text: "Freeform pools use flowing curves, rounded corners, and softer outlines. Instead of looking strictly planned or formal, they can bring to mind a secluded swimming hole, a tropical resort, or a relaxed vacation setting. This style often appeals to people who want their backyard to feel easygoing and tucked away from the everyday rush.",
+      },
+      {
+        type: "p",
+        text: "Curving waterlines can work especially well around mature trees, irregular property lines, changing elevations, and patios that do not follow a straight path. Rather than fighting those existing features, a freeform design can make them feel like part of the retreat. The shape also creates visual movement, so the pool can feel interesting from several viewpoints around the yard.",
+      },
+      {
+        type: "p",
+        text: "Natural-looking details can support the style, including rock features, waterfalls, beach entries, tanning ledges, and layered plantings. Still, freeform does not have to mean crowded or overly themed. A few thoughtfully selected features can keep the space calm and connected.",
+      },
+      {
+        type: "p",
+        text: "From a daily-use standpoint, freeform layouts can make room for different activities without making the pool feel boxed into separate zones. We can plan places for swimming, children's play, lounging, and spa relaxation within one flowing design. Decking, coping, lighting, safety features, and maintenance access should all be considered early so the entire outdoor living environment works together.",
+      },
+      { type: "h2", text: "Use Clean Lines to Create a Modern Outdoor Retreat" },
+      {
+        type: "p",
+        text: "Geometric pools are built around straight lines, rectangles, squares, sharp angles, and intentional symmetry. They often pair beautifully with contemporary, transitional, and modern homes, especially when the house already has strong architectural lines. A well-proportioned geometric pool can give the backyard a composed, elegant feel.",
+      },
+      {
+        type: "p",
+        text: "Rectangular and linear designs also make efficient use of swim space. If lap swimming, fitness routines, family games, or open-water play are high on your list, a geometric layout may be a strong choice. Its clean outline can create a clear activity area while leaving room around the pool for seating and outdoor living.",
+      },
+      {
+        type: "p",
+        text: "These pools often connect naturally with features such as:",
+      },
+      {
+        type: "list",
+        items: [
+          "Covered patios and pergolas",
+          "Outdoor kitchens and dining spaces",
+          "Raised spas and fire features",
+          "Sheer descents, deck jets, and crisp water walls",
+          "Clean-lined planting beds and paved walkways",
+        ],
+      },
+      {
+        type: "p",
+        text: "Material choices can shift the final mood. Porcelain pavers, tile, natural stone, and coping can make a geometric pool feel sleek and modern or slightly softer and more welcoming. The goal is not simply to build the largest pool that fits. We consider the scale of the home, patio, fence lines, and remaining yard so every element feels balanced.",
+      },
+      { type: "h2", text: "Compare Design Priorities Before You Build" },
+      {
+        type: "p",
+        text: "The right design comes from more than choosing between curves and corners. Start by thinking about the feeling you want when you step outside. Do you prefer a casual resort atmosphere, a polished entertaining space, or a blend of both? Saving inspiration images can be helpful, but we encourage you to stay open to ideas that suit the real conditions of your property.",
+      },
+      {
+        type: "p",
+        text: "It also helps to think through the full scope of the backyard project. Pool shape is only one piece of the plan. Site access, excavation conditions, drainage needs, retaining features, decking, lighting, automation, landscaping, spas, and outdoor living additions all affect how the finished space comes together. Both freeform and geometric custom pools in Greater Houston can be tailored in many ways.",
+      },
+      {
+        type: "p",
+        text: "Early fall is a smart time to begin the planning conversation. With back-to-school routines settling in and holiday calendars ahead, you can take time to evaluate your yard, select materials, and make thoughtful design decisions. Starting early also provides room for site review, permitting, and construction scheduling before the return of Houston's busy spring and summer backyard season.",
+      },
+      { type: "h2", text: "Turn Your Pool Vision Into a Confident Plan" },
+      {
+        type: "p",
+        text: "Trends come and go, but a well-designed pool should fit your home and lifestyle for years to come. Whether you lean toward freeform curves or geometric lines, the best design is one that supports the way you want to spend time outside. At Houston Cool Pools, we focus on creating personalized gunite pool and outdoor living designs with quality construction at the center.",
+      },
+      {
+        type: "p",
+        text: "When comparing design options, consider how features such as a spa, tanning ledge, fire feature, outdoor kitchen, or entertaining area can influence circulation, usable deck space, and the balance between relaxation and entertaining. Reviewing these relationships early helps clarify which pool shape and supporting elements will create a backyard retreat that feels distinctly suited to your home.",
+      },
+      {
+        type: "quote",
+        text: "We help homeowners turn ideas into plans that fit their property, lifestyle, and budget. The strongest designs are the ones built around the way a family actually wants to live outside, not just a shape pulled from a photo.",
+        cite: "Mike Lopez, Owner",
+      },
+      {
+        type: "callout",
+        title: "Bring your backyard vision to life",
+        body: "Explore our work creating custom pools in Greater Houston, then contact us to start a conversation about the design that fits your home.",
+        href: "/custom-pool-types",
+        cta: "See custom pool types",
+      },
+    ],
+  },
+  {
+    slug: "plan-better-views-with-houston-custom-pool-sightlines",
+    title: "Plan Better Views With Houston Custom Pool Sightlines",
+    excerpt:
+      "Discover how sightline planning shapes views, privacy, and flow, helping homeowners create a custom pool design in Houston that feels seamless and inviting.",
+    category: "Custom Features",
+    tag: "Custom Features",
+    readTime: "6 min",
+    date: "Sep 2, 2026",
+    publishedAt: "2026-09-02",
+    author: AUTHOR,
+    hero: {
+      src: "/images/blogs/plan-better-views-with-houston-custom-pool-sightlines/hero.jpg",
+      alt: "Aerial view of a Houston backyard infinity-edge pool and raised spa framed by patio seating and mature trees",
+    },
+    card: {
+      src: "/images/blogs/plan-better-views-with-houston-custom-pool-sightlines/card.jpg",
+      alt: "Aerial view of a Houston backyard infinity-edge pool and raised spa framed by patio seating and mature trees",
+    },
+    keywords: [
+      "custom pool design in Houston",
+      "pool sightline design",
+      "backyard pool planning Houston",
+      "pool privacy landscaping",
+      "outdoor living layout Houston",
+    ],
+    related: [
+      { label: "Custom Pool Types", href: "/custom-pool-types" },
+      { label: "Custom Home Builder", href: "/custom-home-toc" },
+      { label: "Should You Add Pool Lighting for Safer Houston Nights?", href: "/blogs/enhance-pool-safety-with-professional-lighting" },
+      { label: "Contact Us", href: "/contact" },
+    ],
+    body: [
+      {
+        type: "p",
+        text: "Sightline design shapes what you see when you look out from your home and move through your backyard. In a custom pool design in Houston, that means planning the views from indoor rooms, patios, gathering areas, and the pool deck before construction begins.",
+      },
+      {
+        type: "p",
+        text: "A beautiful pool is more enjoyable when it feels connected to the rest of your property. We help you think beyond the water itself, considering where your eye lands, what you want to highlight, and what you would rather keep out of view.",
+      },
+      { type: "h2", text: "Create a Backyard View You'll Love Every Day" },
+      {
+        type: "p",
+        text: "Sightlines are the intentional views across your property. From the kitchen sink to the family room doors, the primary bedroom, a covered patio, or an outdoor kitchen, each viewpoint can shape how your backyard feels.",
+      },
+      {
+        type: "p",
+        text: "When we plan these views early, the space often feels larger and more connected. Instead of seeing separate features scattered across the yard, you see a pool, deck, landscaping, and living areas that belong together. A well-placed pool can give you something enjoyable to look at even when you are indoors.",
+      },
+      {
+        type: "p",
+        text: "Early fall is a smart time to consider those everyday views. September often brings a fuller calendar of outdoor dinners, football gatherings, and relaxed evenings at home. In Houston, a pool area can remain part of daily life throughout the year, so the view should work for more than a single season.",
+      },
+      { type: "h2", text: "Start with the Views From Inside Your Home" },
+      {
+        type: "p",
+        text: "Before we place a pool, we look at the home first. Large windows, sliding glass doors, and covered patios can frame the entire backyard. Those openings may become the main places from which you see the pool, whether you are making breakfast, relaxing in the living room, or opening the curtains in the morning.",
+      },
+      {
+        type: "p",
+        text: "Pool placement can create a natural focal point without taking over the view. Depending on your home's style and the shape of the yard, that focal point could be a raised spa, a water wall, distinctive tile, or a carefully placed fire feature. The goal is to give the eye somewhere pleasant to rest while still respecting the architecture of your home.",
+      },
+      {
+        type: "p",
+        text: "Privacy belongs in the conversation, too. We can consider ways to limit views toward nearby homes while preserving the open view from your house. Helpful design tools may include:",
+      },
+      {
+        type: "list",
+        items: [
+          "Strategic planting and layered greenery",
+          "Decorative screens or walls",
+          "Pool orientation that turns attention inward",
+          "Feature placement that draws the eye away from less appealing areas",
+        ],
+      },
+      { type: "h2", text: "Use Pool Features to Create Natural Focal Points" },
+      {
+        type: "p",
+        text: "The pool's shape and direction influence how your eye moves through the yard. A freeform pool can feel at home beside softer planting and a more relaxed outdoor setting. A geometric pool can echo straight rooflines, modern windows, and clean patio edges. Neither style is automatically better, because the right choice depends on the home and the view you want to create.",
+      },
+      {
+        type: "p",
+        text: "Features can add interest, but they work best when they support one clear design idea. A tanning ledge may create a calm foreground from the patio. A raised spa can become a focal point from inside the home. Waterfalls, infinity-style edges, fire bowls, and statement tile can all make an impression when they are placed with purpose.",
+      },
+      {
+        type: "p",
+        text: "Scale matters just as much as style. A large feature may suit a wide Houston backyard, but it can make a smaller space feel crowded. We balance visual impact with room for walking, lounging, and enjoying the deck without feeling squeezed between features.",
+      },
+      { type: "h2", text: "Plan Views Around Outdoor Living Spaces" },
+      {
+        type: "p",
+        text: "Your pool is not the only destination in the backyard. A thoughtful custom pool design in Houston also considers what you see from the covered patio, outdoor kitchen, dining table, lounge chairs, and fire pit. Each area should feel connected, while still having its own purpose.",
+      },
+      {
+        type: "p",
+        text: "Furniture, walkways, shade structures, and landscaping can either support or interrupt a view. Clear visual paths help the yard feel easier to move through. For example, a walkway should lead naturally toward the pool rather than cut across the main view from a seating area. Low plantings may preserve an open look, while taller greenery can be used where privacy is needed.",
+      },
+      {
+        type: "p",
+        text: "As September evenings invite more time outside, lighting becomes part of sightline design as well. Soft pool lighting, illuminated water features, and well-lit paths can keep the backyard attractive after sunset. We also consider how gathering spaces look when they are in use, so guests can enjoy both the setting and one another.",
+      },
+      { type: "h2", text: "Balance Beautiful Views with Safety and Function" },
+      {
+        type: "p",
+        text: "A good view is not only about appearance. From the house and main gathering spaces, it helps to have a clear view of key pool areas when children or guests are swimming. That awareness can be built into the layout without making the space feel exposed or overly formal.",
+      },
+      {
+        type: "p",
+        text: "Safety features can fit naturally into the overall design. Properly planned gates, fencing, pool covers, lighting, and slip-resistant decking can protect the space while maintaining a polished appearance. We look for ways to make practical elements feel like part of the backyard rather than an afterthought.",
+      },
+      {
+        type: "p",
+        text: "Several site details also guide the final plan:",
+      },
+      {
+        type: "list",
+        items: [
+          "Sun exposure throughout the day",
+          "Drainage patterns across the property",
+          "Existing trees and root areas",
+          "Property boundaries and nearby structures",
+          "Utility locations that affect placement",
+        ],
+      },
+      {
+        type: "p",
+        text: "These details can influence where the pool, spa, deck, and features belong. Addressing them early helps preserve the views that matter most.",
+      },
+      {
+        type: "quote",
+        text: "The strongest designs look inviting from every angle, whether you are standing at the kitchen window, sitting beneath the patio cover, or enjoying the water itself.",
+        cite: "Mike Lopez, Owner",
+      },
+      {
+        type: "p",
+        text: "Thoughtful sightline design helps your pool feel like a natural extension of your home, not a separate feature placed at the back of the yard. Before beginning a project, walk through your indoor and outdoor spaces. Notice the views you want to frame, improve, or conceal.",
+      },
+      {
+        type: "callout",
+        title: "Bring your best backyard views to life",
+        body: "See how a custom pool design in Houston can reflect your space, lifestyle, and favorite ways to gather outdoors, then contact us to start the conversation.",
+        href: "/custom-pool-types",
+        cta: "Explore custom pool design",
+      },
+    ],
+  },
+  {
     slug: "a-homeowners-guide-to-houston-pool-construction",
     title: "A Homeowner's Guide to Houston Pool Construction",
     excerpt:
