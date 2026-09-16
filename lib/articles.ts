@@ -47,6 +47,133 @@ const AUTHOR = {
 
 export const ARTICLES: Article[] = [
   {
+    slug: "utility-coordination-for-houston-pool-construction",
+    title: "Utility Coordination for Houston Pool Construction",
+    excerpt:
+      "Learn how a pool construction company in Houston plans utility locations, permits, and connections to keep your custom backyard project moving smoothly",
+    category: "Custom Features",
+    tag: "Custom Features",
+    readTime: "7 min",
+    date: "Sep 16, 2026",
+    publishedAt: "2026-09-16",
+    author: AUTHOR,
+    hero: {
+      src: "/images/blogs/utility-coordination-for-houston-pool-construction/hero.jpg",
+      alt: "Pool contractor reviewing backyard construction plans beside a Houston pool, equipment pad, and open utility trench",
+    },
+    card: {
+      src: "/images/blogs/utility-coordination-for-houston-pool-construction/card.jpg",
+      alt: "Pool contractor reviewing backyard construction plans beside a Houston pool, equipment pad, and open utility trench",
+    },
+    keywords: [
+      "pool construction company in Houston",
+      "Houston pool utility planning",
+      "pool electrical gas water connections",
+      "Houston backyard pool drainage",
+      "custom pool construction permits",
+    ],
+    related: [
+      { label: "A Homeowner's Guide to Houston Pool Construction", href: "/blogs/a-homeowners-guide-to-houston-pool-construction" },
+      { label: "What to Expect From a Houston Pool Site Evaluation", href: "/blogs/what-to-expect-from-a-houston-pool-site-evaluation" },
+      { label: "Pool Construction Sequence", href: "/construction-sequence-1" },
+      { label: "Contact Us", href: "/contact" },
+    ],
+    body: [
+      { type: "h2", text: "Utilities Shape a Smooth Backyard Build" },
+      {
+        type: "p",
+        text: "Utility planning helps keep a pool project safe, organized, and ready for years of use. While you may be focused on pool shape, tile, water features, and the outdoor kitchen, we also look closely at what is above and below the ground. Electrical service, gas capacity, water access, drainage, and equipment placement all affect how your finished backyard works.",
+      },
+      {
+        type: "p",
+        text: "At Houston Cool Pools, we treat these details as part of the overall design, not as last-minute additions. A pool construction company in Houston needs to account for the many conditions found across established neighborhoods, where service lines, irrigation, and past improvements may not be obvious from the surface. Planning early helps us avoid conflicts that could disrupt construction or affect your home’s services.",
+      },
+      { type: "h2", text: "Early Utility Mapping Prevents Surprises" },
+      {
+        type: "p",
+        text: "Before a final pool layout is set, we review the property as a whole. That includes the proposed pool area, access through gates, existing hardscape, trees, drainage patterns, and the spots where pool equipment and outdoor features may go. A beautiful design still needs room for safe construction access and practical service connections.",
+      },
+      {
+        type: "p",
+        text: "Information you already have can make this review more complete. We recommend sharing any documents or details that may help us understand the yard, including:",
+      },
+      {
+        type: "list",
+        items: [
+          "Property surveys and prior improvement plans",
+          "Known irrigation or landscape-lighting layouts",
+          "Information about septic components or private electrical runs",
+          "Locations of existing drains, outdoor fixtures, and utility equipment",
+        ],
+      },
+      {
+        type: "p",
+        text: "Public underground utilities should be marked through the appropriate utility-location process before excavation begins. These markings may show electric, gas, water, sewer, cable, and communication lines near the property. Private lines can require additional investigation because they may not appear in public markings. Irrigation pipes, landscape lighting, and lines from earlier backyard work are common examples.",
+      },
+      {
+        type: "p",
+        text: "Once we have a clearer utility map, we can make smarter decisions before work starts. The equipment pad may need a different location, for example, or a planned spa may affect the best route for gas piping. It is much easier to adjust a design on paper than after excavation is underway.",
+      },
+      { type: "h2", text: "Planning Electrical, Gas, and Water Needs" },
+      {
+        type: "p",
+        text: "Modern pools rely on more than a pump. Lighting, controls, sanitization equipment, heaters, and automation features may all need electrical power. During planning, we consider the home’s existing electrical setup and the needs of the pool system. Depending on the project, the work may involve dedicated circuits, a subpanel, or other electrical updates completed by qualified professionals according to applicable requirements.",
+      },
+      {
+        type: "p",
+        text: "Safe pool operation also depends on proper grounding and bonding. These parts may not be visible once the project is finished, but they are an important part of a dependable installation. We coordinate the timing and placement of electrical work so conduits and connections do not interfere with the pool shell, decking, or future landscaping.",
+      },
+      {
+        type: "p",
+        text: "Gas planning deserves the same attention when your design includes a heated pool, spa, fire feature, outdoor kitchen, or fireplace. We consider the gas meter, appliance demand, pipe route, and distance to the equipment area. Proper pipe sizing matters, especially when several outdoor features may be used at the same time.",
+      },
+      {
+        type: "p",
+        text: "Water access is another connected piece of the plan. We consider the water source for construction and filling, hose access, drainage during filling, and any backflow-related requirements that apply to the project. A spa, water feature, and outdoor kitchen should be considered together so later additions do not create avoidable utility conflicts.",
+      },
+      { type: "h2", text: "Sequencing Work Protects Finished Areas" },
+      {
+        type: "p",
+        text: "Pool construction involves several specialized trades, and the order of their work matters. After the layout and excavation phases, pool plumbing and structural work must be completed before certain utility connections can be finished. Electrical conduit, gas piping, and water-related lines need to be placed at the right time, before decking, hardscape, or landscaping makes access more difficult.",
+      },
+      {
+        type: "p",
+        text: "A coordinated construction schedule helps us align work by electricians, gas professionals, plumbers, equipment installers, concrete crews, and inspectors. Required inspections need to happen before trenches are covered and final surfaces are installed. Keeping each step in sequence helps prevent completed work from being removed later to reach a line or connection.",
+      },
+      {
+        type: "p",
+        text: "Equipment placement also deserves long-term thought. Pumps, filters, heaters, and controls need clear access for routine maintenance and future repairs. We plan the equipment area with service access, ventilation, noise, appearance, and safe operation in mind. The goal is to keep the system practical without taking away from the relaxing feel of your outdoor space.",
+      },
+      { type: "h2", text: "Drainage Planning Supports the Entire Property" },
+      {
+        type: "p",
+        text: "Houston’s heavy rain can put any backyard drainage plan to the test, particularly during the late-summer and early-fall portion of hurricane season. Pool construction should account for existing grades, roof runoff, yard drains, and the direction water travels across the property. We work to avoid creating low spots or directing water toward the home, neighboring property, or pool equipment.",
+      },
+      {
+        type: "p",
+        text: "Decking, coping, drains, and nearby hardscape should work as one system. Depending on the site, that may mean adjusting grades, preserving an existing drainage path, adding deck drains, or including drainage improvements in the outdoor design. Local requirements and conditions specific to the property also shape these decisions.",
+      },
+      {
+        type: "p",
+        text: "Weather-aware scheduling matters during fall construction as well. Rain can affect excavation, soil conditions, trench safety, concrete work, and access to the backyard. When conditions change, we can protect exposed work and adjust the schedule responsibly so quality and jobsite safety remain the focus.",
+      },
+      { type: "h2", text: "Build with the Full Property in Mind" },
+      {
+        type: "p",
+        text: "A successful backyard retreat begins with more than an inspiring pool design. Electrical service, gas capacity, water access, drainage, inspections, equipment placement, and construction timing all need to work together. That coordinated approach helps support dependable performance and a smoother build from the first site review through pool startup.",
+      },
+      {
+        type: "p",
+        text: "When discussing your plans with a pool construction company in Houston, it helps to mention known utility locations, future outdoor features, heating needs, drainage concerns, and possible upgrades you may want later. With a complete view of your property and goals, we can plan a custom pool, spa, and outdoor living environment that fits the way you want to enjoy your backyard.",
+      },
+      { type: "h2", text: "Bring Your Backyard Vision to Life" },
+      {
+        type: "p",
+        text: "Houston Cool Pools is ready to help you take the next step toward a backyard built for everyday enjoyment. As your pool construction company in Houston, we can discuss your ideas, timeline, and property needs in detail. When you are ready to start the conversation, contact us to schedule a consultation.",
+      },
+    ],
+  },
+  {
     slug: "freeform-or-geometric-pool-designs-for-houston",
     title: "Freeform or Geometric Pool Designs for Houston",
     excerpt:

@@ -106,6 +106,7 @@ const FEATURES: SectionLink[] = Array.from({ length: 13 }, (_, i) => ({
 }));
 
 const ARTICLES: SectionLink[] = [
+  { label: "Utility Coordination for Houston Pool Construction", href: "/blogs/utility-coordination-for-houston-pool-construction" },
   { label: "Freeform or Geometric Pool Designs for Houston", href: "/blogs/freeform-or-geometric-pool-designs-for-houston" },
   { label: "Plan Better Views With Houston Custom Pool Sightlines", href: "/blogs/plan-better-views-with-houston-custom-pool-sightlines" },
   { label: "A Homeowner's Guide to Houston Pool Construction", href: "/blogs/a-homeowners-guide-to-houston-pool-construction" },

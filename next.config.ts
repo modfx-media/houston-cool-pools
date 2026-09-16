@@ -6,6 +6,7 @@ const nextConfig: NextConfig = {
     qualities: [75, 95],
   },
   async redirects() {
+    // Includes /blog -> /blogs so the singular path does not fall through to [slug].
     return HTML_REDIRECTS.map(({ source, destination }) => ({
       source,
       destination,

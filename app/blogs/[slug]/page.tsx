@@ -22,7 +22,7 @@ export async function generateMetadata({
   const canonical = `${SITE_URL}/blogs/${article.slug}`;
   const image = `${SITE_URL}${article.hero.src}`;
   return {
-    title: `${article.title} | Houston Cool Pools`,
+    title: article.title,
     description: article.excerpt,
     keywords: article.keywords.join(", "),
     alternates: { canonical },
