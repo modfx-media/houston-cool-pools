@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import { getPageMeta } from "./site-metadata";
+import { isFiveStarReview } from "./reviews";
+import type { GoogleReviewsPayload } from "./google-reviews";
 
 export const SITE_URL =
   process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, "") ??
@@ -54,7 +56,17 @@ export const BUSINESS = {
   sameAs: [] as string[],
 } as const;
 
-export function localBusinessJsonLd() {
+/**
+ * Site-wide LocalBusiness JSON-LD. Pass the live Google reviews payload
+ * (from getDisplayedGoogleReviews()) so aggregateRating and review[] reflect
+ * Google's real overall rating/count and only the 5-star quotes actually
+ * shown on the page. Omit `review` entirely when there are none to show.
+ */
+export function localBusinessJsonLd(reviewsPayload?: GoogleReviewsPayload) {
+  const visibleReviews = reviewsPayload
+    ? reviewsPayload.reviews.filter(isFiveStarReview)
+    : [];
+
   return {
     "@context": "https://schema.org",
     "@type": "LocalBusiness",
@@ -81,6 +93,30 @@ export function localBusinessJsonLd() {
     })),
     award: BUSINESS.awards,
     sameAs: BUSINESS.sameAs,
+    ...(reviewsPayload
+      ? {
+          aggregateRating: {
+            "@type": "AggregateRating",
+            ratingValue: String(reviewsPayload.meta.rating),
+            reviewCount: String(reviewsPayload.meta.reviewCount),
+            bestRating: "5",
+          },
+        }
+      : {}),
+    ...(visibleReviews.length > 0
+      ? {
+          review: visibleReviews.map((review) => ({
+            "@type": "Review",
+            author: { "@type": "Person", name: review.name },
+            reviewRating: {
+              "@type": "Rating",
+              ratingValue: "5",
+              bestRating: "5",
+            },
+            reviewBody: review.quote,
+          })),
+        }
+      : {}),
   };
 }
 

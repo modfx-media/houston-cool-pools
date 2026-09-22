@@ -19,7 +19,8 @@ import {
 } from "lucide-react";
 import Image from "next/image";
 import { PoolCtaBanner } from "../components/PoolCtaBanner";
-import { ReviewsWidget } from "../components/ReviewsWidget";
+import { GoogleReviews } from "../components/GoogleReviews";
+import { Testimonials } from "../components/home/Testimonials";
 import { Hero } from "./components/Hero";
 import { BookingForm } from "./components/BookingForm";
 import { BookingModal } from "./components/BookingModal";
@@ -366,7 +367,20 @@ export default function PoolMaintenancePage() {
 
       <MeetOwner />
 
-      <ReviewsWidget />
+      <GoogleReviews>
+        {({ reviews, meta }) => (
+          <Testimonials
+            items={reviews.map((review) => ({
+              name: review.name,
+              quote: review.quote,
+              when: review.relativeTime ?? "Posted on Google",
+            }))}
+            rating={meta.rating}
+            reviewCount={meta.reviewCount}
+            reviewsUrl={meta.reviewsUrl}
+          />
+        )}
+      </GoogleReviews>
 
       <Faq />
 

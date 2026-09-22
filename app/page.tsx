@@ -9,7 +9,8 @@ import { VideoShowcase } from "./components/home/VideoShowcase";
 import { BlogPreview } from "./components/home/BlogPreview";
 import { BookingForm } from "./components/home/BookingForm";
 import { MapLocation } from "./components/home/MapLocation";
-import { ReviewsWidget } from "./components/ReviewsWidget";
+import { GoogleReviews } from "./components/GoogleReviews";
+import { Testimonials } from "./components/home/Testimonials";
 
 export const metadata: Metadata = buildPageMetadata("/");
 
@@ -21,7 +22,20 @@ export default function Home() {
       <Services />
       <Financing />
       <OwnerIntro />
-      <ReviewsWidget />
+      <GoogleReviews>
+        {({ reviews, meta }) => (
+          <Testimonials
+            items={reviews.map((review) => ({
+              name: review.name,
+              quote: review.quote,
+              when: review.relativeTime ?? "Posted on Google",
+            }))}
+            rating={meta.rating}
+            reviewCount={meta.reviewCount}
+            reviewsUrl={meta.reviewsUrl}
+          />
+        )}
+      </GoogleReviews>
       <VideoShowcase />
       <BlogPreview />
       <BookingForm />

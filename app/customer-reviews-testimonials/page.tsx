@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import { buildPageMetadata } from "../../lib/business";
+import { getDisplayedGoogleReviews } from "../../lib/google-reviews";
+import { isFiveStarReview } from "../../lib/reviews";
 import { TestimonialsClient } from "../components/info/TestimonialsClient";
 
 const SLUG = "customer-reviews-testimonials";
@@ -15,20 +17,37 @@ export const metadata: Metadata = {
   openGraph: { ...base.openGraph, url: CANONICAL },
 };
 
-const jsonLd = {
-  "@context": "https://schema.org",
-  "@type": "LocalBusiness",
-  name: "Houston Cool Pools",
-  url: CANONICAL,
-  aggregateRating: {
-    "@type": "AggregateRating",
-    ratingValue: "5",
-    reviewCount: "15",
-    bestRating: "5",
-  },
-};
+export default async function Page() {
+  const { reviews, meta } = await getDisplayedGoogleReviews();
+  const visible = reviews.filter(isFiveStarReview);
 
-export default function Page() {
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "LocalBusiness",
+    name: "Houston Cool Pools",
+    url: CANONICAL,
+    aggregateRating: {
+      "@type": "AggregateRating",
+      ratingValue: String(meta.rating),
+      reviewCount: String(meta.reviewCount),
+      bestRating: "5",
+    },
+    ...(visible.length > 0
+      ? {
+          review: visible.map((review) => ({
+            "@type": "Review",
+            author: { "@type": "Person", name: review.name },
+            reviewRating: {
+              "@type": "Rating",
+              ratingValue: "5",
+              bestRating: "5",
+            },
+            reviewBody: review.quote,
+          })),
+        }
+      : {}),
+  };
+
   return (
     <>
       <script
@@ -36,7 +55,7 @@ export default function Page() {
         // eslint-disable-next-line react/no-danger
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
-      <TestimonialsClient />
+      <TestimonialsClient reviews={reviews} meta={meta} />
     </>
   );
 }

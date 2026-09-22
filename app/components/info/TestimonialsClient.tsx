@@ -1,9 +1,16 @@
 "use client";
 
 import { InfoHero } from "./InfoHero";
-import { ReviewsWidget } from "../ReviewsWidget";
+import { Testimonials } from "../home/Testimonials";
+import type { GoogleReview, GoogleReviewsMeta } from "../../../lib/reviews";
 
-export function TestimonialsClient() {
+export function TestimonialsClient({
+  reviews,
+  meta,
+}: {
+  reviews: GoogleReview[];
+  meta: GoogleReviewsMeta;
+}) {
   return (
     <>
       <InfoHero
@@ -19,9 +26,16 @@ export function TestimonialsClient() {
         backgroundAlt="Houston family enjoying their Houston Cool Pools backyard"
       />
 
-      <ReviewsWidget />
+      <Testimonials
+        items={reviews.map((review) => ({
+          name: review.name,
+          quote: review.quote,
+          when: review.relativeTime ?? "Posted on Google",
+        }))}
+        rating={meta.rating}
+        reviewCount={meta.reviewCount}
+        reviewsUrl={meta.reviewsUrl}
+      />
     </>
   );
 }
-
-

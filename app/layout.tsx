@@ -3,6 +3,7 @@ import Script from "next/script";
 import { Outfit, Montserrat } from "next/font/google";
 import "./globals.css";
 import { BUSINESS, SITE_URL, localBusinessJsonLd } from "../lib/business";
+import { getDisplayedGoogleReviews } from "../lib/google-reviews";
 import { Header } from "./components/Header";
 import { BookNowBanner } from "./components/BookNowBanner";
 import { Footer } from "./components/Footer";
@@ -37,11 +38,13 @@ export const metadata: Metadata = {
   alternates: { canonical: "/" },
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const reviewsPayload = await getDisplayedGoogleReviews();
+
   return (
     <html
       lang="en"
@@ -52,7 +55,9 @@ export default function RootLayout({
         <script
           type="application/ld+json"
           // eslint-disable-next-line react/no-danger
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(localBusinessJsonLd()) }}
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(localBusinessJsonLd(reviewsPayload)),
+          }}
         />
         {/* Review Stream + Dandy both validate the requesting domain server-side and
             throw CORS/"domain not registered" console errors on localhost - only
