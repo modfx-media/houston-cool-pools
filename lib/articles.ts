@@ -47,6 +47,155 @@ const AUTHOR = {
 
 export const ARTICLES: Article[] = [
   {
+    slug: "plan-your-tomball-pool-project-before-moving-in",
+    title: "Should You Hire Pool Builders in Tomball, TX Before Move-In?",
+    excerpt:
+      "Discover why hiring pool builders in Tomball, TX before move-in can simplify construction, protect your new yard, and help create an outdoor space you'll enjoy",
+    category: "Custom Features",
+    tag: "Custom Features",
+    readTime: "6 min",
+    date: "Sep 23, 2026",
+    publishedAt: "2026-09-23",
+    author: AUTHOR,
+    hero: {
+      src: "/images/blogs/plan-your-tomball-pool-project-before-moving-in/hero.jpg",
+      alt: "Collage of a new Tomball backyard with a screened pool enclosure, freeform pool, and spa surrounded by green lawn",
+    },
+    card: {
+      src: "/images/blogs/plan-your-tomball-pool-project-before-moving-in/card.jpg",
+      alt: "Collage of a new Tomball backyard with a screened pool enclosure, freeform pool, and spa surrounded by green lawn",
+    },
+    keywords: [
+      "pool builders in Tomball, TX",
+      "Tomball pool construction",
+      "custom gunite pool Tomball",
+      "pool planning before move-in",
+      "backyard pool design Tomball TX",
+    ],
+    related: [
+      { label: "Areas We Serve", href: "/areas-we-serve" },
+      { label: "Custom Pool Types", href: "/custom-pool-types" },
+      { label: "Pool Financing", href: "/poolfinancing" },
+      { label: "Contact Us", href: "/contact" },
+    ],
+    body: [
+      { type: "h2", text: "Make Move-in Day the Start of Backyard Living" },
+      {
+        type: "p",
+        text: "Starting your pool plans before move-in can help you enjoy your backyard sooner instead of watching another swimming season pass by. A custom pool project takes time for design, approvals, permits, scheduling, and construction, so waiting until every moving box is unpacked can push your plans farther down the calendar.",
+      },
+      {
+        type: "p",
+        text: "At Houston Cool Pools, we have designed and built custom gunite pools, spas, and outdoor living environments in the Houston area since 1996. The right time to begin depends on your closing date, HOA requirements, builder availability, and whether you have permission to access the property, but early planning is often a smart move.",
+      },
+      { type: "h2", text: "Pool Builders in Tomball, TX Can Begin Before Closing" },
+      {
+        type: "p",
+        text: "Meeting with pool builders in Tomball, TX before closing can be productive, even when construction cannot begin yet. Once you are under contract and have property details in hand, we can start discussing the type of backyard you want, where a pool may fit, and which features make sense for your lifestyle.",
+      },
+      {
+        type: "p",
+        text: "A recent property survey is especially helpful. It gives us a clearer starting point for reviewing the lot and identifying factors that may shape the design, including:",
+      },
+      {
+        type: "list",
+        items: [
+          "Lot dimensions and property lines",
+          "Easements and utility locations",
+          "Drainage patterns and grading",
+          "Existing trees and yard access",
+          "Possible placement for decking, a spa, or outdoor living features",
+        ],
+      },
+      {
+        type: "p",
+        text: "Sharing listing documents, surveys, and inspiration photos early gives us more information to work with during the planning stage. You may discover that a tanning ledge, raised spa, outdoor kitchen, or larger patio works best in a different part of the yard than you first expected.",
+      },
+      {
+        type: "p",
+        text: "Before any on-site work takes place, you should confirm that access is authorized. Initial design conversations and broad planning can happen before move-in, but excavation and construction generally need to wait until closing and the needed approvals are complete. HOA guidelines, deed restrictions, and local permitting can all affect the schedule.",
+      },
+      { type: "h2", text: "Match Construction to Your Moving Schedule" },
+      {
+        type: "p",
+        text: "A move brings plenty of moving parts, from furniture deliveries and utility setup to new school routines and work commutes. By beginning the pool-planning process early, we can help you map out a reasonable sequence without adding unnecessary pressure to an already full schedule.",
+      },
+      {
+        type: "p",
+        text: "Most projects include several milestones, and knowing what comes next can make the process feel more manageable:",
+      },
+      {
+        type: "list",
+        items: [
+          "Initial consultation and design discussions",
+          "Design approval and material selections",
+          "HOA review and permit preparation",
+          "Construction scheduling and equipment installation",
+          "Final startup once the pool is ready for use",
+        ],
+      },
+      {
+        type: "p",
+        text: "Some decisions are easier to make before move-in, such as pool placement and overall backyard layout. Others, like final furniture choices or small decorative details, may feel easier after you have lived in the home for a little while.",
+      },
+      {
+        type: "p",
+        text: "It also helps to talk through how construction may affect everyday life. Equipment access, temporary yard disruption, fencing needs, pet safety, parking, and upcoming gatherings all deserve attention during the design phase. We recommend considering moving trucks, other home projects, and family events so the most disruptive work can be planned around them when possible.",
+      },
+      { type: "h2", text: "Use Fall Planning to Beat Spring Demand" },
+      {
+        type: "p",
+        text: "Fall is a useful time to study a new backyard without rushing into decisions. As the calendar shifts into back-to-school routines, holiday planning, and a more settled home schedule, you can take a closer look at how sunlight moves through the yard and how you want to use the space.",
+      },
+      {
+        type: "p",
+        text: "Starting conversations in fall also gives you more room to think through the details of a custom gunite pool. Instead of making quick choices when warm-weather plans are already on your mind, you can focus on the features that will make the backyard feel right for your household. That may include the pool shape, a spa, water features, lighting, decking, landscaping, or an outdoor living area.",
+      },
+      {
+        type: "p",
+        text: "Project timing can still vary. HOA approvals, permitting, weather, material availability, and construction calendars can all influence when a project is completed. While we cannot promise a completion date before reviewing the property and scope, an earlier planning conversation can put you in a better position to work toward a spring or early-summer swimming goal.",
+      },
+      { type: "h2", text: "Set Priorities Before New-Home Expenses Add Up" },
+      {
+        type: "p",
+        text: "Buying a home can bring unexpected expenses, which is one reason an early discussion with pool builders in Tomball, TX can be helpful. Planning ahead allows you to understand how your preferred features shape the overall project scope and where you want to place your priorities.",
+      },
+      {
+        type: "p",
+        text: "Many homeowners find it useful to separate their immediate must-haves from additions they may want later. For example, the first phase may focus on the pool, spa, equipment, decking, drainage planning, and lighting. A future phase could include features such as a pergola, fire feature, expanded landscaping, or outdoor kitchen.",
+      },
+      {
+        type: "p",
+        text: "A master backyard plan helps keep those future ideas connected to the original pool design. Rather than adding pieces that feel scattered over time, you can plan for pathways, utility needs, gathering areas, and visual flow from the beginning.",
+      },
+      {
+        type: "p",
+        text: "Clear expectations matter, too. We encourage you to ask what is included in the project scope and which items may sit outside it. Fencing changes, landscaping, utility upgrades, HOA fees, and similar property needs can affect the full backyard plan.",
+      },
+      { type: "h2", text: "Turn Your New Address Into a Backyard Retreat" },
+      {
+        type: "p",
+        text: "Once a Tomball property is under contract and the closing timeline is becoming clearer, it is a good time to gather the information that will support an informed pool discussion. A survey, inspiration photos, desired features, estimated move-in date, and budget priorities can all help us understand what you have in mind.",
+      },
+      {
+        type: "p",
+        text: "Thoughtful planning before move-in does not mean rushing construction. It means giving your pool, spa, and outdoor living plans the time they deserve, so your new address can grow into a backyard retreat built for years of Texas outdoor living.",
+      },
+      { type: "h2", text: "Bring Your Backyard Vision Into Focus" },
+      {
+        type: "p",
+        text: "At Houston Cool Pools, we help homeowners turn ideas into designs that fit their property, lifestyle, and long-term plans. Connect with our pool builders in Tomball, TX to discuss the features that matter most for your outdoor space.",
+      },
+      {
+        type: "callout",
+        title: "Bring your backyard vision into focus",
+        body: "When you are ready to start the conversation, contact us for a personalized consultation about your Tomball pool project.",
+        href: "/contact",
+        cta: "Contact us",
+      },
+    ],
+  },
+  {
     slug: "utility-coordination-for-houston-pool-construction",
     title: "Utility Coordination for Houston Pool Construction",
     excerpt:
