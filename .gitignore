@@ -32,6 +32,12 @@ yarn-error.log*
 
 # env files (can opt-in for committing if needed)
 .env*
+!.env.example
+
+# Payload local uploads, generated export, and import reports
+/media
+/migration-data
+/data/content-export.json
 
 # vercel
 .vercel
