@@ -97,13 +97,13 @@ function HeroVisual() {
             className="font-[family-name:var(--font-display)] mt-6 text-[clamp(2.75rem,9vw,5rem)] font-bold leading-[1] tracking-[-0.035em] sm:mt-7"
           >
             <motion.span variants={lineReveal} className="block">
-              Dream pools,
+              Pool builder
             </motion.span>
             <motion.span variants={lineReveal} className="block">
-              built{" "}
+              in{" "}
               <span className="relative inline-block">
                 <span className="bg-gradient-to-r from-[var(--color-gold-light)] via-[var(--color-pool)] to-[var(--color-gold-light)] bg-clip-text text-transparent">
-                  beautifully
+                  Houston
                 </span>
                 <motion.svg
                   viewBox="0 0 300 12"
@@ -132,8 +132,9 @@ function HeroVisual() {
             transition={{ delay: 1.0, duration: 0.7, ease }}
             className="mt-6 max-w-xl text-sm leading-relaxed text-white/75 sm:mt-8 sm:text-base md:text-lg"
           >
-            Houston&apos;s most trusted custom gunite pool builder since 1996 -
-            crafting backyard retreats with a 100% commitment to quality construction.
+            Dream pools, built beautifully. Houston Cool Pools is a custom
+            gunite pool builder in Houston, TX — designing and building
+            backyard pools since 1996.
           </motion.p>
 
           <motion.div

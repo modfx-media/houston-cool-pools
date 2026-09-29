@@ -8,104 +8,9 @@ import type { PseoLocation } from "../../../../data/pseo/locations";
 import type { KeywordEntry } from "../../../../data/pseo/keywords";
 import { SERVICES } from "../../../../data/pseo/services";
 import { LOCATIONS } from "../../../../data/pseo/locations";
-import { pickIntroVariant } from "../../../../data/pseo/slugs";
+import { buildPseoArticle, buildPseoFaqs } from "../../../../data/pseo/article";
 
 const ease = [0.22, 1, 0.36, 1] as const;
-
-const INTRO_VARIANTS = [
-  (s: PseoService, l: PseoLocation) =>
-    `Houston Cool Pools has been building custom gunite pools across the greater Houston area since 1996, and ${l.cityName} is one of the communities we serve regularly. Homeowners here come to us for ${s.intentPhrase} because the process is genuinely custom - every project starts with a look at your specific yard, not a pull from a shape catalog. That matters a lot when the goal is a pool that fits how you actually live.`,
-  (s: PseoService, l: PseoLocation) =>
-    `If you're weighing ${s.intentPhrase} in ${l.cityName}, TX, the biggest thing to understand is that a well-built gunite pool is a real construction project - and the choices you make in the first few weeks shape what you live with for decades. We've been designing and building pools across the Houston metro since 1996, and the ${l.cityName} projects we take on get the same custom design attention we give any inner-loop or master-planned build.`,
-  (s: PseoService, l: PseoLocation) =>
-    `${l.cityName} homeowners have a lot of pool companies to choose from - that's a good thing for you, and it means the way a builder actually approaches ${s.intentPhrase} matters more than a glossy website. Houston Cool Pools has been at this since 1996, and we run every ${l.cityName} project on the same principle: design that fits your specific yard, gunite construction done in the right sequence, and a homeowner who knows what's happening in their backyard every week.`,
-  (s: PseoService, l: PseoLocation) =>
-    `A pool in ${l.cityName} isn't just a pool - it's a long-term feature of your home, your entertaining space, and (honestly) your utility bill. When we take on ${s.intentPhrase} for a ${l.cityName} homeowner, we treat the design phase seriously, we self-perform the construction schedule, and we back the structural work with a real warranty. Houston Cool Pools has been building custom gunite pools since 1996.`,
-  (s: PseoService, l: PseoLocation) =>
-    `Serving ${l.cityName} since our founding in 1996, Houston Cool Pools focuses on one thing: custom gunite pools designed and built for the specific yard they're going into. Our ${s.intentPhrase} work in ${l.cityName} follows the same process we use across the Houston metro - an in-home quote, real design drawings, and a coordinated construction schedule that keeps you informed every week.`,
-];
-
-const LOCAL_RELEVANCE_VARIANTS = [
-  (l: PseoLocation) =>
-    `${l.cityName} sits in ${l.county}, ${l.landmarkNote ? `${l.landmarkNote.toLowerCase()},` : ""} and the pool projects we do here are shaped by ${l.descriptor.charAt(0).toLowerCase()}${l.descriptor.slice(1)}`,
-  (l: PseoLocation) =>
-    `${l.descriptor} That ${l.cityName} setting matters at the design stage - lot dimensions, drainage patterns, and surrounding structures all shape what the pool can be.`,
-  (l: PseoLocation) =>
-    `Working in ${l.cityName} (${l.county}) means considering the specifics: ${l.descriptor.charAt(0).toLowerCase()}${l.descriptor.slice(1)} We factor those realities into design and construction so the finished pool actually fits its site.`,
-];
-
-const CLIMATE_NOTE =
-  "Anywhere along the Gulf Coast, pool builds also need to account for humidity, seasonal rain, and the clay soils that show up across parts of the Houston area. Those don't stop a build - they just inform the site prep, drainage design, and how the shell is engineered.";
-
-type FaqPair = { q: string; a: string };
-
-function buildFaqs(
-  service: PseoService,
-  location: PseoLocation,
-  keywords: KeywordEntry[],
-): FaqPair[] {
-  const faqs: FaqPair[] = [];
-
-  // 1. Cost question (use GSC phrasing if any query mentions cost/price)
-  const costQuery = keywords.find((q) =>
-    /cost|price|financ|afford/i.test(q.query),
-  );
-  faqs.push({
-    q: costQuery
-      ? `${capitalize(costQuery.query)}${costQuery.query.endsWith("?") ? "" : "?"}`
-      : `How much does a custom pool cost in ${location.cityName}, TX?`,
-    a: `Custom gunite pools cover a wide price range depending on size, depth, features, decking, and finishes. Rather than quote a number here, we publish our tiered pricing pages so you can see what different budgets typically buy - from starter builds to larger resort-style pools. Financing is available for qualified homeowners.`,
-  });
-
-  // 2. Timeline
-  faqs.push({
-    q: `How long does a ${service.shortName.toLowerCase()} project take in ${location.cityName}?`,
-    a: `Custom gunite pool projects generally run 8-16 weeks from ground-breaking to first swim, depending on scope, weather, and inspection scheduling. Remodels vary more - a straight interior resurface is a much shorter project than a structural addition. We give you a scheduled timeline before we break ground and update you at every phase.`,
-  });
-
-  // 3. Service-specific question
-  if (service.slug === "pool-remodeling") {
-    faqs.push({
-      q: `What's included in a pool remodel?`,
-      a: `A remodel usually starts with interior resurfacing and can layer in tile, coping, decking, equipment upgrades, and structural additions like a spa spillover or sun shelf. You can do everything at once or stage it across seasons - we help homeowners scope what makes sense.`,
-    });
-  } else if (service.slug === "pool-service-maintenance") {
-    faqs.push({
-      q: `Do you offer weekly pool service in ${location.cityName}?`,
-      a: `We support homeowners with equipment quote, chemistry guidance, and maintenance planning. For weekly cleaning cadence and chemical care, we can walk you through what your specific pool needs given Houston's climate.`,
-    });
-  } else if (service.slug === "pool-design-construction") {
-    faqs.push({
-      q: `Do you handle permits and inspections?`,
-      a: `Yes. We handle permitting through the appropriate jurisdiction for your ${location.cityName} address and coordinate the required inspections at each construction milestone.`,
-    });
-  } else {
-    faqs.push({
-      q: `Do you build fully custom pool designs or work from a catalog?`,
-      a: `Every ${location.cityName} project is designed for the specific yard. We don't have a shape catalog - we start with your lot, your goals, and your budget, and build the design from there.`,
-    });
-  }
-
-  // 4. Area / service radius
-  faqs.push({
-    q: `Do you actually service ${location.cityName}, TX?`,
-    a: `Yes - Houston Cool Pools serves ${location.cityName} and the surrounding ${location.county} area from our office on Highway 249 in northwest Houston. Reach us at (281) 645-6631 or through our free-quote form.`,
-  });
-
-  // 5. Financing (if not already asked)
-  if (!costQuery) {
-    faqs.push({
-      q: `Is pool financing available?`,
-      a: `Financing is available for qualified homeowners. We can walk you through the options and typical monthly cost ranges when we scope your project.`,
-    });
-  }
-
-  return faqs;
-}
-
-function capitalize(s: string): string {
-  return s.charAt(0).toUpperCase() + s.slice(1);
-}
 
 const ServiceIcon = ({ icon }: { icon: PseoService["icon"] }) => {
   const common = "h-6 w-6";
@@ -150,15 +55,9 @@ export function PseoPageClient({
   service,
   location,
   keywords,
-  slug,
 }: PseoPageClientProps) {
-  const introIdx = pickIntroVariant(slug, INTRO_VARIANTS.length);
-  const introText = INTRO_VARIANTS[introIdx](service, location);
-
-  const localIdx = pickIntroVariant(slug + "-local", LOCAL_RELEVANCE_VARIANTS.length);
-  const localText = LOCAL_RELEVANCE_VARIANTS[localIdx](location);
-
-  const faqs = buildFaqs(service, location, keywords);
+  const article = buildPseoArticle(service, location);
+  const faqs = buildPseoFaqs(service, location, keywords);
 
   const otherServices = SERVICES.filter((s) => s.slug !== service.slug);
   const nearby = location.nearbyLocations
@@ -280,20 +179,54 @@ export function PseoPageClient({
         </svg>
       </section>
 
-      {/* ─── INTRO ────────────────────────────────────────────── */}
-      <section className="relative py-16 md:py-24">
-        <div className="mx-auto max-w-4xl px-6">
-          <motion.p
-            initial={{ opacity: 0, y: 18 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-80px" }}
-            transition={{ duration: 0.7, ease }}
-            className="text-[17px] leading-relaxed text-black/75 sm:text-[18px]"
-          >
-            {introText}
-          </motion.p>
+      {/* ─── ARTICLE ──────────────────────────────────────────── */}
+      <article className="relative py-16 md:py-24">
+        <div className="mx-auto flex max-w-3xl flex-col gap-14 px-6">
+          {article.map((section) => (
+            <section key={section.heading}>
+              <h2 className="font-display text-3xl font-extrabold tracking-tight sm:text-4xl">
+                {section.heading}
+              </h2>
+              <div className="mt-6 space-y-5">
+                {section.paragraphs.map((paragraph) => (
+                  <p
+                    key={paragraph.slice(0, 48)}
+                    className="text-[16.5px] leading-[1.75] text-black/75"
+                  >
+                    {paragraph}
+                  </p>
+                ))}
+              </div>
+              {section.heading.startsWith("How a custom") ||
+              section.heading.startsWith("How a remodel") ? (
+                <p className="mt-6 text-[16.5px] leading-[1.75] text-black/75">
+                  Published new-pool ranges live on{" "}
+                  <Link href="/pricing-65k-90k" className="font-semibold text-[var(--color-pool-deep)] underline-offset-2 hover:underline">
+                    $65k–$90k
+                  </Link>
+                  ,{" "}
+                  <Link href="/pricing-90k-115k" className="font-semibold text-[var(--color-pool-deep)] underline-offset-2 hover:underline">
+                    $90k–$115k
+                  </Link>
+                  ,{" "}
+                  <Link href="/pricing-115k-150k" className="font-semibold text-[var(--color-pool-deep)] underline-offset-2 hover:underline">
+                    $115k–$150k
+                  </Link>
+                  , and{" "}
+                  <Link href="/pricing-150k-plus" className="font-semibold text-[var(--color-pool-deep)] underline-offset-2 hover:underline">
+                    $150k and up
+                  </Link>
+                  . The build sequence is written out on the{" "}
+                  <Link href="/construction-sequence-1" className="font-semibold text-[var(--color-pool-deep)] underline-offset-2 hover:underline">
+                    construction sequence
+                  </Link>{" "}
+                  pages.
+                </p>
+              ) : null}
+            </section>
+          ))}
         </div>
-      </section>
+      </article>
 
       {/* ─── WHY HCP FOR {city} ───────────────────────────────── */}
       <section className="relative bg-[#f7f6f2] py-20 md:py-24">
@@ -328,59 +261,6 @@ export function PseoPageClient({
               </motion.div>
             ))}
           </div>
-        </div>
-      </section>
-
-      {/* ─── SERVICE DEEP DIVE ────────────────────────────────── */}
-      <section className="relative py-20 md:py-24">
-        <div className="mx-auto max-w-4xl px-6">
-          <motion.div
-            initial={{ opacity: 0, y: 22 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-80px" }}
-            transition={{ duration: 0.7, ease }}
-          >
-            <p className="text-[10.5px] font-bold uppercase tracking-[0.28em] text-[var(--color-pool-deep)]">
-              How the work actually runs
-            </p>
-            <h2 className="mt-3 font-display text-3xl font-extrabold tracking-tight sm:text-4xl">
-              {service.name} - the practical detail
-            </h2>
-            <p className="mt-6 text-[16px] leading-relaxed text-black/75 sm:text-[17px]">
-              {service.deepDive}
-            </p>
-          </motion.div>
-        </div>
-      </section>
-
-      {/* ─── LOCAL RELEVANCE ──────────────────────────────────── */}
-      <section className="relative bg-[#f7f6f2] py-20 md:py-24">
-        <div className="mx-auto max-w-4xl px-6">
-          <motion.div
-            initial={{ opacity: 0, y: 22 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-80px" }}
-            transition={{ duration: 0.7, ease }}
-            className="rounded-3xl border border-black/[0.08] bg-white p-8 shadow-[0_20px_60px_-30px_rgba(0,27,36,0.25)] md:p-10"
-          >
-            <span
-              aria-hidden
-              className="mb-6 inline-flex h-11 w-11 items-center justify-center rounded-2xl bg-gradient-to-br from-[var(--color-pool)] to-[var(--color-pool-deep)] text-white shadow-md"
-            >
-              <svg viewBox="0 0 24 24" fill="none" className="h-5 w-5">
-                <path d="M12 22s-8-7.58-8-13a8 8 0 1 1 16 0c0 5.42-8 13-8 13Z" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
-                <circle cx="12" cy="9" r="2.5" stroke="currentColor" strokeWidth="1.8" />
-              </svg>
-            </span>
-            <p className="text-[10.5px] font-bold uppercase tracking-[0.28em] text-[var(--color-pool-deep)]">
-              About {location.cityName}, TX
-            </p>
-            <h2 className="mt-3 font-display text-2xl font-extrabold tracking-tight sm:text-[28px]">
-              Building pools in {location.county}
-            </h2>
-            <p className="mt-4 text-[16px] leading-relaxed text-black/75">{localText}</p>
-            <p className="mt-4 text-[15px] leading-relaxed text-black/65">{CLIMATE_NOTE}</p>
-          </motion.div>
         </div>
       </section>
 

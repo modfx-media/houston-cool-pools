@@ -14,12 +14,12 @@ export function PoolSchoolClient() {
     <>
       <InfoHero
         eyebrow="Video Tutorials"
-        title="Pool School"
-        subtitle="Everything a new pool owner needs to know - from water testing to filter cleaning to storm shutdown - taught by our service team, on demand."
+        title="Pool Owner School"
+        subtitle="These videos are for people who already own a pool. They cover water testing, filters, chlorinators, and storm shutdown. They are not swim lessons."
         crumbs={[
           { label: "Home", href: "/" },
           { label: "Pool Information", href: "/pool-information" },
-          { label: "Pool School" },
+          { label: "Pool Owner School" },
         ]}
         backgroundImage="/images/gallery/hd/lifestyle-1.jpg"
         backgroundAlt="Houston Cool Pools lifestyle backyard scene"

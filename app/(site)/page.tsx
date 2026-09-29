@@ -13,7 +13,18 @@ import { MapLocation } from "./components/home/MapLocation";
 import { GoogleReviews } from "./components/GoogleReviews";
 import { Testimonials } from "./components/home/Testimonials";
 
-const pageMetadata: Metadata = buildPageMetadata("/");
+const pageMetadata: Metadata = {
+  ...buildPageMetadata("/"),
+  title: "Pool Builder in Houston, TX | Custom Gunite Pools",
+  description:
+    "Houston Cool Pools is a custom gunite pool builder in Houston, TX. Design, construction, and remodeling since 1996. Free in-home quote. Call (281) 645-6631.",
+  openGraph: {
+    ...buildPageMetadata("/").openGraph,
+    title: "Pool Builder in Houston, TX | Custom Gunite Pools",
+    description:
+      "Custom gunite pool builder in Houston, TX. Design, construction, and remodeling since 1996.",
+  },
+};
 
 
 export async function generateMetadata(): Promise<Metadata> {

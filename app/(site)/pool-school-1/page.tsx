@@ -9,9 +9,9 @@ const CANONICAL = `https://houstoncoolpools.com/${SLUG}`;
 const base = buildPageMetadata(`/${SLUG}`);
 const pageMetadata: Metadata = {
   ...base,
-  title: "Pool School - Video Tutorials by Houston Cool Pools",
+  title: "Pool Owner School | Chemistry and Equipment Tutorials",
   description:
-    "Free video tutorials from Houston Cool Pools covering water testing, equipment shutdown, filter cleaning, chlorinators, ozone systems, and more.",
+    "Free owner tutorials from Houston Cool Pools on water testing, filters, chlorinators, and storm shutdown. For pool owners, not swim lessons.",
   alternates: { canonical: CANONICAL },
   openGraph: { ...base.openGraph, url: CANONICAL },
 };

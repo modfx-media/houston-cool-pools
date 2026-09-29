@@ -303,6 +303,25 @@ export function PricingTierPage({ activeHref }: { activeHref: string }) {
             <p className="mt-4 text-base leading-relaxed text-slate-600 md:text-lg">
               {tier.body}
             </p>
+            <div className="mt-8 space-y-4 text-left text-[15.5px] leading-relaxed text-slate-600">
+              <p>
+                A Houston gunite pool price is the shell, the excavation, the
+                steel, the plumbing, the inspections, the tile and coping, the
+                deck, the interior finish, and the equipment — sized to your
+                yard. It is not a per-square-foot number you can multiply by a
+                guess. Clay soil, a tight side gate, an HOA review, and a spa
+                all move the bid. So does choosing pebble and travertine
+                instead of plaster and broom-finish concrete.
+              </p>
+              <p>
+                Use the ranges on this page to see what finished work has
+                looked like. Then bring the address. We will tell you which
+                range your drawing is actually in, and we will tell you if the
+                yard cannot hold the pool in the photo. Financing is available
+                for qualified homeowners. New custom gunite builds generally
+                run 8 to 16 weeks from groundbreaking to the first swim.
+              </p>
+            </div>
           </motion.div>
 
           <AnimatePresence mode="wait">

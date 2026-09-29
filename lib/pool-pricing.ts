@@ -60,7 +60,7 @@ const TIER_META: Record<string, TierMeta> = {
     range: "$65k – $90k",
     heading: "Pool Pricing $65k – $90k",
     sectionHeading: "Pools in the $65k – $90k Range",
-    body: "A collection of custom Houston Cool Pools projects built in the $65k-$90k range. Contact us for current pricing and available packages.",
+    body: "Projects in this range are usually smaller gunite pools: a straightforward shape, a standard interior finish, and a deck that does the job without resort features. Access, an attached spa, or an upgrade to pebble and travertine is what pushes a yard into the next range. These photos are finished Houston Cool Pools projects, not a package you can order by the dollar amount.",
   },
   "90k-115k": {
     slug: "pricing-90k-115k",
@@ -68,7 +68,7 @@ const TIER_META: Record<string, TierMeta> = {
     range: "$90k – $115k",
     heading: "Pool Pricing $90k – $115k",
     sectionHeading: "Pools in the $90k – $115k Range",
-    body: "A collection of custom Houston Cool Pools projects built in the $90k-$115k range. Contact us for current pricing and available packages.",
+    body: "This is a common landing spot for a full family pool once the drawing includes more water, a better finish, or a spa. The dollar range is not a list of included features. Two yards with the same length can land in different ranges when one needs fence removal to get equipment in and the other does not.",
   },
   "115k-150k": {
     slug: "pricing-115k-150k",
@@ -76,7 +76,7 @@ const TIER_META: Record<string, TierMeta> = {
     range: "$115k – $150k",
     heading: "Pool Pricing $115k – $150k",
     sectionHeading: "Pools in the $115k – $150k Range",
-    body: "A collection of custom Houston Cool Pools projects built in the $115k-$150k range. Contact us for current pricing and available packages.",
+    body: "Pools in this range usually carry a structural extra — a raised spa, a longer footprint, a more expensive deck — on top of a complete gunite shell. Compare the photos for scale and finish, then bring your own lot to the visit. The range describes work we have built, not a bid.",
   },
   "150k-plus": {
     slug: "pricing-150k-plus",
@@ -84,7 +84,7 @@ const TIER_META: Record<string, TierMeta> = {
     range: "$150k+",
     heading: "Pool Pricing $150k+",
     sectionHeading: "Pools in the $150k+ Range",
-    body: "A collection of custom Houston Cool Pools projects built in the $150k+ range. Contact us for current pricing and available packages.",
+    body: "Above $150k you are typically looking at size plus detail: glass tile, a vanishing edge that faces a real view, outdoor living built with the pool, or a difficult estate lot. None of that is automatic at the threshold. A compact pool with expensive materials can land here, and a large simple rectangle might not.",
   },
 };
 

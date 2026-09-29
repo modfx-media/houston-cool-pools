@@ -4,6 +4,7 @@ import { cmsMetadata } from "@/lib/cms/generateMeta";
 import { getComboBySlug, getLiveCombos } from "../../../data/pseo/slugs";
 import { getKeywordsFor } from "../../../data/pseo/keywords";
 import { BUSINESS, SITE_URL } from "../../../lib/business";
+import { buildPseoFaqs } from "../../../data/pseo/article";
 import { PseoPageClient } from "../components/pseo/PseoPageClient";
 
 // SSG only - unknown slugs 404 instantly rather than being generated on demand.
@@ -26,7 +27,7 @@ export async function generateMetadata({
 
   const { service, location, slug: comboSlug } = combo;
   const canonical = `${SITE_URL}/${comboSlug}`;
-  const title = `${service.shortName} in ${location.cityName}, TX | Houston Cool Pools`;
+  const title = `${service.shortName} in ${location.cityName}, TX`;
   const description = service.metaTemplate.replace(/\{city\}/g, location.cityName);
 
   return cmsMetadata(`/${comboSlug}`, {
@@ -34,7 +35,7 @@ export async function generateMetadata({
     description,
     alternates: { canonical },
     openGraph: {
-      title,
+      title: `${title} | ${BUSINESS.name}`,
       description,
       url: canonical,
       siteName: BUSINESS.name,
@@ -51,7 +52,7 @@ export async function generateMetadata({
     },
     twitter: {
       card: "summary_large_image",
-      title,
+      title: `${title} | ${BUSINESS.name}`,
       description,
       images: [`${SITE_URL}/images/hero/slide-1.png`],
     },
@@ -138,7 +139,11 @@ export default async function Page({ params }: { params: Promise<Params> }) {
       {
         "@type": "FAQPage",
         "@id": `${url}#faq`,
-        mainEntity: buildFaqSchema(service, location, keywords),
+        mainEntity: buildPseoFaqs(service, location, keywords).map(({ q, a }) => ({
+          "@type": "Question",
+          name: q,
+          acceptedAnswer: { "@type": "Answer", text: a },
+        })),
       },
     ],
   };
@@ -160,68 +165,3 @@ export default async function Page({ params }: { params: Promise<Params> }) {
   );
 }
 
-// Mirror of the FAQ list the client renders - kept here so the JSON-LD stays
-// in sync with what's actually shown on-page.
-function buildFaqSchema(
-  service: { slug: string; shortName: string },
-  location: { cityName: string; county: string },
-  keywords: { query: string }[],
-) {
-  const costQuery = keywords.find((q) => /cost|price|financ|afford/i.test(q.query));
-  const list: { q: string; a: string }[] = [
-    {
-      q: costQuery
-        ? `${cap(costQuery.query)}${costQuery.query.endsWith("?") ? "" : "?"}`
-        : `How much does a custom pool cost in ${location.cityName}, TX?`,
-      a: `Custom gunite pools cover a wide price range depending on size, depth, features, decking, and finishes. Rather than quote a number here, we publish our tiered pricing pages so you can see what different budgets typically buy - from starter builds to larger resort-style pools. Financing is available for qualified homeowners.`,
-    },
-    {
-      q: `How long does a ${service.shortName.toLowerCase()} project take in ${location.cityName}?`,
-      a: `Custom gunite pool projects generally run 8-16 weeks from ground-breaking to first swim, depending on scope, weather, and inspection scheduling. Remodels vary more - a straight interior resurface is a much shorter project than a structural addition.`,
-    },
-  ];
-
-  if (service.slug === "pool-remodeling") {
-    list.push({
-      q: `What's included in a pool remodel?`,
-      a: `A remodel usually starts with interior resurfacing and can layer in tile, coping, decking, equipment upgrades, and structural additions like a spa spillover or sun shelf.`,
-    });
-  } else if (service.slug === "pool-service-maintenance") {
-    list.push({
-      q: `Do you offer weekly pool service in ${location.cityName}?`,
-      a: `We support homeowners with equipment quote, chemistry guidance, and maintenance planning for Houston's climate.`,
-    });
-  } else if (service.slug === "pool-design-construction") {
-    list.push({
-      q: `Do you handle permits and inspections?`,
-      a: `Yes. We handle permitting and coordinate the required inspections at each construction milestone for your ${location.cityName} address.`,
-    });
-  } else {
-    list.push({
-      q: `Do you build fully custom pool designs or work from a catalog?`,
-      a: `Every ${location.cityName} project is designed for the specific yard. We don't have a shape catalog.`,
-    });
-  }
-
-  list.push({
-    q: `Do you actually service ${location.cityName}, TX?`,
-    a: `Yes - Houston Cool Pools serves ${location.cityName} and the surrounding ${location.county} area from our office on Highway 249 in northwest Houston. Reach us at (281) 645-6631 or through our free-quote form.`,
-  });
-
-  if (!costQuery) {
-    list.push({
-      q: `Is pool financing available?`,
-      a: `Financing is available for qualified homeowners. We can walk you through the options and typical monthly cost ranges when we scope your project.`,
-    });
-  }
-
-  return list.map(({ q, a }) => ({
-    "@type": "Question",
-    name: q,
-    acceptedAnswer: { "@type": "Answer", text: a },
-  }));
-}
-
-function cap(s: string): string {
-  return s.charAt(0).toUpperCase() + s.slice(1);
-}
