@@ -161,10 +161,10 @@ export function PseoPageClient({
               <span aria-hidden>→</span>
             </Link>
             <a
-              href="tel:+12819384830"
+              href="tel:+12816456631"
               className="inline-flex items-center gap-2 rounded-full border border-white/25 px-6 py-3 text-[12px] font-bold uppercase tracking-[0.22em] text-white transition hover:border-[var(--color-gold-light)] hover:text-[var(--color-gold-light)]"
             >
-              Call (281) 938-4830
+              Call (281) 645-6631
             </a>
           </motion.div>
         </div>
@@ -447,10 +447,10 @@ export function PseoPageClient({
                   <span aria-hidden>→</span>
                 </Link>
                 <a
-                  href="tel:+12819384830"
+                  href="tel:+12816456631"
                   className="inline-flex items-center justify-center gap-2 rounded-full border border-white/40 px-6 py-3.5 text-[12px] font-bold uppercase tracking-[0.2em] text-white transition hover:border-[var(--color-gold-light)] hover:text-[var(--color-gold-light)]"
                 >
-                  Or Call (281) 938-4830
+                  Or Call (281) 645-6631
                 </a>
               </div>
             </div>

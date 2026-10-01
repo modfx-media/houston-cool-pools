@@ -17,7 +17,7 @@ const pageMetadata: Metadata = {
   ...buildPageMetadata("/"),
   title: "Pool Builder in Houston, TX | Custom Gunite Pools",
   description:
-    "Houston Cool Pools is a custom gunite pool builder in Houston, TX. Design, construction, and remodeling since 1996. Free in-home quote. Call (281) 938-4830.",
+    "Houston Cool Pools is a custom gunite pool builder in Houston, TX. Design, construction, and remodeling since 1996. Free in-home quote. Call (281) 645-6631.",
   openGraph: {
     ...buildPageMetadata("/").openGraph,
     title: "Pool Builder in Houston, TX | Custom Gunite Pools",

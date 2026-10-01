@@ -153,8 +153,8 @@ function postRecord(cmsPath: string): ExportRecord {
 function globals(): ContentExport["globals"] {
   return {
     header: {
-      phone: "(281) 938-4830",
-      phoneTel: "+12819384830",
+      phone: "(281) 645-6631",
+      phoneTel: "+12816456631",
       email: BUSINESS.email,
       address: "21902 Highway 249, Houston, TX 77070",
       bookingUrl: "/contact",
@@ -172,8 +172,8 @@ function globals(): ContentExport["globals"] {
     },
     footer: {
       tagline: "Custom gunite pools in Houston since 1996.",
-      phone: "(281) 938-4830",
-      phoneTel: "+12819384830",
+      phone: "(281) 645-6631",
+      phoneTel: "+12816456631",
       email: BUSINESS.email,
       addressLine1: BUSINESS.address.streetAddress,
       addressLine2: `${BUSINESS.address.addressLocality}, ${BUSINESS.address.addressRegion} ${BUSINESS.address.postalCode}`,
@@ -196,8 +196,8 @@ function globals(): ContentExport["globals"] {
       defaultDescription:
         "Houston Cool Pools builds custom gunite pools, remodels, and outdoor living spaces across greater Houston.",
       bookingUrl: "/contact",
-      phone: "(281) 938-4830",
-      phoneTel: "+12819384830",
+      phone: "(281) 645-6631",
+      phoneTel: "+12816456631",
       email: BUSINESS.email,
       address: "21902 Highway 249, Houston, TX 77070",
     },

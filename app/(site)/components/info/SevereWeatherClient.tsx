@@ -122,10 +122,10 @@ export function SevereWeatherClient() {
                 Houston Cool Pools&rsquo; service team handles emergency repairs after major weather events. Call the office and we&rsquo;ll get you on the schedule.
               </p>
               <a
-                href="tel:+12819384830"
+                href="tel:+12816456631"
                 className="mt-6 inline-flex items-center gap-2 rounded-full bg-[var(--color-gold)] px-6 py-3 text-[11.5px] font-bold uppercase tracking-[0.18em] text-[var(--color-navy-deep)] transition hover:brightness-110"
               >
-                Call 281-938-4830
+                Call 281-645-6631
                 <svg viewBox="0 0 24 24" fill="none" className="h-3.5 w-3.5">
                   <path d="M5 12h14M13 5l7 7-7 7" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" />
                 </svg>

@@ -109,7 +109,7 @@ export function BookingForm() {
 
             <div className="mt-9 grid grid-cols-1 gap-3">
               <a
-                href="tel:+12819384830"
+                href="tel:+12816456631"
                 className="group flex items-center gap-3 rounded-2xl border border-white/15 bg-white/[0.04] p-4 transition hover:border-[var(--color-gold-light)]/40 hover:bg-white/[0.07]"
               >
                 <span className="grid h-10 w-10 place-items-center rounded-xl bg-white/10 text-[var(--color-gold-light)]">
@@ -128,7 +128,7 @@ export function BookingForm() {
                     Prefer to talk?
                   </p>
                   <p className="font-display text-[15px] font-bold">
-                    (281) 938-4830
+                    (281) 645-6631
                   </p>
                 </div>
               </a>
