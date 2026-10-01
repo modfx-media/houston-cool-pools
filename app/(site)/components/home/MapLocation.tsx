@@ -200,7 +200,7 @@ export function MapLocation() {
             {/* Contact links */}
             <div className="grid gap-3">
               <a
-                href="tel:+12816456631"
+                href="tel:+12819384830"
                 className="group flex items-center gap-3 rounded-2xl border border-slate-200/80 bg-white p-3 transition hover:border-[var(--color-pool)]/40"
               >
                 <span className="grid h-9 w-9 place-items-center rounded-xl bg-[var(--color-pool)]/10 text-[var(--color-pool-deep)]">
@@ -219,7 +219,7 @@ export function MapLocation() {
                     Call
                   </p>
                   <p className="truncate font-display text-[13.5px] font-bold text-[var(--color-navy-deep)] group-hover:text-[var(--color-pool)]">
-                    (281) 645-6631
+                    (281) 938-4830
                   </p>
                 </div>
               </a>
@@ -285,10 +285,10 @@ export function MapLocation() {
                 </svg>
               </a>
               <a
-                href="tel:+12816456631"
+                href="tel:+12819384830"
                 className="inline-flex items-center justify-center gap-2 rounded-full border border-white/40 px-6 py-3.5 text-[12px] font-bold uppercase tracking-[0.2em] text-white transition hover:border-[var(--color-gold-light)] hover:text-[var(--color-gold-light)]"
               >
-                Or Call (281) 645-6631
+                Or Call (281) 938-4830
               </a>
             </div>
           </div>

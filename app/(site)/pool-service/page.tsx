@@ -33,7 +33,7 @@ const serviceJsonLd = {
   provider: {
     "@type": "LocalBusiness",
     name: "Houston Cool Pools",
-    telephone: "+1-281-645-6631",
+    telephone: "+1-281-938-4830",
     address: {
       "@type": "PostalAddress",
       streetAddress: "21902 Highway 249",
@@ -131,10 +131,10 @@ export default function PoolServicePage() {
               </svg>
             </Link>
             <a
-              href="tel:+12816456631"
+              href="tel:+12819384830"
               className="inline-flex items-center gap-2 rounded-full border border-white/40 bg-[var(--color-navy-deep)]/40 px-8 py-4 text-xs font-bold uppercase tracking-[0.22em] text-white backdrop-blur-sm transition-colors hover:bg-white/10"
             >
-              Call (281) 645-6631
+              Call (281) 938-4830
             </a>
           </div>
         </div>
@@ -266,10 +266,10 @@ export default function PoolServicePage() {
               Fill out the form and a Houston Cool Pools specialist will follow
               up shortly. Prefer to talk? Call us direct at{" "}
               <a
-                href="tel:+12816456631"
+                href="tel:+12819384830"
                 className="font-semibold text-[var(--color-pool-deep)] hover:text-[var(--color-pool)]"
               >
-                (281) 645-6631
+                (281) 938-4830
               </a>{" "}
               or email{" "}
               <a

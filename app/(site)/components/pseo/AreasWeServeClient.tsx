@@ -232,10 +232,10 @@ export function AreasWeServeClient() {
                 <span aria-hidden>→</span>
               </Link>
               <a
-                href="tel:+12816456631"
+                href="tel:+12819384830"
                 className="inline-flex items-center gap-2 rounded-full border border-white/40 px-6 py-3 text-[12px] font-bold uppercase tracking-[0.2em] text-white transition hover:border-[var(--color-gold-light)] hover:text-[var(--color-gold-light)]"
               >
-                Call (281) 645-6631
+                Call (281) 938-4830
               </a>
             </div>
           </motion.div>

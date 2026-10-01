@@ -20,7 +20,7 @@ export const BUSINESS = {
   legalName: "Houston Cool Pools",
   url: SITE_URL,
   logo: `${SITE_URL}/images/logo.png`,
-  telephone: "+1-281-645-6631",
+  telephone: "+1-281-938-4830",
   email: "info@houstoncoolpools.com",
   foundingDate: "1996",
   priceRange: "$$$",

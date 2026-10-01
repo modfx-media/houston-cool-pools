@@ -21,7 +21,7 @@ const serviceJsonLd = {
   provider: {
     "@type": "LocalBusiness",
     name: "Houston Cool Pools",
-    telephone: "+1-281-645-6631",
+    telephone: "+1-281-938-4830",
   },
 };
 

@@ -90,9 +90,9 @@ export const PRIMARY_NAV: NavGroup[] = [
   },
 ];
 
-export const PHONE_DISPLAY = "(281) 645-6631";
-export const PHONE_HREF = "tel:+12816456631";
+export const PHONE_DISPLAY = "(281) 938-4830";
+export const PHONE_HREF = "tel:+12819384830";
 export const EMAIL_DISPLAY = "info@houstoncoolpools.com";
 export const EMAIL_HREF = "mailto:info@houstoncoolpools.com";
-export const SMS_HREF = "sms:+12816456631";
+export const SMS_HREF = "sms:+12819384830";
 export const QUOTE_HREF = "/contact";
