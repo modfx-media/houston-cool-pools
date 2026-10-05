@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { buildPageMetadata } from "../../../lib/business";
+import { getGalleryImages } from "../../../lib/gallery-pages";
 import { PHONE_DISPLAY, PHONE_HREF, QUOTE_HREF } from "../../../lib/navigation";
 
 const pageMetadata: Metadata = buildPageMetadata("/custom-pool-types");
@@ -12,93 +13,45 @@ const HD = "/images/gallery/hd";
 type Tile = { href: string; src: string; alt: string };
 type Section = { id: string; title: string; tiles: Tile[] };
 
+/** Cover each gallery page with that page's first photo so the card matches
+ * the collection it opens, and free-form stays curved while geometric stays straight. */
+function galleryTile(href: string): Tile {
+  const slug = href.replace(/^\//, "");
+  const cover = getGalleryImages(slug, "")[0];
+  return { href, src: cover.src, alt: cover.alt };
+}
+
 const SECTIONS: Section[] = [
   {
     id: "free-form-pools",
     title: "Free Form Pools",
     tiles: [
-      {
-        href: "/gallery-free-form-pools-1",
-        src: `${HD}/merlin-1.jpg`,
-        alt: "Free form pool by Houston Cool Pools",
-      },
-      {
-        href: "/gallery-free-form-pools-2",
-        src: `${HD}/merlin-3.jpg`,
-        alt: "Free form pool by Houston Cool Pools",
-      },
-      {
-        href: "/gallery-free-form-pools-3",
-        src: `${HD}/le-pool-2.jpg`,
-        alt: "Free form pool by Houston Cool Pools",
-      },
-      {
-        href: "/gallery-free-form-pools-4",
-        src: `${HD}/courtyard-pool.jpg`,
-        alt: "Free form pool by Houston Cool Pools",
-      },
-      {
-        href: "/gallery-free-form-pools-5",
-        src: `${HD}/kros.jpg`,
-        alt: "Free form pool by Houston Cool Pools",
-      },
+      galleryTile("/gallery-free-form-pools-1"),
+      galleryTile("/gallery-free-form-pools-2"),
+      galleryTile("/gallery-free-form-pools-3"),
+      galleryTile("/gallery-free-form-pools-4"),
+      galleryTile("/gallery-free-form-pools-5"),
     ],
   },
   {
     id: "geometric-pools",
     title: "Geometric Pools",
     tiles: [
-      {
-        href: "/geometric-pools-1",
-        src: `${HD}/anderson-tarr-1.jpg`,
-        alt: "Geometric pool by Houston Cool Pools",
-      },
-      {
-        href: "/geometric-pools-2",
-        src: `${HD}/silverman-1.jpg`,
-        alt: "Geometric pool by Houston Cool Pools",
-      },
-      {
-        href: "/geometric-pools-3",
-        src: `${HD}/family-4.jpg`,
-        alt: "Geometric pool by Houston Cool Pools",
-      },
-      {
-        href: "/geometric-pools-4",
-        src: `${HD}/stidham.jpg`,
-        alt: "Geometric pool by Houston Cool Pools",
-      },
-      {
-        href: "/geometric-pools-5",
-        src: `${HD}/puranik-2.jpg`,
-        alt: "Geometric pool by Houston Cool Pools",
-      },
-      {
-        href: "/geometric-pools-6",
-        src: `${HD}/clark-estate.jpg`,
-        alt: "Geometric pool by Houston Cool Pools",
-      },
+      galleryTile("/geometric-pools-1"),
+      galleryTile("/geometric-pools-2"),
+      galleryTile("/geometric-pools-3"),
+      galleryTile("/geometric-pools-4"),
+      galleryTile("/geometric-pools-5"),
+      galleryTile("/geometric-pools-6"),
     ],
   },
   {
     id: "fireplace-firepits",
     title: "Fireplace & Firepits",
     tiles: [
-      {
-        href: "/fireplace-firepits-gallery-1",
-        src: `${HD}/sunset-pool.jpg`,
-        alt: "Fireplace and firepit by Houston Cool Pools",
-      },
-      {
-        href: "/fireplace-firepits-gallery-2",
-        src: `${HD}/estate-twilight.jpg`,
-        alt: "Fireplace and firepit by Houston Cool Pools",
-      },
-      {
-        href: "/fireplace-firepits-gallery-3",
-        src: `${HD}/sunset-pool.jpg`,
-        alt: "Fireplace and firepit by Houston Cool Pools",
-      },
+      galleryTile("/fireplace-firepits-gallery-1"),
+      galleryTile("/fireplace-firepits-gallery-2"),
+      galleryTile("/fireplace-firepits-gallery-3"),
     ],
   },
   {

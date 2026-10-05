@@ -16,104 +16,107 @@ type GalleryEntry = {
 const HD = "/images/gallery/hd";
 
 const DATA: Record<string, GalleryEntry> = {
-  // ===== Free Form Pools (curved / naturalistic shapes only, all unique) =====
+  // ===== Free Form Pools (curved / kidney / lagoon shapes only, all unique) =====
   "gallery-free-form-pools-1": {
     extras: [
-      { src: `${HD}/family-4.jpg`, alt: "Free form pool by Houston Cool Pools - kidney-shaped pool with tanning ledge and bubblers" },
+      { src: `${HD}/family-4.jpg`, alt: "Free form pool by Houston Cool Pools - kidney-shaped pool with tanning ledge and spillways" },
       { src: `${HD}/lanai-cove-spa.jpg`, alt: "Free form pool by Houston Cool Pools - screened kidney-shaped pool with raised spa" },
-      { src: `${HD}/bushland-lagoon.jpg`, alt: "Free form pool by Houston Cool Pools - kidney-shaped pool with natural rock waterfall grotto" },
+      { src: `${HD}/bushland-lagoon.jpg`, alt: "Free form pool by Houston Cool Pools - kidney-shaped pool with rock waterfall" },
     ],
   },
   "gallery-free-form-pools-2": {
     extras: [
-      { src: `${HD}/le-pool-2.jpg`, alt: "Free form pool by Houston Cool Pools - curved lakefront pool with raised spa" },
-      { src: `${HD}/family-5.jpg`, alt: "Free form pool by Houston Cool Pools - curved pool with raised spa and fire bowls" },
-      { src: `${HD}/drew-lagoon.jpg`, alt: "Free form pool by Houston Cool Pools - organic lagoon-shaped pool with covered fireplace patio" },
+      { src: "/images/pricing-65k-90k/15.jpg", alt: "Free form pool by Houston Cool Pools - curved pool with rock waterfall" },
+      { src: `${HD}/drew-lagoon.jpg`, alt: "Free form pool by Houston Cool Pools - organic lagoon-shaped pool with fireplace patio" },
+      { src: `${HD}/stidham.jpg`, alt: "Free form pool by Houston Cool Pools - kidney-shaped pool with round spa" },
     ],
   },
   "gallery-free-form-pools-3": {
     extras: [
-      { src: `${HD}/stidham.jpg`, alt: "Free form pool by Houston Cool Pools - kidney-shaped pool with round spa and fire bowls" },
-      { src: `${HD}/estate-premier.jpg`, alt: "Free form pool by Houston Cool Pools - curved pool and spa with rock waterfall" },
-      { src: `${HD}/colby-cove.jpg`, alt: "Free form pool by Houston Cool Pools - curved cove pool with bubblers and rock waterfall" },
-    ],
-  },
-  "gallery-free-form-pools-4": {
-    extras: [
-      { src: `${HD}/lifestyle-1.jpg`, alt: "Free form pool by Houston Cool Pools - naturalistic pool with rock grotto" },
+      { src: `${HD}/colby-cove.jpg`, alt: "Free form pool by Houston Cool Pools - kidney-shaped pool with bubblers and rock waterfall" },
       { src: `${HD}/hillside-waterfall.jpg`, alt: "Free form pool by Houston Cool Pools - kidney-shaped pool with rock waterfall and raised spa" },
       { src: `${HD}/clark-cove.jpg`, alt: "Free form pool by Houston Cool Pools - kidney-shaped pool with raised spa and bubblers" },
     ],
   },
+  "gallery-free-form-pools-4": {
+    extras: [
+      { src: `${HD}/tropical-tiki-lagoon.jpg`, alt: "Free form pool by Houston Cool Pools - tropical lagoon pool with curved edges and spa" },
+      { src: `${HD}/adams-grotto.jpg`, alt: "Free form pool by Houston Cool Pools - free-form pool with rock waterfall grotto" },
+      { src: `${HD}/clark-estate.jpg`, alt: "Free form pool by Houston Cool Pools - kidney-shaped pool with natural rock waterfall" },
+    ],
+  },
   "gallery-free-form-pools-5": {
     extras: [
-      { src: `${HD}/cove-spa.jpg`, alt: "Free form pool by Houston Cool Pools - curved cove pool with raised spa and stone column" },
-      { src: `${HD}/tropical-tiki-lagoon.jpg`, alt: "Free form pool by Houston Cool Pools - tropical lagoon pool with tiki-carved rock wall and spa" },
-      { src: `${HD}/adams-grotto.jpg`, alt: "Free form pool by Houston Cool Pools - free-form pool with rock waterfall grotto and raised spa" },
+      { src: "/images/pricing-65k-90k/02.jpg", alt: "Free form pool by Houston Cool Pools - kidney-shaped pool with tanning ledge" },
+      { src: "/images/pricing-65k-90k/04.jpg", alt: "Free form pool by Houston Cool Pools - curved pool with rock waterfall" },
+      { src: "/images/pricing-65k-90k/06.jpg", alt: "Free form pool by Houston Cool Pools - kidney-shaped pool with raised spa" },
     ],
   },
 
   // ===== Geometric Pools (straight-line / rectangular shapes only, all unique) =====
   "geometric-pools-1": {
     extras: [
-      { src: `${HD}/merlin-1.jpg`, alt: "Geometric pool by Houston Cool Pools - rectangular pool with raised spa and fire trough" },
-      { src: `${HD}/breth-1.jpg`, alt: "Geometric pool by Houston Cool Pools - rectangular pool with stone steps and tanning ledge" },
       { src: `${HD}/anderson-tarr-1.jpg`, alt: "Geometric pool by Houston Cool Pools - rectangular pool with sun shelf" },
+      { src: `${HD}/aerial-rect-spa.jpg`, alt: "Geometric pool by Houston Cool Pools - aerial view of a rectangular pool with raised spa" },
+      { src: `${HD}/modern-geometric.jpg`, alt: "Geometric pool by Houston Cool Pools - rectangular pool with straight architectural lines" },
     ],
   },
   "geometric-pools-2": {
     extras: [
-      { src: `${HD}/aerial-rect-spa.jpg`, alt: "Geometric pool by Houston Cool Pools - aerial view of rectangular pool with raised spa" },
-      { src: `${HD}/breth-2.jpg`, alt: "Geometric pool by Houston Cool Pools - rectangular pool with fountain feature" },
-      { src: `${HD}/anderson-tarr-2.jpg`, alt: "Geometric pool by Houston Cool Pools - square pool and spa" },
+      { src: "/images/pricing-65k-90k/17.jpg", alt: "Geometric pool by Houston Cool Pools - L-shaped pool with straight edges" },
+      { src: `${HD}/breth-1.jpg`, alt: "Geometric pool by Houston Cool Pools - rectangular pool with stone steps and tanning ledge" },
+      { src: `${HD}/family-3.jpg`, alt: "Geometric pool by Houston Cool Pools - rectangular pool with tanning ledge and waterfall wall" },
     ],
   },
   "geometric-pools-3": {
     extras: [
-      { src: `${HD}/merlin-3.jpg`, alt: "Geometric pool by Houston Cool Pools - rectangular pool and spa with fire feature" },
-      { src: `${HD}/kros.jpg`, alt: "Geometric pool by Houston Cool Pools - rectangular pool with raised spa and pergola" },
-      { src: `${HD}/modern-geometric.jpg`, alt: "Geometric pool by Houston Cool Pools - rectangular pool with architectural lines" },
+      { src: `${HD}/silverman-1.jpg`, alt: "Geometric pool by Houston Cool Pools - rectangular pool with raised spa" },
+      { src: `${HD}/estate-luxe.jpg`, alt: "Geometric pool by Houston Cool Pools - rectangular pool with raised spa and spillways" },
+      { src: `${HD}/resort-deck-firepit.jpg`, alt: "Geometric pool by Houston Cool Pools - rectangular pool with square spa" },
     ],
   },
   "geometric-pools-4": {
     extras: [
-      { src: `${HD}/family-3.jpg`, alt: "Geometric pool by Houston Cool Pools - rectangular pool with stacked-stone waterfall wall" },
+      { src: `${HD}/teal-lap-pool.jpg`, alt: "Geometric pool by Houston Cool Pools - rectangular lap pool" },
       { src: `${HD}/dark-tanning-ledge.jpg`, alt: "Geometric pool by Houston Cool Pools - dark-finish rectangular pool with tanning ledge" },
-      { src: `${HD}/puranik-1.jpg`, alt: "Geometric pool by Houston Cool Pools - rectangular reflecting pool by the lake" },
+      { src: `${HD}/corbeil-1.jpg`, alt: "Geometric pool by Houston Cool Pools - rectangular pool with straight coping" },
     ],
   },
   "geometric-pools-5": {
     extras: [
-      { src: `${HD}/silverman-2.jpg`, alt: "Geometric pool by Houston Cool Pools - rectangular lap pool with sun shelf" },
-      { src: `${HD}/puranik-2.jpg`, alt: "Geometric pool by Houston Cool Pools - rectangular pool with raised glass-tile spa" },
-      { src: `${HD}/glass-mosaic-spa.jpg`, alt: "Geometric pool by Houston Cool Pools - rectangular pool with raised glass-mosaic spa" },
+      { src: `${HD}/puranik-1.jpg`, alt: "Geometric pool by Houston Cool Pools - rectangular pool with raised spa by the lake" },
+      { src: "/images/pricing-65k-90k/18.jpg", alt: "Geometric pool by Houston Cool Pools - rectangular pool with blue tile and straight coping" },
+      { src: `${HD}/huckleberry-6.jpg`, alt: "Geometric pool by Houston Cool Pools - rectangular pool with straight edges" },
     ],
   },
   "geometric-pools-6": {
     extras: [
-      { src: `${HD}/corbeil-2.jpg`, alt: "Geometric pool by Houston Cool Pools - rectangular pool with premium coping" },
-      { src: `${HD}/estate-luxe.jpg`, alt: "Geometric pool by Houston Cool Pools - rectangular pool with fountains" },
-      { src: `${HD}/resort-deck-firepit.jpg`, alt: "Geometric pool by Houston Cool Pools - rectangular pool with raised spa and stone patio" },
+      { src: "/images/pricing-65k-90k/09.jpg", alt: "Geometric pool by Houston Cool Pools - rectangular pool with straight brick coping" },
+      { src: "/images/pricing-65k-90k/03.jpg", alt: "Geometric pool by Houston Cool Pools - rectangular pool with straight flagstone coping" },
+      { src: "/images/pricing-65k-90k/11.jpg", alt: "Geometric pool by Houston Cool Pools - rectangular pool with tanning ledge and sheer waterfall" },
     ],
   },
 
-  // ===== Fireplace & Fire Pits =====
+  // ===== Fireplace & Fire Pits (fireplaces / fire pits / fire bowls only, all unique) =====
   "fireplace-firepits-gallery-1": {
     extras: [
-      { src: `${HD}/sunset-pool.jpg`, alt: "Fireplace and firepit by Houston Cool Pools - fire features at sunset" },
-      { src: `${HD}/heritage-estate.jpg`, alt: "Fireplace and firepit by Houston Cool Pools - heritage estate outdoor environment" },
+      { src: "/images/gallery/fireplaces/antisdel-fireplace-night.webp", alt: "Outdoor fireplace by Houston Cool Pools - lit stucco fireplace under a covered patio" },
+      { src: "/images/gallery/fireplaces/antisdel-fireplace-day.jpg", alt: "Outdoor fireplace by Houston Cool Pools - fireplace beside an outdoor kitchen" },
+      { src: "/images/gallery/fireplaces/huckleberry-fire-trough.jpeg", alt: "Fire pit by Houston Cool Pools - linear fire trough in front of a pool" },
     ],
   },
   "fireplace-firepits-gallery-2": {
     extras: [
-      { src: `${HD}/estate-twilight.jpg`, alt: "Fireplace and firepit by Houston Cool Pools - twilight lighting package" },
-      { src: `${HD}/nc-resort.jpg`, alt: "Fireplace and firepit by Houston Cool Pools - resort-style pool" },
+      { src: "/images/gallery/fireplaces/merlin-fire-trough.jpeg", alt: "Fire pit by Houston Cool Pools - flames along a raised fire trough by the pool" },
+      { src: "/images/gallery/fireplaces/fire-bowls.webp", alt: "Fire bowls by Houston Cool Pools - twin fire bowls on tiled columns" },
+      { src: "/images/gallery/fireplaces/drew-pavilion-fireplace.jpg", alt: "Outdoor fireplace by Houston Cool Pools - stacked-stone fireplace in a timber pavilion" },
     ],
   },
   "fireplace-firepits-gallery-3": {
     extras: [
-      { src: `${HD}/sunset-pool.jpg`, alt: "Fireplace and firepit by Houston Cool Pools - fire features at sunset" },
-      { src: `${HD}/estate-twilight.jpg`, alt: "Fireplace and firepit by Houston Cool Pools - twilight lighting package" },
+      { src: "/images/gallery/fireplaces/goel-glass-fire-pit.jpg", alt: "Fire pit by Houston Cool Pools - glass-enclosed fire pit on a pool deck" },
+      { src: "/images/gallery/fireplaces/huckleberry-fire-side.jpeg", alt: "Fire pit by Houston Cool Pools - raised linear fire feature beside the pool" },
+      { src: "/images/gallery/fireplaces/mccanless-linear-fire.webp", alt: "Fire pit by Houston Cool Pools - linear fire feature along the pool wall at dusk" },
     ],
   },
 
