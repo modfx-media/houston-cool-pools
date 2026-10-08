@@ -7,6 +7,9 @@ export const plugins: Plugin[] = [
     collections: {
       media: true,
     },
-    token: process.env.BLOB_READ_WRITE_TOKEN || "",
+    // Direct-to-Blob uploads bypass the Vercel serverless body limit that
+    // otherwise fails admin uploads with "There was a problem while uploading the file".
+    clientUploads: true,
+    token: process.env.BLOB_READ_WRITE_TOKEN,
   }),
 ];

@@ -5,12 +5,10 @@ import { withCMS } from "./safe";
 import type { CmsRoutedDoc } from "./types";
 import { getPublicSiteURL, normalizeCmsPath } from "./url";
 
-function mediaUrl(image: CmsRoutedDoc["meta"]): string | undefined {
-  const value = image?.image;
-  if (value && typeof value === "object" && "url" in value && value.url) {
-    return value.url;
-  }
-  return undefined;
+function mediaUrl(image: unknown): string | undefined {
+  if (!image || typeof image !== "object" || !("url" in image)) return undefined;
+  const url = (image as { url?: string | null }).url;
+  return typeof url === "string" && url.trim() ? url : undefined;
 }
 
 export function metadataFromDoc(doc: CmsRoutedDoc, fallback: Metadata): Metadata {
@@ -19,7 +17,7 @@ export function metadataFromDoc(doc: CmsRoutedDoc, fallback: Metadata): Metadata
   const description = doc.meta?.description || doc.excerpt || undefined;
   const path = doc.path ? normalizeCmsPath(doc.path) : undefined;
   const canonical = doc.canonicalUrl || (path ? `${site}${path === "/" ? "/" : path}` : undefined);
-  const image = mediaUrl(doc.meta);
+  const image = mediaUrl(doc.meta?.image) || mediaUrl(doc.heroImage);
 
   return {
     ...fallback,

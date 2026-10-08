@@ -4,17 +4,13 @@ import Image from "next/image";
 import Link from "next/link";
 import { useMemo, useRef, useState } from "react";
 import { motion, useScroll, useTransform } from "motion/react";
-import { ARTICLES, type Article } from "../../../../lib/articles";
+import type { Article } from "../../../../lib/articles";
 import { PHONE_DISPLAY, PHONE_HREF, QUOTE_HREF } from "../../../../lib/navigation";
 
 const ease = [0.22, 1, 0.36, 1] as const;
 
-const CATEGORIES: ("All" | Article["category"])[] = [
-  "All",
-  "Custom Features",
-  "Pool Remodel",
-  "Pool Service",
-];
+const CATEGORIES = ["All", "Custom Features", "Pool Remodel", "Pool Service"] as const;
+type CategoryFilter = (typeof CATEGORIES)[number];
 
 const BUBBLES = [
   { left: "6%", size: 15, delay: 0, dur: 11 },
@@ -25,7 +21,31 @@ const BUBBLES = [
   { left: "86%", size: 18, delay: 2.8, dur: 12 },
 ];
 
-export function ArticlesIndex() {
+function CardImage({
+  src,
+  alt,
+  sizes,
+  priority,
+  className,
+}: {
+  src: string;
+  alt: string;
+  sizes: string;
+  priority?: boolean;
+  className: string;
+}) {
+  if (!src) {
+    return (
+      <div
+        aria-hidden
+        className="absolute inset-0 bg-gradient-to-br from-[var(--color-navy-deep)] via-[var(--color-pool-deep)] to-[var(--color-pool)]"
+      />
+    );
+  }
+  return <Image src={src} alt={alt} fill priority={priority} sizes={sizes} className={className} />;
+}
+
+export function ArticlesIndex({ articles }: { articles: Article[] }) {
   const heroRef = useRef<HTMLElement>(null);
   const { scrollYProgress: heroProgress } = useScroll({
     target: heroRef,
@@ -35,18 +55,16 @@ export function ArticlesIndex() {
   const heroContentY = useTransform(heroProgress, [0, 1], ["0%", "26%"]);
   const heroContentOpacity = useTransform(heroProgress, [0, 0.85], [1, 0]);
 
-  const [category, setCategory] = useState<(typeof CATEGORIES)[number]>("All");
+  const [category, setCategory] = useState<CategoryFilter>("All");
 
   const filtered = useMemo(
     () =>
-      category === "All"
-        ? ARTICLES
-        : ARTICLES.filter((a) => a.category === category),
-    [category],
+      category === "All" ? articles : articles.filter((a) => a.category === category),
+    [articles, category],
   );
 
-  const featured = ARTICLES[0];
-  const rest = filtered.filter((a) => a.slug !== featured.slug);
+  const featured = articles[0];
+  const rest = featured ? filtered.filter((a) => a.slug !== featured.slug) : filtered;
 
   return (
     <>
@@ -178,7 +196,7 @@ export function ArticlesIndex() {
       </section>
 
       {/* ===== Featured article ===== */}
-      {category === "All" && (
+      {category === "All" && featured ? (
         <section className="bg-white pb-4 pt-14 md:pt-20">
           <div className="mx-auto max-w-7xl px-6 md:px-10">
             <motion.p
@@ -192,7 +210,7 @@ export function ArticlesIndex() {
             <FeaturedCard article={featured} />
           </div>
         </section>
-      )}
+      ) : null}
 
       {/* ===== Grid ===== */}
       <section className="bg-white pb-24 pt-6 md:pb-32">
@@ -263,10 +281,9 @@ function FeaturedCard({ article }: { article: Article }) {
         href={`/blogs/${article.slug}`}
         className="relative block aspect-[4/3] lg:aspect-auto"
       >
-        <Image
+        <CardImage
           src={article.hero.src}
           alt={article.hero.alt}
-          fill
           sizes="(max-width: 1024px) 100vw, 640px"
           className="object-cover transition duration-700 group-hover:scale-[1.03]"
           priority
@@ -337,10 +354,9 @@ function ArticleCard({ article }: { article: Article }) {
         className="block h-full overflow-hidden rounded-2xl border border-slate-200 bg-white transition duration-500 hover:-translate-y-1 hover:border-[var(--color-pool)]/50 hover:shadow-[0_20px_40px_-20px_rgba(0,124,182,0.3)]"
       >
         <div className="relative aspect-[4/3] overflow-hidden bg-slate-100">
-          <Image
+          <CardImage
             src={article.card.src}
             alt={article.card.alt}
-            fill
             sizes="(max-width: 1024px) 100vw, 400px"
             className="object-cover transition duration-700 group-hover:scale-[1.05]"
           />

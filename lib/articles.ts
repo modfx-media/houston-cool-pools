@@ -4,8 +4,16 @@
  * service) and links back to the relevant service page.
  */
 
+export type InlinePart = {
+  text: string;
+  href?: string;
+  bold?: boolean;
+  italic?: boolean;
+  newTab?: boolean;
+};
+
 export type ArticleBlock =
-  | { type: "p"; text: string }
+  | { type: "p"; text: string; parts?: InlinePart[] }
   | { type: "h2"; text: string }
   | { type: "h3"; text: string }
   | { type: "list"; items: string[] }
@@ -23,7 +31,7 @@ export type Article = {
   slug: string;
   title: string;
   excerpt: string;
-  category: "Custom Features" | "Pool Remodel" | "Pool Service";
+  category: string;
   tag: string;
   readTime: string;
   date: string;

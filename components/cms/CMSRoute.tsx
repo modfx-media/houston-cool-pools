@@ -26,7 +26,19 @@ export async function CMSRoute({
     draftMode(),
   ]);
 
-  if (!routed) return children;
+  const normalized = normalizeCmsPath(path);
+  // /blogs/[slug] renders published posts in the designed article template.
+  const blogPostRenderedByPage =
+    routed?.collection === "posts" && normalized.startsWith("/blogs/");
+
+  if (!routed || blogPostRenderedByPage) {
+    return (
+      <>
+        {draft.isEnabled ? <LivePreviewListener /> : null}
+        {children}
+      </>
+    );
+  }
 
   return (
     <>

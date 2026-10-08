@@ -6,6 +6,9 @@ export const revalidatePublishedPath: CollectionAfterChangeHook = async ({ doc }
   try {
     const { revalidatePath } = await import("next/cache");
     revalidatePath(path);
+    if (path === "/blogs" || path.startsWith("/blogs/")) {
+      revalidatePath("/blogs");
+    }
   } catch (error) {
     console.error("[cms] revalidate", error);
   }

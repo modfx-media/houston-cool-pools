@@ -56,5 +56,19 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         },
       ];
 
-  return [...legacy, ...areas, ...pseo];
+  const listed = new Set([...legacy, ...areas, ...pseo].map((item) => item.url));
+  const cmsOnly = cmsDocs
+    .filter((doc) => !doc.noIndex && !doc.excludeFromSitemap)
+    .map((doc) => {
+      const path = normalizeCmsPath(doc.path);
+      return {
+        url: `${SITE_URL}${path}`,
+        lastModified: new Date(doc.sourceUpdatedAt || doc.updatedAt || Date.now()),
+        changeFrequency: "monthly" as const,
+        priority: path.startsWith("/blogs/") ? 0.8 : 0.64,
+      };
+    })
+    .filter((item) => !listed.has(item.url));
+
+  return [...legacy, ...areas, ...pseo, ...cmsOnly];
 }
