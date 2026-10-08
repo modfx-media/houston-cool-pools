@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
+import { CmsArticle } from "@/components/cms/CmsArticle";
 import { cmsMetadata } from "@/lib/cms/generateMeta";
+import { cmsDocToArticle, queryBlogPost } from "@/lib/cms/posts";
 import { ArticlePost } from "../../components/articles/ArticlePost";
 import { ARTICLES, getArticle, getRelatedArticles } from "../../../../lib/articles";
 import { SITE_URL, BUSINESS } from "../../../../lib/business";
@@ -17,11 +19,16 @@ export async function generateMetadata({
   params: Promise<Params>;
 }): Promise<Metadata> {
   const { slug } = await params;
-  const article = getArticle(slug);
+  const doc = await queryBlogPost(slug);
+  const article = (doc ? cmsDocToArticle(doc) : null) ?? getArticle(slug);
   if (!article) return {};
 
   const canonical = `${SITE_URL}/blogs/${article.slug}`;
-  const image = `${SITE_URL}${article.hero.src}`;
+  const image = article.hero.src
+    ? article.hero.src.startsWith("http")
+      ? article.hero.src
+      : `${SITE_URL}${article.hero.src}`
+    : undefined;
   return cmsMetadata(`/blogs/${article.slug}`, {
     title: article.title,
     description: article.excerpt,
@@ -35,13 +42,13 @@ export async function generateMetadata({
       type: "article",
       publishedTime: article.publishedAt,
       authors: [article.author.name],
-      images: [{ url: image, alt: article.hero.alt }],
+      ...(image ? { images: [{ url: image, alt: article.hero.alt }] } : {}),
     },
     twitter: {
       card: "summary_large_image",
       title: article.title,
       description: article.excerpt,
-      images: [image],
+      ...(image ? { images: [image] } : {}),
     },
   });
 }
@@ -52,6 +59,11 @@ export default async function Page({
   params: Promise<Params>;
 }) {
   const { slug } = await params;
+  const doc = await queryBlogPost(slug);
+  const cmsArticle = doc ? cmsDocToArticle(doc) : null;
+  if (cmsArticle) {
+    return <CmsArticle article={cmsArticle} path={doc?.path} />;
+  }
   const article = getArticle(slug);
   if (!article) notFound();
 

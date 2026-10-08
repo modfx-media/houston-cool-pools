@@ -4,7 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { motion, useScroll, useTransform } from "motion/react";
-import type { Article, ArticleBlock } from "../../../../lib/articles";
+import type { Article, ArticleBlock, InlinePart } from "../../../../lib/articles";
 import { PHONE_DISPLAY, PHONE_HREF, QUOTE_HREF } from "../../../../lib/navigation";
 
 const ease = [0.22, 1, 0.36, 1] as const;
@@ -14,6 +14,50 @@ export type ArticlePostProps = {
   related: Article[];
   canonical: string;
 };
+
+function InlineParts({ parts }: { parts: InlinePart[] }) {
+  return (
+    <>
+      {parts.map((part, index) => {
+        const className = [
+          part.bold ? "font-semibold text-[var(--color-navy-deep)]" : "",
+          part.italic ? "italic" : "",
+        ]
+          .filter(Boolean)
+          .join(" ");
+        if (part.href) {
+          const external = part.href.startsWith("http");
+          if (external) {
+            return (
+              <a
+                key={index}
+                href={part.href}
+                className={`text-[var(--color-pool-deep)] underline decoration-[var(--color-pool)]/40 underline-offset-4 ${className}`}
+                {...(part.newTab ? { target: "_blank", rel: "noreferrer noopener" } : {})}
+              >
+                {part.text}
+              </a>
+            );
+          }
+          return (
+            <Link
+              key={index}
+              href={part.href}
+              className={`text-[var(--color-pool-deep)] underline decoration-[var(--color-pool)]/40 underline-offset-4 ${className}`}
+            >
+              {part.text}
+            </Link>
+          );
+        }
+        return (
+          <span key={index} className={className || undefined}>
+            {part.text}
+          </span>
+        );
+      })}
+    </>
+  );
+}
 
 function getInitials(name: string) {
   return name
@@ -85,6 +129,7 @@ export function ArticlePost({ article, related, canonical }: ArticlePostProps) {
 
   const shareUrl = canonical;
   const shareText = encodeURIComponent(article.title);
+  const heroSrc = article.hero.src;
 
   return (
     <>
@@ -101,16 +146,18 @@ export function ArticlePost({ article, related, canonical }: ArticlePostProps) {
         ref={heroRef}
         className="relative isolate overflow-hidden bg-[var(--color-navy-deep)] pt-32 text-white md:pt-40 lg:pt-44"
       >
-        <motion.div style={{ y: bgY }} className="absolute inset-0 -z-20">
-          <Image
-            src={article.hero.src}
-            alt=""
-            fill
-            priority
-            sizes="100vw"
-            className="object-cover opacity-45"
-          />
-        </motion.div>
+        {heroSrc ? (
+          <motion.div style={{ y: bgY }} className="absolute inset-0 -z-20">
+            <Image
+              src={heroSrc}
+              alt=""
+              fill
+              priority
+              sizes="100vw"
+              className="object-cover opacity-45"
+            />
+          </motion.div>
+        ) : null}
         <div className="absolute inset-0 -z-10 bg-gradient-to-b from-[var(--color-navy-deep)]/85 via-[var(--color-navy-deep)]/70 to-[var(--color-navy-deep)]" />
         <div className="absolute inset-0 -z-10 bg-[radial-gradient(ellipse_at_top,rgba(0,124,182,0.28),transparent_65%)]" />
 
@@ -230,29 +277,32 @@ export function ArticlePost({ article, related, canonical }: ArticlePostProps) {
         />
 
         <div className="relative mx-auto max-w-7xl px-6 md:px-10">
-          {/* Floating featured image card - overlaps the hero wave */}
-          <motion.figure
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.2, ease }}
-            className="relative z-10 mx-auto -mt-32 mb-16 aspect-[16/8] w-full max-w-5xl overflow-hidden rounded-[28px] shadow-[0_30px_80px_-30px_rgba(0,27,36,0.45)] ring-1 ring-black/5 md:-mt-40 lg:-mt-48"
-          >
-            <Image
-              src={article.hero.src}
-              alt={article.hero.alt}
-              fill
-              priority
-              sizes="(max-width: 1024px) 100vw, 1000px"
-              className="object-cover"
-            />
-            <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/40 to-transparent p-6">
-              <p className="text-[11px] font-semibold uppercase tracking-[0.22em] text-white/80">
-                {article.hero.alt}
-              </p>
-            </div>
-          </motion.figure>
+          {heroSrc ? (
+            <motion.figure
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.2, ease }}
+              className="relative z-10 mx-auto -mt-32 mb-16 aspect-[16/8] w-full max-w-5xl overflow-hidden rounded-[28px] shadow-[0_30px_80px_-30px_rgba(0,27,36,0.45)] ring-1 ring-black/5 md:-mt-40 lg:-mt-48"
+            >
+              <Image
+                src={heroSrc}
+                alt={article.hero.alt}
+                fill
+                priority
+                sizes="(max-width: 1024px) 100vw, 1000px"
+                className="object-cover"
+              />
+              {article.hero.alt ? (
+                <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/40 to-transparent p-6">
+                  <p className="text-[11px] font-semibold uppercase tracking-[0.22em] text-white/80">
+                    {article.hero.alt}
+                  </p>
+                </div>
+              ) : null}
+            </motion.figure>
+          ) : null}
 
-          <div className="grid gap-12 lg:grid-cols-[minmax(0,1fr)_300px] lg:gap-16">
+          <div className={`grid gap-12 lg:grid-cols-[minmax(0,1fr)_300px] lg:gap-16 ${heroSrc ? "" : "pt-12"}`}>
             {/* ---------- Main article ---------- */}
             <article className="mx-auto w-full max-w-[720px] lg:mx-0">
               <BlockRenderer blocks={article.body} toc={toc} />
@@ -529,13 +579,17 @@ export function ArticlePost({ article, related, canonical }: ArticlePostProps) {
                     className="flex h-full flex-col overflow-hidden rounded-3xl border border-slate-200/70 bg-white transition duration-300 hover:-translate-y-1 hover:border-[var(--color-pool)]/50 hover:shadow-[0_20px_60px_-30px_rgba(0,27,36,0.35)]"
                   >
                     <div className="relative aspect-[16/10] overflow-hidden bg-slate-100">
-                      <Image
-                        src={a.card.src}
-                        alt={a.card.alt}
-                        fill
-                        sizes="(max-width: 768px) 100vw, 500px"
-                        className="object-cover transition duration-700 group-hover:scale-[1.04]"
-                      />
+                      {a.card.src ? (
+                        <Image
+                          src={a.card.src}
+                          alt={a.card.alt}
+                          fill
+                          sizes="(max-width: 768px) 100vw, 500px"
+                          className="object-cover transition duration-700 group-hover:scale-[1.04]"
+                        />
+                      ) : (
+                        <div className="absolute inset-0 bg-gradient-to-br from-[var(--color-navy-deep)] via-[var(--color-pool-deep)] to-[var(--color-pool)]" />
+                      )}
                       <div className="absolute left-4 top-4">
                         <span className="rounded-full bg-white/90 px-3 py-1 text-[10px] font-bold uppercase tracking-[0.2em] text-[var(--color-navy-deep)] backdrop-blur">
                           {a.category}
@@ -628,7 +682,7 @@ function BlockRenderer({ blocks, toc }: { blocks: ArticleBlock[]; toc: Toc }) {
     return i >= 0 ? i + 1 : null;
   };
 
-  let firstParagraphRendered = false;
+  const firstParagraphIndex = blocks.findIndex((block) => block.type === "p");
 
   return (
     <>
@@ -672,8 +726,7 @@ function BlockRenderer({ blocks, toc }: { blocks: ArticleBlock[]; toc: Toc }) {
               </h3>
             );
           case "p": {
-            const isFirst = !firstParagraphRendered;
-            if (isFirst) firstParagraphRendered = true;
+            const isFirst = i === firstParagraphIndex;
             return (
               <p
                 key={i}
@@ -683,7 +736,7 @@ function BlockRenderer({ blocks, toc }: { blocks: ArticleBlock[]; toc: Toc }) {
                     : ""
                 }`}
               >
-                {b.text}
+                {b.parts && b.parts.length > 0 ? <InlineParts parts={b.parts} /> : b.text}
               </p>
             );
           }

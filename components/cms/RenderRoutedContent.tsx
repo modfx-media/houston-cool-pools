@@ -1,6 +1,8 @@
 import { RichText } from "@payloadcms/richtext-lexical/react";
 import Link from "next/link";
 
+import { CmsArticle } from "@/components/cms/CmsArticle";
+import { cmsDocToArticle } from "@/lib/cms/posts";
 import type {
   CmsBlock,
   CmsCtaBlock,
@@ -137,6 +139,8 @@ export function RenderRoutedContent({
   collection: "pages" | "posts";
 }) {
   if (collection === "posts") {
+    const article = cmsDocToArticle(doc);
+    if (article) return <CmsArticle article={article} path={doc.path} />;
     const path = doc.path ? normalizeCmsPath(doc.path) : "/blogs";
     return (
       <article>
@@ -152,11 +156,6 @@ export function RenderRoutedContent({
             {doc.authorName ? <p className="mt-4 text-sm text-white/60">{doc.authorName}</p> : null}
           </div>
         </section>
-        {doc.content ? (
-          <div className="mx-auto max-w-3xl px-6 py-14 text-[var(--foreground)] [&_a]:text-[var(--color-pool-deep)] [&_h2]:mt-8 [&_h2]:font-[family-name:var(--font-display)] [&_h2]:text-3xl [&_h2]:text-[var(--color-navy-deep)] [&_h3]:mt-6 [&_h3]:text-xl [&_h3]:font-semibold [&_li]:mt-2 [&_p]:mt-4 [&_ul]:mt-4 [&_ul]:list-disc [&_ul]:pl-5">
-            <RichText data={doc.content as never} />
-          </div>
-        ) : null}
         <p className="mx-auto max-w-3xl px-6 pb-16">
           <Link href="/blogs" className="text-sm font-semibold text-[var(--color-pool-deep)]">
             Back to the blog
