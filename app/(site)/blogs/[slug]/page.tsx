@@ -2,9 +2,9 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { CmsArticle } from "@/components/cms/CmsArticle";
 import { cmsMetadata } from "@/lib/cms/generateMeta";
-import { cmsDocToArticle, queryBlogPost } from "@/lib/cms/posts";
+import { getPublishedBlogArticle } from "@/lib/cms/posts";
 import { ArticlePost } from "../../components/articles/ArticlePost";
-import { ARTICLES, getArticle, getRelatedArticles } from "../../../../lib/articles";
+import { ARTICLES, getRelatedArticles } from "../../../../lib/articles";
 import { SITE_URL, BUSINESS } from "../../../../lib/business";
 
 type Params = { slug: string };
@@ -19,9 +19,9 @@ export async function generateMetadata({
   params: Promise<Params>;
 }): Promise<Metadata> {
   const { slug } = await params;
-  const doc = await queryBlogPost(slug);
-  const article = (doc ? cmsDocToArticle(doc) : null) ?? getArticle(slug);
-  if (!article) return {};
+  const resolved = await getPublishedBlogArticle(slug);
+  if (!resolved) notFound();
+  const { article } = resolved;
 
   const canonical = `${SITE_URL}/blogs/${article.slug}`;
   const image = article.hero.src
@@ -29,7 +29,7 @@ export async function generateMetadata({
       ? article.hero.src
       : `${SITE_URL}${article.hero.src}`
     : undefined;
-  return cmsMetadata(`/blogs/${article.slug}`, {
+  const metadata: Metadata = {
     title: article.title,
     description: article.excerpt,
     keywords: article.keywords.join(", "),
@@ -50,7 +50,9 @@ export async function generateMetadata({
       description: article.excerpt,
       ...(image ? { images: [image] } : {}),
     },
-  });
+  };
+  if (!resolved.fromCMS) return metadata;
+  return cmsMetadata(`/blogs/${article.slug}`, metadata);
 }
 
 export default async function Page({
@@ -59,13 +61,12 @@ export default async function Page({
   params: Promise<Params>;
 }) {
   const { slug } = await params;
-  const doc = await queryBlogPost(slug);
-  const cmsArticle = doc ? cmsDocToArticle(doc) : null;
-  if (cmsArticle) {
-    return <CmsArticle article={cmsArticle} path={doc?.path} />;
+  const resolved = await getPublishedBlogArticle(slug);
+  if (!resolved) notFound();
+  const { article } = resolved;
+  if (resolved.fromCMS) {
+    return <CmsArticle article={article} path={resolved.path} />;
   }
-  const article = getArticle(slug);
-  if (!article) notFound();
 
   const related = getRelatedArticles(slug, 2);
   const canonical = `${SITE_URL}/blogs/${article.slug}`;

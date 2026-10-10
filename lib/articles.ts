@@ -1,3 +1,5 @@
+import { isArticleLive } from "./cms/schedule";
+
 /**
  * Editorial data for the /blogs hub and individual posts.
  * Each article is service-focused (custom features, pool remodel, pool
@@ -1887,5 +1889,5 @@ export function getArticle(slug: string) {
 }
 
 export function getRelatedArticles(slug: string, limit = 2) {
-  return ARTICLES.filter((a) => a.slug !== slug).slice(0, limit);
+  return ARTICLES.filter((a) => a.slug !== slug && isArticleLive(a.publishedAt)).slice(0, limit);
 }

@@ -1,14 +1,13 @@
 import type { Metadata } from "next";
 
+import { publicMediaUrl } from "./lexical-blocks";
 import { queryRoutedContentByPath } from "./queries";
 import { withCMS } from "./safe";
 import type { CmsRoutedDoc } from "./types";
 import { getPublicSiteURL, normalizeCmsPath } from "./url";
 
 function mediaUrl(image: unknown): string | undefined {
-  if (!image || typeof image !== "object" || !("url" in image)) return undefined;
-  const url = (image as { url?: string | null }).url;
-  return typeof url === "string" && url.trim() ? url : undefined;
+  return publicMediaUrl(image)?.url;
 }
 
 export function metadataFromDoc(doc: CmsRoutedDoc, fallback: Metadata): Metadata {
