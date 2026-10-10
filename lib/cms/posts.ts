@@ -1,11 +1,13 @@
 import type { Where } from "payload";
+import { connection } from "next/server";
 import { cache } from "react";
 
-import { ARTICLES, type Article, type ArticleBlock } from "@/lib/articles";
+import { ARTICLES, getArticle, type Article, type ArticleBlock } from "@/lib/articles";
 
 import { lexicalToArticleBlocks, publicMediaUrl } from "./lexical-blocks";
 import { isCMSConfigured, getCMS } from "./payload";
 import { withCMS } from "./safe";
+import { articleGoesLiveAt, formatArticleDate, isArticleLive } from "./schedule";
 import type { CmsRoutedDoc } from "./types";
 import { normalizeCmsPath } from "./url";
 
@@ -27,19 +29,6 @@ function slugFromDoc(doc: CmsRoutedDoc): string | null {
   if (!path.startsWith("/blogs/")) return null;
   const fromPath = path.slice("/blogs/".length);
   return fromPath && !fromPath.includes("/") ? fromPath : null;
-}
-
-export function formatArticleDate(value: string | null | undefined): string {
-  if (!value) return "";
-  const normalized = /^\d{4}-\d{2}-\d{2}$/.test(value) ? `${value}T00:00:00Z` : value;
-  const date = new Date(normalized);
-  if (Number.isNaN(date.getTime())) return "";
-  return new Intl.DateTimeFormat("en-US", {
-    month: "short",
-    day: "numeric",
-    year: "numeric",
-    timeZone: "UTC",
-  }).format(date);
 }
 
 function wordCount(blocks: ArticleBlock[]): number {
@@ -78,7 +67,15 @@ export function cmsDocToArticle(doc: CmsRoutedDoc): Article | null {
 
   const body = lexicalToArticleBlocks(doc.content);
   const hero = publicMediaUrl(doc.heroImage);
-  const publishedRaw = doc.publishedAt || doc.sourceUpdatedAt || doc.updatedAt || "";
+  const inlineImage = body.find((block) => block.type === "image");
+  const image =
+    hero?.url
+      ? { src: hero.url, alt: hero.alt || title }
+      : inlineImage && inlineImage.type === "image"
+        ? { src: inlineImage.src, alt: inlineImage.alt || title }
+        : null;
+  // Only the scheduled publish date. sourceUpdatedAt and updatedAt are edit times.
+  const publishedRaw = typeof doc.publishedAt === "string" ? doc.publishedAt.trim() : "";
   const authorName = doc.authorName?.trim() || KNOWN_AUTHOR.name;
   const author =
     authorName === KNOWN_AUTHOR.name
@@ -96,10 +93,10 @@ export function cmsDocToArticle(doc: CmsRoutedDoc): Article | null {
     tag: category,
     readTime: `${minutes} min`,
     date: formatArticleDate(publishedRaw),
-    publishedAt: publishedRaw || "1970-01-01",
+    publishedAt: publishedRaw,
     author,
-    hero: { src: hero?.url || "", alt: hero?.alt || title },
-    card: { src: hero?.url || "", alt: hero?.alt || title },
+    hero: image ?? { src: "", alt: title },
+    card: image ?? { src: "", alt: title },
     keywords: [],
     related: relatedLinks(doc),
     body,
@@ -134,9 +131,9 @@ export function mergeBlogArticles(hardcoded: Article[], cms: Article[]): Article
   }
 
   return [...bySlug.values()].sort((a, b) => {
-    const aTime = Date.parse(a.publishedAt);
-    const bTime = Date.parse(b.publishedAt);
-    return (Number.isNaN(bTime) ? 0 : bTime) - (Number.isNaN(aTime) ? 0 : aTime);
+    const aTime = articleGoesLiveAt(a.publishedAt) ?? 0;
+    const bTime = articleGoesLiveAt(b.publishedAt) ?? 0;
+    return bTime - aTime;
   });
 }
 
@@ -194,9 +191,49 @@ export async function queryPublishedPosts(): Promise<CmsRoutedDoc[]> {
   }, []);
 }
 
+function liveArticles(articles: Article[], now: number, includeScheduled: boolean): Article[] {
+  if (includeScheduled) return articles;
+  return articles.filter((article) => isArticleLive(article.publishedAt, now));
+}
+
+export type ResolvedBlogArticle = {
+  article: Article;
+  /** True when the published CMS document is the visible source. */
+  fromCMS: boolean;
+  path?: string | null;
+};
+
+/**
+ * One article per slug. A future CMS schedule does not replace a post that is
+ * already public from the hardcoded source, and it does not add a second card.
+ */
+export function resolveBlogArticle(
+  slug: string,
+  doc: CmsRoutedDoc | null,
+  options?: { now?: number; includeScheduled?: boolean },
+): ResolvedBlogArticle | null {
+  const now = options?.now ?? Date.now();
+  const includeScheduled = options?.includeScheduled ?? false;
+  const hardcoded = getArticle(slug);
+  const cmsArticle = doc ? cmsDocToArticle(doc) : null;
+  const visibleHardcoded = liveArticles(hardcoded ? [hardcoded] : [], now, includeScheduled);
+  const visibleCms = liveArticles(cmsArticle ? [cmsArticle] : [], now, includeScheduled);
+  const article = mergeBlogArticles(visibleHardcoded, visibleCms)[0];
+  if (!article) return null;
+  return {
+    article,
+    fromCMS: visibleCms.length > 0,
+    path: visibleCms.length > 0 ? doc?.path : null,
+  };
+}
+
 /** Published CMS posts merged into the designed list. Hardcoded articles are the fallback. */
 export async function getBlogArticles(): Promise<Article[]> {
-  if (!isCMSConfigured()) return ARTICLES;
+  await connection();
+  const now = Date.now();
+  const draft = await draftEnabled();
+  const hardcoded = liveArticles(ARTICLES, now, draft);
+  if (!isCMSConfigured()) return hardcoded;
   return withCMS(async () => {
     const docs = await queryPublishedPosts();
     const cmsArticles = docs
@@ -206,6 +243,14 @@ export async function getBlogArticles(): Promise<Article[]> {
       })
       .map((doc) => cmsDocToArticle(doc))
       .filter((article): article is Article => article !== null);
-    return mergeBlogArticles(ARTICLES, cmsArticles);
-  }, ARTICLES);
+    return mergeBlogArticles(hardcoded, liveArticles(cmsArticles, now, draft));
+  }, hardcoded);
 }
+
+/** Visible article for a slug. Future posts stay hidden until their publish instant. */
+export const getPublishedBlogArticle = cache(async (slug: string): Promise<ResolvedBlogArticle | null> => {
+  await connection();
+  const draft = await draftEnabled();
+  const doc = await queryBlogPost(slug);
+  return resolveBlogArticle(slug, doc, { includeScheduled: draft });
+});

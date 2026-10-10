@@ -81,12 +81,13 @@ export async function queryPublishedSeoDocs(): Promise<CmsSeoDoc[]> {
           excludeFromSitemap: true,
           updatedAt: true,
           sourceUpdatedAt: true,
+          publishedAt: true,
         },
       }),
     ]);
 
     const docs: CmsSeoDoc[] = [];
-    for (const doc of [...pages.docs, ...posts.docs]) {
+    for (const doc of pages.docs) {
       const path = typeof doc.path === "string" ? doc.path : null;
       if (!path) continue;
       docs.push({
@@ -95,6 +96,18 @@ export async function queryPublishedSeoDocs(): Promise<CmsSeoDoc[]> {
         excludeFromSitemap: Boolean(doc.excludeFromSitemap),
         updatedAt: typeof doc.updatedAt === "string" ? doc.updatedAt : null,
         sourceUpdatedAt: typeof doc.sourceUpdatedAt === "string" ? doc.sourceUpdatedAt : null,
+      });
+    }
+    for (const doc of posts.docs) {
+      const path = typeof doc.path === "string" ? doc.path : null;
+      if (!path) continue;
+      docs.push({
+        path: normalizeCmsPath(path),
+        noIndex: Boolean(doc.noIndex),
+        excludeFromSitemap: Boolean(doc.excludeFromSitemap),
+        updatedAt: typeof doc.updatedAt === "string" ? doc.updatedAt : null,
+        sourceUpdatedAt: typeof doc.sourceUpdatedAt === "string" ? doc.sourceUpdatedAt : null,
+        publishedAt: typeof doc.publishedAt === "string" ? doc.publishedAt : null,
       });
     }
     return docs;

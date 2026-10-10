@@ -55,6 +55,20 @@ export default buildConfig({
   editor: lexicalEditor(),
   globals: [Header, Footer, SiteSettings],
   plugins,
+  onInit: async (payload) => {
+    // Cloud storage selects media._objectkey. Production was created before that
+    // column existed, so every media read 500s and uploaded images cannot render.
+    try {
+      const db = payload.db as {
+        drizzle?: { execute: (query: unknown) => Promise<unknown> };
+      };
+      if (!db.drizzle) return;
+      const { sql } = await import("@payloadcms/db-vercel-postgres");
+      await db.drizzle.execute(sql`ALTER TABLE "media" ADD COLUMN IF NOT EXISTS "_objectkey" varchar`);
+    } catch (error) {
+      payload.logger.error({ err: error, msg: "[cms] ensure media _objectkey column" });
+    }
+  },
   secret: process.env.PAYLOAD_SECRET || "",
   serverURL: getServerURL(),
   sharp,

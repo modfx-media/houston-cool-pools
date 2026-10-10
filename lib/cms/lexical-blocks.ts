@@ -33,17 +33,37 @@ function asNode(value: unknown): LexNode | null {
   return value as LexNode;
 }
 
-/** Public media URL. Local /media files 404 on Vercel once Blob is the store. */
+function payloadMediaFileUrl(raw: string): string | null {
+  const [pathname, query] = raw.split("?");
+  const relative = pathname.replace(/^\//, "");
+  if (!relative.startsWith("media/")) return null;
+  const filename = relative.slice("media/".length);
+  if (!filename || filename.includes("..")) return null;
+  const encoded = filename.split("/").map((segment) => encodeURIComponent(segment)).join("/");
+  return `/api/media/file/${encoded}${query ? `?${query}` : ""}`;
+}
+
+/**
+ * URL the site can render. Blob and /images files are used as stored.
+ * Local /media paths 404 on Vercel, so they are served through Payload's file
+ * route, which reads the Blob object.
+ */
 export function publicMediaUrl(value: unknown): { url: string; alt: string; mimeType?: string } | null {
   if (!isRecord(value)) return null;
   const raw = typeof value.url === "string" ? value.url.trim() : "";
-  if (!raw || raw.startsWith("/media/") || raw.startsWith("media/")) return null;
-  const allowed =
-    raw.startsWith("https://") || raw.startsWith("http://") || raw.startsWith("/images/");
-  if (!allowed) return null;
+  if (!raw) return null;
+  let url: string | null = null;
+  if (raw.startsWith("https://") || raw.startsWith("http://") || raw.startsWith("/images/")) {
+    url = raw;
+  } else if (raw.startsWith("/api/media/file/")) {
+    url = raw;
+  } else {
+    url = payloadMediaFileUrl(raw);
+  }
+  if (!url) return null;
   const alt = typeof value.alt === "string" ? value.alt : "";
   const mimeType = typeof value.mimeType === "string" ? value.mimeType : undefined;
-  return { url: raw, alt, mimeType };
+  return { url, alt, mimeType };
 }
 
 function safeHref(href: string | undefined): string | undefined {

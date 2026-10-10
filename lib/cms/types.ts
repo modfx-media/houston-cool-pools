@@ -70,4 +70,5 @@ export type CmsSeoDoc = {
   excludeFromSitemap?: boolean | null;
   updatedAt?: string | null;
   sourceUpdatedAt?: string | null;
+  publishedAt?: string | null;
 };
