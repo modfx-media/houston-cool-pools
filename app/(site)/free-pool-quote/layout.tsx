@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Script from "next/script";
 import { TopBar } from "./_components/TopBar";
 import { QuoteModal } from "./_components/QuoteModal";
-import { MobileStickyCTA } from "./_components/MobileStickyCTA";
+import { LpEstimatorBar } from "./_components/LpEstimatorBar";
 
 export const metadata: Metadata = {
   title: "Get a Free Pool Quote | Houston Cool Pools",
@@ -41,7 +41,7 @@ export default function FreePoolQuoteLayout({
   children: React.ReactNode;
 }) {
   return (
-    <div className="lp-root min-h-screen bg-[#0a1628] pb-20 text-white md:pb-0">
+    <div className="lp-root min-h-screen bg-[#0a1628] pb-28 text-white sm:pb-20">
       {/* Google tag (gtag.js) — Google Ads conversion tracking for this
           landing page + its thank-you page (this layout wraps both). */}
       <Script
@@ -84,7 +84,7 @@ export default function FreePoolQuoteLayout({
       <TopBar />
       {children}
       <QuoteModal />
-      <MobileStickyCTA />
+      <LpEstimatorBar />
     </div>
   );
 }

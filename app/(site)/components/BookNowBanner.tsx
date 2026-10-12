@@ -26,7 +26,7 @@ const HIDDEN_PATHS = [
   "/poolfinancing",
 ];
 
-export function BookNowBanner() {
+export function BookNowBanner({ alwaysOn = false }: { alwaysOn?: boolean } = {}) {
   const pathname = usePathname() ?? "";
   const [visible, setVisible] = useState(false);
   const [dismissed, setDismissed] = useState(false);
@@ -84,7 +84,9 @@ export function BookNowBanner() {
   }
 
   const hiddenRoute = HIDDEN_PATHS.some((p) => pathname === p || pathname.startsWith(`${p}/`));
-  const show = visible && !dismissed && !hiddenRoute && !nearFooter && consentDecided;
+  const show = alwaysOn
+    ? !dismissed
+    : visible && !dismissed && !hiddenRoute && !nearFooter && consentDecided;
 
   return (
     <AnimatePresence>
