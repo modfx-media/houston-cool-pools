@@ -400,76 +400,10 @@ export function Hero() {
         </div>
         </div>
 
-        {/* Stats card */}
-        <motion.div
-          initial={{ opacity: 0, y: 32 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.9, delay: 1.2, ease }}
-          className="relative mx-auto mt-8 w-full max-w-5xl sm:mt-14"
-        >
-          {/* glow border */}
-          <div
-            aria-hidden
-            className="absolute -inset-px rounded-2xl bg-gradient-to-r from-[#00b4d8]/40 via-transparent to-[#00b4d8]/40"
-          />
-          <div className="relative grid grid-cols-2 gap-4 rounded-2xl border border-white/10 bg-[#0a1628]/85 p-5 backdrop-blur-md sm:grid-cols-4 sm:gap-6 sm:p-7">
-            <StatBlock value={1996} label="Established" type="year" />
-            <StatBlock value={1600} suffix="+" label="Pools Built" />
-            <StatBlock value={100} suffix="%" label="On-Budget" />
-            <StatBlock display="A+" label="BBB Rating" />
-          </div>
-        </motion.div>
       </motion.div>
 
       <ScrollCue />
       <AnimatedWave />
     </section>
-  );
-}
-
-function StatBlock({
-  value,
-  suffix,
-  label,
-  display,
-  type,
-}: {
-  value?: number;
-  suffix?: string;
-  label: string;
-  display?: string;
-  type?: "year";
-}) {
-  return (
-    <div className="group relative text-center">
-      <motion.div
-        whileHover={{ y: -3 }}
-        transition={{ duration: 0.3, ease }}
-        className="font-display text-3xl font-extrabold tracking-tight text-[#00b4d8] sm:text-4xl lg:text-5xl"
-      >
-        {display ? (
-          display
-        ) : type === "year" ? (
-          <CountUp
-            to={value ?? 0}
-            duration={2}
-            format={(n) => Math.round(n).toString()}
-          />
-        ) : (
-          <CountUp to={value ?? 0} suffix={suffix ?? ""} duration={1.8} />
-        )}
-      </motion.div>
-      <div className="mt-1.5 text-[10px] font-semibold uppercase tracking-[0.22em] text-[#94a3b8] sm:text-xs">
-        {label}
-      </div>
-      <motion.div
-        aria-hidden
-        initial={{ scaleX: 0 }}
-        whileInView={{ scaleX: 1 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.8, delay: 0.4, ease }}
-        className="mx-auto mt-3 h-px w-12 origin-center bg-gradient-to-r from-transparent via-[#00b4d8]/60 to-transparent"
-      />
-    </div>
   );
 }
