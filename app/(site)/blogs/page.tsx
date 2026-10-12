@@ -4,6 +4,8 @@ import type { Metadata } from "next";
 import { buildPageMetadata } from "../../../lib/business";
 import { ArticlesIndex } from "../components/articles/ArticlesIndex";
 
+
+export const revalidate = 300;
 const SLUG = "blogs";
 const CANONICAL = `https://houstoncoolpools.com/${SLUG}`;
 
