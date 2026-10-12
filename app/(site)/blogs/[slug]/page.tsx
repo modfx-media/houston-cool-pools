@@ -7,6 +7,8 @@ import { ArticlePost } from "../../components/articles/ArticlePost";
 import { ARTICLES, getRelatedArticles } from "../../../../lib/articles";
 import { SITE_URL, BUSINESS } from "../../../../lib/business";
 
+
+export const revalidate = 300;
 type Params = { slug: string };
 
 export function generateStaticParams(): Params[] {

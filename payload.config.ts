@@ -16,6 +16,7 @@ import { SiteSettings } from "./src/cms/globals/SiteSettings";
 import { plugins } from "./src/cms/plugins";
 import { getCorsOrigins, getServerURL } from "./lib/cms/url";
 
+import { scheduledPublishPlugin } from "./scheduled-publish";
 const filename = fileURLToPath(import.meta.url);
 const dirname = path.dirname(filename);
 
@@ -54,7 +55,7 @@ export default buildConfig({
   }),
   editor: lexicalEditor(),
   globals: [Header, Footer, SiteSettings],
-  plugins,
+  plugins: [scheduledPublishPlugin(), ...plugins],
   onInit: async (payload) => {
     // Cloud storage selects media._objectkey. Production was created before that
     // column existed, so every media read 500s and uploaded images cannot render.

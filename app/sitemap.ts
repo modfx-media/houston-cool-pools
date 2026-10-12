@@ -9,6 +9,8 @@ import { articleGoesLiveAt, isArticleLive } from "../lib/cms/schedule";
 import { normalizeCmsPath } from "../lib/cms/url";
 import type { CmsSeoDoc } from "../lib/cms/types";
 
+
+export const revalidate = 300;
 function frequencyFor(priority: number): MetadataRoute.Sitemap[number]["changeFrequency"] {
   if (priority >= 0.9) return "weekly";
   if (priority >= 0.7) return "monthly";
