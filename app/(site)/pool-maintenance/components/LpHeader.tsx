@@ -16,12 +16,13 @@ export function LpHeader() {
         <div className="flex items-center gap-3 md:gap-5">
           <a
             href={PHONE_HREF}
-            className="hidden whitespace-nowrap text-sm font-semibold text-white transition-colors hover:text-[var(--color-gold-light)] sm:inline-block"
+            className="whitespace-nowrap text-sm font-semibold text-white transition-colors hover:text-[var(--color-gold-light)]"
           >
-            {PHONE_DISPLAY}
+            <span className="sm:hidden">Call</span>
+            <span className="hidden sm:inline">{PHONE_DISPLAY}</span>
           </a>
           <a
-            href="#booking"
+            href={PHONE_HREF}
             className="inline-flex shrink-0 items-center gap-2 whitespace-nowrap rounded-full bg-[var(--color-pool)] px-5 py-2.5 text-[11px] font-bold uppercase tracking-[0.18em] text-white shadow-lg transition-all hover:-translate-y-0.5 hover:shadow-xl"
           >
             Book a Call

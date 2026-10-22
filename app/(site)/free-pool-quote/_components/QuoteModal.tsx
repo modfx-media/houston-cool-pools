@@ -1,9 +1,9 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
 import { AnimatePresence, motion } from "motion/react";
 import Script from "next/script";
+import { isGhlLeadSuccess } from "@/lib/tracking/ads";
 
 const FORM_ID = "XDBGRHc1OgzH7jpnljtT";
 const FORM_NAME = "Google LP Opt-In Form";
@@ -13,7 +13,6 @@ const ease = [0.22, 1, 0.36, 1] as const;
 
 export function QuoteModal() {
   const [open, setOpen] = useState(false);
-  const router = useRouter();
 
   // Open modal when any CTA pointing at #quote-form is clicked,
   // or any element marked with [data-quote-modal].
@@ -25,6 +24,8 @@ export function QuoteModal() {
         'a[href="#quote-form"], a[href$="#quote-form"], [data-quote-modal]',
       );
       if (!trigger) return;
+      // Header and hero "jump to form" links scroll to the inline form.
+      if (trigger.hasAttribute("data-hcp-form-jump")) return;
       e.preventDefault();
       setOpen(true);
     }
@@ -32,37 +33,16 @@ export function QuoteModal() {
     return () => document.removeEventListener("click", onClick);
   }, []);
 
-  // Detect form submission from the MillCreek iframe and route to TYP.
+  // Close when GoHighLevel accepts the submission. Conversion + thank-you
+  // routing live in LandingTracking so this modal cannot double-count.
   useEffect(() => {
     function onMessage(e: MessageEvent) {
-      const origin = typeof e.origin === "string" ? e.origin : "";
-      if (!/millcreekmktg|leadconnectorhq|msgsndr/i.test(origin)) return;
-
-      let raw: string;
-      try {
-        raw =
-          typeof e.data === "string" ? e.data : JSON.stringify(e.data ?? "");
-      } catch {
-        raw = String(e.data ?? "");
-      }
-
-      // Heuristic: any "submit/success/complete" message from the form origin
-      // is treated as a successful submission. We exclude validation/error noise.
-      const submitted =
-        /form[_-]?submit|form[_-]?submitted|submission[_-]?(success|complete)|form[_-]?success/i.test(
-          raw,
-        ) ||
-        (/submit/i.test(raw) && /(success|complete|submitted|done)/i.test(raw));
-      const errored = /error|invalid|fail/i.test(raw);
-
-      if (submitted && !errored) {
-        setOpen(false);
-        router.push("/free-pool-quote/thank-you");
-      }
+      if (!isGhlLeadSuccess(e)) return;
+      setOpen(false);
     }
     window.addEventListener("message", onMessage);
     return () => window.removeEventListener("message", onMessage);
-  }, [router]);
+  }, []);
 
   // Body scroll lock + ESC to close
   useEffect(() => {
@@ -194,7 +174,7 @@ export function QuoteModal() {
               <div className="relative flex-1 overflow-y-auto bg-white">
                 <iframe
                   src={FORM_SRC}
-                  id={`inline-${FORM_ID}`}
+                  id={`modal-${FORM_ID}`}
                   data-layout='{"id":"INLINE"}'
                   data-trigger-type="alwaysShow"
                   data-trigger-value=""
@@ -204,7 +184,7 @@ export function QuoteModal() {
                   data-deactivation-value=""
                   data-form-name={FORM_NAME}
                   data-height={String(FORM_INITIAL_HEIGHT)}
-                  data-layout-iframe-id={`inline-${FORM_ID}`}
+                  data-layout-iframe-id={`modal-${FORM_ID}`}
                   data-form-id={FORM_ID}
                   title={FORM_NAME}
                   height={FORM_INITIAL_HEIGHT}

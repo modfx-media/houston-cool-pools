@@ -27,6 +27,7 @@ import { BookingForm } from "./components/BookingForm";
 import { BookingModal } from "./components/BookingModal";
 import { LpHeader } from "./components/LpHeader";
 import { LpFooter } from "./components/LpFooter";
+import { PHONE_HREF } from "./_lib/phone";
 import { ProblemStrip } from "./components/ProblemStrip";
 import { Gallery } from "./components/Gallery";
 import { HowItWorks } from "./components/HowItWorks";
@@ -225,6 +226,12 @@ export default function PoolMaintenancePage() {
 
       <BookingModal />
 
+      <section id="booking" className="bg-slate-50 px-6 py-8 md:px-10 md:py-20">
+        <div className="mx-auto max-w-2xl">
+          <BookingForm />
+        </div>
+      </section>
+
       <Hero />
 
       <ProblemStrip />
@@ -355,7 +362,7 @@ export default function PoolMaintenancePage() {
 
           <div className="mt-12 text-center">
             <a
-              href="#booking"
+              href={PHONE_HREF}
               className="group inline-flex items-center gap-3 rounded-full bg-white px-8 py-4 text-xs font-bold uppercase tracking-[0.22em] text-[var(--color-navy-deep)] shadow-lg transition-all hover:-translate-y-0.5 hover:shadow-2xl"
             >
               Book a Call
@@ -445,13 +452,6 @@ export default function PoolMaintenancePage() {
       </section>
 
       <EstimatorSection />
-
-      {/* ----- Section 4.5: Booking ----- */}
-      <section id="booking" className="bg-slate-50 px-6 py-20 md:px-10">
-        <div className="mx-auto max-w-2xl">
-          <BookingForm />
-        </div>
-      </section>
 
       {/* ----- Section 6: CTA Banner ----- */}
       <PoolCtaBanner heading="Ready for a pool that takes care of itself?" href="#booking" />

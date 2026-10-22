@@ -12,6 +12,7 @@ import { Footer } from "./components/Footer";
 import { TaglineBanner } from "./components/TaglineBanner";
 import { ChromeGate } from "./components/ChromeGate";
 import { AnalyticsScripts } from "./components/AnalyticsScripts";
+import { LandingTracking } from "./components/tracking/LandingTracking";
 import { CookieConsent } from "./components/CookieConsent";
 
 const outfit = Outfit({
@@ -58,6 +59,7 @@ export default async function RootLayout({
     >
       <body className="min-h-full flex flex-col" suppressHydrationWarning>
         <AnalyticsScripts />
+        <LandingTracking />
         <script
           type="application/ld+json"
           // eslint-disable-next-line react/no-danger

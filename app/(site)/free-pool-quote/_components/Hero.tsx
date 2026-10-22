@@ -211,7 +211,6 @@ function HeroSlideshow() {
             src={HERO_SLIDES[index].src}
             alt={HERO_SLIDES[index].alt}
             fill
-            priority={index === 0}
             sizes="100vw"
             className="object-cover object-[center_35%] sm:object-center"
           />

@@ -25,6 +25,7 @@ export default function FreePoolQuotePage() {
   return (
     <>
       <main>
+        <QuoteForm />
         <Hero />
         <ServicesMarquee />
         <Offer />
@@ -36,7 +37,6 @@ export default function FreePoolQuotePage() {
         <BeforeAfter />
         <WhyChoose />
         <Faq />
-        <QuoteForm />
         <ProcessSteps />
         <AreasWeServe />
       </main>
