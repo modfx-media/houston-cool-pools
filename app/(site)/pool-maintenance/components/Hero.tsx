@@ -3,6 +3,7 @@
 import Image from "next/image";
 import { motion } from "motion/react";
 import { ShieldCheck, BadgeCheck, Clock3 } from "lucide-react";
+import { PHONE_HREF } from "../_lib/phone";
 
 const ease = [0.22, 1, 0.36, 1] as const;
 
@@ -104,7 +105,7 @@ export function Hero() {
             className="mt-8 flex flex-wrap items-center gap-4"
           >
             <a
-              href="#booking"
+              href={PHONE_HREF}
               className="group inline-flex items-center gap-3 rounded-full bg-white px-8 py-4 text-xs font-bold uppercase tracking-[0.22em] text-[var(--color-navy-deep)] shadow-lg transition-all hover:-translate-y-0.5 hover:shadow-2xl"
             >
               Book a Call

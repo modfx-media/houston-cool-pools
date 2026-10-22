@@ -57,7 +57,7 @@ export function BookingModal() {
 
   useEffect(() => {
     function onMessage(event: MessageEvent) {
-      if (!isGhlLeadSuccess(event.origin || "", event.data)) return;
+      if (!isGhlLeadSuccess(event)) return;
       setOpen(false);
     }
     window.addEventListener("message", onMessage);

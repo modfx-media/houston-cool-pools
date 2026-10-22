@@ -137,7 +137,7 @@ export function MeetOwner() {
 
           <div className="mt-8 flex flex-wrap items-center gap-3">
             <a
-              href="#booking"
+              href={PHONE_HREF}
               className="inline-flex items-center justify-center gap-2 rounded-full bg-[var(--color-pool)] px-6 py-3.5 text-sm font-bold uppercase tracking-[0.1em] text-white shadow-lg shadow-[var(--color-pool)]/30 transition hover:bg-[var(--color-pool-deep)]"
             >
               Book a Call

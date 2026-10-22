@@ -24,21 +24,27 @@ export async function generateMetadata(): Promise<Metadata> {
 export default function FreePoolQuotePage() {
   return (
     <>
-      <main>
-        <Hero />
-        <ServicesMarquee />
-        <Offer />
-        <QuoteForm />
-        <Financing />
-        <Gallery />
-        <Testimonials />
-        <PoolTypes />
-        <MeetOwner />
-        <BeforeAfter />
-        <WhyChoose />
-        <Faq />
-        <ProcessSteps />
-        <AreasWeServe />
+      <main className="flex flex-col">
+        <div className="order-2 md:order-none">
+          <Hero />
+        </div>
+        <div className="order-1 md:order-none">
+          <QuoteForm />
+        </div>
+        <div className="order-3 md:order-none">
+          <ServicesMarquee />
+          <Offer />
+          <Financing />
+          <Gallery />
+          <Testimonials />
+          <PoolTypes />
+          <MeetOwner />
+          <BeforeAfter />
+          <WhyChoose />
+          <Faq />
+          <ProcessSteps />
+          <AreasWeServe />
+        </div>
       </main>
       <LpFooter />
     </>

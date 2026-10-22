@@ -24,6 +24,8 @@ export function QuoteModal() {
         'a[href="#quote-form"], a[href$="#quote-form"], [data-quote-modal]',
       );
       if (!trigger) return;
+      // Header and hero "jump to form" links scroll to the inline form.
+      if (trigger.hasAttribute("data-hcp-form-jump")) return;
       e.preventDefault();
       setOpen(true);
     }
@@ -35,7 +37,7 @@ export function QuoteModal() {
   // routing live in LandingTracking so this modal cannot double-count.
   useEffect(() => {
     function onMessage(e: MessageEvent) {
-      if (!isGhlLeadSuccess(typeof e.origin === "string" ? e.origin : "", e.data)) return;
+      if (!isGhlLeadSuccess(e)) return;
       setOpen(false);
     }
     window.addEventListener("message", onMessage);
@@ -172,7 +174,7 @@ export function QuoteModal() {
               <div className="relative flex-1 overflow-y-auto bg-white">
                 <iframe
                   src={FORM_SRC}
-                  id={`inline-${FORM_ID}`}
+                  id={`modal-${FORM_ID}`}
                   data-layout='{"id":"INLINE"}'
                   data-trigger-type="alwaysShow"
                   data-trigger-value=""
@@ -182,7 +184,7 @@ export function QuoteModal() {
                   data-deactivation-value=""
                   data-form-name={FORM_NAME}
                   data-height={String(FORM_INITIAL_HEIGHT)}
-                  data-layout-iframe-id={`inline-${FORM_ID}`}
+                  data-layout-iframe-id={`modal-${FORM_ID}`}
                   data-form-id={FORM_ID}
                   title={FORM_NAME}
                   height={FORM_INITIAL_HEIGHT}

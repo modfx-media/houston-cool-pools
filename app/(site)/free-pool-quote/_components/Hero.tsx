@@ -189,25 +189,11 @@ function ScrollCue() {
 function HeroSlideshow() {
   const [index, setIndex] = useState(0);
   useEffect(() => {
-    // The first photo is the LCP image and is preloaded. Rotating in another
-    // full-bleed photo on a timer makes that later photo the LCP element.
-    // Start the crossfade only after the visitor interacts.
-    let interval = 0;
-    const start = () => {
-      if (interval) return;
-      interval = window.setInterval(
-        () => setIndex((i) => (i + 1) % HERO_SLIDES.length),
-        SLIDE_INTERVAL_MS,
-      );
-    };
-    const opts = { passive: true } as const;
-    window.addEventListener("pointerdown", start, opts);
-    window.addEventListener("keydown", start);
-    return () => {
-      window.removeEventListener("pointerdown", start);
-      window.removeEventListener("keydown", start);
-      window.clearInterval(interval);
-    };
+    const id = window.setInterval(
+      () => setIndex((i) => (i + 1) % HERO_SLIDES.length),
+      SLIDE_INTERVAL_MS,
+    );
+    return () => window.clearInterval(id);
   }, []);
 
   const slide = HERO_SLIDES[index];
@@ -387,6 +373,7 @@ export function Hero() {
           >
             <motion.a
               href="#quote-form"
+              data-hcp-form-jump
               whileHover={{ y: -2 }}
               whileTap={{ scale: 0.97 }}
               className="group relative inline-flex items-center justify-center overflow-hidden rounded-full bg-[#00b4d8] px-7 py-3.5 text-sm font-semibold text-[#0a1628] shadow-lg shadow-[#00b4d8]/30 transition hover:bg-white"

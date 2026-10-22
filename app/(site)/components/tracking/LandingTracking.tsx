@@ -8,8 +8,8 @@ import {
   ADS_PHONE_CLICK_SEND_TO,
   GOOGLE_ADS_ID,
   isGhlLeadSuccess,
-  isLpTrackingPhone,
-  LEAD_CONVERSION_STORAGE_KEY,
+  LEAD_PENDING_STORAGE_KEY,
+  LEAD_PENDING_TTL_MS,
   LP_PHONE_DISPLAY,
   sendGa4Event,
 } from "@/lib/tracking/ads";
@@ -57,18 +57,34 @@ export function ensureAdsConfig() {
   });
 }
 
-/**
- * One lead conversion per browser tab. The thank-you page and the form
- * success callback share this guard so a redirect cannot double-count.
- * Returns true only the first time.
- */
-export function trackLeadConversion(): boolean {
+function markLeadPending() {
   try {
-    if (sessionStorage.getItem(LEAD_CONVERSION_STORAGE_KEY) === "1") return false;
-    sessionStorage.setItem(LEAD_CONVERSION_STORAGE_KEY, "1");
+    sessionStorage.setItem(LEAD_PENDING_STORAGE_KEY, String(Date.now()));
   } catch {
-    /* private mode: still fire, but a second call in this document can repeat */
+    /* private mode: the thank-you page will not see a flag */
   }
+}
+
+/** True once, when a success message in this tab set a fresh timestamp. */
+function consumeLeadPending(): boolean {
+  try {
+    const raw = sessionStorage.getItem(LEAD_PENDING_STORAGE_KEY);
+    sessionStorage.removeItem(LEAD_PENDING_STORAGE_KEY);
+    const at = Number(raw);
+    if (!raw || !Number.isFinite(at)) return false;
+    const age = Date.now() - at;
+    return age >= 0 && age <= LEAD_PENDING_TTL_MS;
+  } catch {
+    return false;
+  }
+}
+
+/**
+ * One Ads lead conversion and one GA4 generate_lead. Call only after
+ * consumeLeadPending() so a thank-you refresh or a direct visit does not count,
+ * and a later submission can count on its own.
+ */
+export function trackLeadConversion() {
   ensureAdsConfig();
   const gtag = ensureGtag();
   gtag("event", "conversion", {
@@ -77,11 +93,7 @@ export function trackLeadConversion(): boolean {
     currency: "USD",
     transport_type: "beacon",
   });
-  // GA4 is sent on its own collect request. Routing it through gtag on a
-  // page that also has the Ads tag drops the hit, and an unscoped event is
-  // recorded as an unlabeled Ads conversion.
   sendGa4Event("generate_lead", { currency: "USD", value: 1, method: "form" });
-  return true;
 }
 
 let lastPhoneClickAt = 0;
@@ -115,8 +127,8 @@ function leadDestination(pathname: string): string | null {
 
 /**
  * Landing-page conversion wiring. Ads clicks land on these routes with no
- * GTM and no HubSpot form, so the GoHighLevel success message and the
- * thank-you page are the only confirmed-submit signals.
+ * GTM and no HubSpot form, so the GoHighLevel success message is the
+ * confirmed-submit signal and the thank-you page is where it is counted.
  */
 export function LandingTracking() {
   const pathname = usePathname() ?? "";
@@ -132,6 +144,7 @@ export function LandingTracking() {
 
   useEffect(() => {
     if (!onThankYou) return;
+    if (!consumeLeadPending()) return;
     trackLeadConversion();
   }, [onThankYou]);
 
@@ -142,9 +155,9 @@ export function LandingTracking() {
       const target = event.target as Element | null;
       const link = target?.closest?.('a[href^="tel:"]');
       if (!link) return;
-      const href = link.getAttribute("href") || "";
-      if (!isLpTrackingPhone(href)) return;
-      trackPhoneClick(href);
+      // Google's calls-from-website config can swap the href for a forwarding
+      // number. Every tel: link on these landing pages is a call we want.
+      trackPhoneClick(link.getAttribute("href") || "");
     }
 
     document.addEventListener("click", onClick, true);
@@ -160,14 +173,14 @@ export function LandingTracking() {
     let pending: number | undefined;
 
     function onMessage(event: MessageEvent) {
-      if (!isGhlLeadSuccess(event.origin || "", event.data)) return;
-      // The form redirects window.top itself after this message. Wait so we
-      // don't also fire here and then again on the thank-you page. If the
-      // redirect never comes, fire and route from the parent.
+      if (!isGhlLeadSuccess(event)) return;
+      markLeadPending();
+      // The form usually redirects window.top itself. Wait so we don't race
+      // that navigation. If it never comes, route from the parent. The
+      // thank-you page is the only place that fires the conversion.
       window.clearTimeout(pending);
       pending = window.setTimeout(() => {
         if (window.location.pathname.includes("/thank-you")) return;
-        if (!trackLeadConversion()) return;
         router.push(nextPath);
       }, 700);
     }
