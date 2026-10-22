@@ -106,6 +106,10 @@ const FEATURES: SectionLink[] = Array.from({ length: 13 }, (_, i) => ({
 }));
 
 const ARTICLES: SectionLink[] = [
+  { label: "Backyard Addition Ideas for Houston Pool Renovations", href: "/blogs/backyard-addition-ideas-for-houston-pool-renovations" },
+  { label: "Extend Your Houston Backyard Season With a Raised Spa", href: "/blogs/extend-your-houston-backyard-season-with-a-raised-spa" },
+  { label: "Why Fall Is Ideal for Planning Your Katy Pool Project", href: "/blogs/why-fall-is-ideal-for-planning-your-katy-pool-project" },
+  { label: "LED Vs. Traditional Pool Lights: Which Is Best?", href: "/blogs/led-vs-traditional-pool-lights-for-houston-pools" },
   { label: "Utility Coordination for Houston Pool Construction", href: "/blogs/utility-coordination-for-houston-pool-construction" },
   { label: "Freeform or Geometric Pool Designs for Houston", href: "/blogs/freeform-or-geometric-pool-designs-for-houston" },
   { label: "Plan Better Views With Houston Custom Pool Sightlines", href: "/blogs/plan-better-views-with-houston-custom-pool-sightlines" },
