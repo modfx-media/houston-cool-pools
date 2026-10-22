@@ -196,26 +196,39 @@ function HeroSlideshow() {
     return () => window.clearInterval(id);
   }, []);
 
+  const slide = HERO_SLIDES[index];
   return (
     <div className="absolute inset-0 overflow-hidden">
+      {/* First slide is painted immediately so it can be the LCP image.
+          Later slides crossfade on top of it. */}
+      <Image
+        src={HERO_SLIDES[0].src}
+        alt={HERO_SLIDES[0].alt}
+        fill
+        priority
+        fetchPriority="high"
+        sizes="100vw"
+        className="object-cover object-[center_35%] sm:object-center"
+      />
       <AnimatePresence initial={false}>
-        <motion.div
-          key={index}
-          initial={{ opacity: 0, scale: 1.06 }}
-          animate={{ opacity: 1, scale: 1 }}
-          exit={{ opacity: 0 }}
-          transition={{ opacity: { duration: 1.4, ease }, scale: { duration: 7, ease: "easeOut" } }}
-          className="absolute inset-0"
-        >
-          <Image
-            src={HERO_SLIDES[index].src}
-            alt={HERO_SLIDES[index].alt}
-            fill
-            priority={index === 0}
-            sizes="100vw"
-            className="object-cover object-[center_35%] sm:object-center"
-          />
-        </motion.div>
+        {index > 0 && (
+          <motion.div
+            key={slide.src}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 1.2, ease }}
+            className="absolute inset-0"
+          >
+            <Image
+              src={slide.src}
+              alt={slide.alt}
+              fill
+              sizes="100vw"
+              className="object-cover object-[center_35%] sm:object-center"
+            />
+          </motion.div>
+        )}
       </AnimatePresence>
     </div>
   );
@@ -265,7 +278,7 @@ export function Hero() {
         <div className="grid items-center gap-12 lg:grid-cols-[1.15fr_0.85fr] lg:gap-14">
         <motion.div
           variants={heroContainer}
-          initial="hidden"
+          initial={false}
           animate="visible"
           className="flex w-full flex-col items-center text-center lg:items-start lg:text-left"
         >
@@ -295,6 +308,8 @@ export function Hero() {
             </div>
             <motion.div
               variants={wordContainer}
+              initial={false}
+              animate="visible"
               className="mt-4 flex flex-wrap items-baseline justify-center gap-x-4 gap-y-2 font-display text-5xl font-extrabold leading-[1.02] tracking-tight sm:text-7xl lg:justify-start lg:text-[5.25rem]"
             >
               {headlineWords.map((w, i) => (

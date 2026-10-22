@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
 import { AnimatePresence, motion } from "motion/react";
 import { MillCreekFormEmbed } from "../../components/forms/MillCreekForm";
+import { isGhlLeadSuccess } from "@/lib/tracking/ads";
 
 const ease = [0.22, 1, 0.36, 1] as const;
 
@@ -53,6 +54,15 @@ export function BookingModal() {
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
   }, [open]);
+
+  useEffect(() => {
+    function onMessage(event: MessageEvent) {
+      if (!isGhlLeadSuccess(event.origin || "", event.data)) return;
+      setOpen(false);
+    }
+    window.addEventListener("message", onMessage);
+    return () => window.removeEventListener("message", onMessage);
+  }, []);
 
   return (
     mounted &&

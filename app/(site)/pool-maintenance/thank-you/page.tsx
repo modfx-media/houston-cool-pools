@@ -1,7 +1,6 @@
 import { cmsMetadata } from "@/lib/cms/generateMeta";
 import type { Metadata } from "next";
 import Link from "next/link";
-import Script from "next/script";
 import { ShieldCheck, BadgeCheck, Clock3, PhoneCall } from "lucide-react";
 import { LpHeader } from "../components/LpHeader";
 import { LpFooter } from "../components/LpFooter";
@@ -40,16 +39,6 @@ export async function generateMetadata(): Promise<Metadata> {
 export default function PoolMaintenanceThankYouPage() {
   return (
     <>
-      {/* Event snippet for MFX Submit lead form conversion page */}
-      <Script id="gtag-report-form-conversion" strategy="afterInteractive">
-        {`
-          gtag('event', 'conversion', {
-              'send_to': 'AW-990264356/3JEoCJf1u9ccEKT4mNgD',
-              'value': 1.0,
-              'currency': 'USD'
-          });
-        `}
-      </Script>
       <LpHeader />
 
       <section className="relative isolate overflow-hidden bg-[var(--color-navy-deep)] px-6 py-24 text-center text-white md:px-10 md:py-32">

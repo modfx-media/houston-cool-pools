@@ -5,6 +5,12 @@ import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { isChromeHidden } from "./ChromeGate";
 import { COOKIE_CONSENT_EVENT, getStoredConsent } from "./CookieConsent";
+import {
+  ADS_CALLS_FROM_WEBSITE_SEND_TO,
+  GA4_MEASUREMENT_ID,
+  GOOGLE_ADS_ID,
+  LP_PHONE_DISPLAY,
+} from "@/lib/tracking/ads";
 
 // Loads the analytics/marketing pixels. On the standalone landing pages
 // (gated by ChromeGate) these always run, same as before the cookie
@@ -35,16 +41,26 @@ export function AnalyticsScripts() {
       {/* Google tag (gtag.js) */}
       <Script
         id="ga4-gtag-js"
-        src="https://www.googletagmanager.com/gtag/js?id=G-ZV23BE77HG"
+        src={`https://www.googletagmanager.com/gtag/js?id=${GA4_MEASUREMENT_ID}`}
         strategy="afterInteractive"
       />
       <Script id="ga4-gtag-init" strategy="afterInteractive">
         {`
           window.dataLayer = window.dataLayer || [];
           function gtag(){dataLayer.push(arguments);}
+          window.gtag = gtag;
           gtag('js', new Date());
-
-          gtag('config', 'G-ZV23BE77HG');
+          gtag('config', '${GA4_MEASUREMENT_ID}');
+          ${
+            onLandingPage
+              ? `
+          gtag('config', '${GOOGLE_ADS_ID}');
+          gtag('config', '${ADS_CALLS_FROM_WEBSITE_SEND_TO}', {
+            'phone_conversion_number': '${LP_PHONE_DISPLAY}'
+          });
+          `
+              : ""
+          }
         `}
       </Script>
       <Script

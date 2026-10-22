@@ -66,8 +66,9 @@ export function QuoteForm() {
             Today
           </h2>
           <p className="mt-4 text-base leading-relaxed text-slate-600">
-            Fill out the form and we&apos;ll reach out within one business day
-            to schedule your free in-home quote.
+            Name, phone, email, and what you want built are the only required
+            fields. Street address can be left blank. We&apos;ll call within
+            one business day to schedule your free in-home quote.
           </p>
 
           <ul className="mt-7 grid gap-2 text-sm text-slate-700 sm:grid-cols-2">
@@ -153,6 +154,7 @@ export function QuoteForm() {
             {/* LeadConnector iframe */}
             <iframe
               src={FORM_SRC}
+              loading="lazy"
               id={`inline-${FORM_ID}`}
               data-layout='{"id":"INLINE"}'
               data-trigger-type="alwaysShow"

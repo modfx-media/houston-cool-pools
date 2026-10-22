@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import Script from "next/script";
 import { TopBar } from "./_components/TopBar";
 import { QuoteModal } from "./_components/QuoteModal";
 import { LpEstimatorBar } from "./_components/LpEstimatorBar";
@@ -42,45 +41,10 @@ export default function FreePoolQuoteLayout({
 }) {
   return (
     <div className="lp-root min-h-screen bg-[#0a1628] pb-28 text-white sm:pb-20">
-      {/* Google tag (gtag.js) — Google Ads conversion tracking for this
-          landing page + its thank-you page (this layout wraps both). */}
-      <Script
-        src="https://www.googletagmanager.com/gtag/js?id=AW-990264356"
-        strategy="afterInteractive"
-      />
-      <Script id="gtag-init" strategy="afterInteractive">
-        {`
-          window.dataLayer = window.dataLayer || [];
-          function gtag(){dataLayer.push(arguments);}
-          gtag('js', new Date());
-
-          gtag('config', 'AW-990264356');
-          gtag('config', 'AW-990264356/nMiBCPbO09ccEKT4mNgD', {
-            'phone_conversion_number': '(281) 938-4830'
-          });
-        `}
-      </Script>
-      {/* Event snippet for MFX Click to call conversion page. Call
-          window.gtag_report_conversion(url) on click-to-call links/buttons. */}
-      <Script id="gtag-report-conversion" strategy="afterInteractive">
-        {`
-          function gtag_report_conversion(url) {
-            var callback = function () {
-              if (typeof(url) != 'undefined') {
-                window.location = url;
-              }
-            };
-            gtag('event', 'conversion', {
-                'send_to': 'AW-990264356/y9PqCPnO09ccEKT4mNgD',
-                'value': 5.0,
-                'currency': 'USD',
-                'event_callback': callback
-            });
-            return false;
-          }
-          window.gtag_report_conversion = gtag_report_conversion;
-        `}
-      </Script>
+      {/* Ads + GA4 conversions are fired by LandingTracking (one gtag.js,
+          shared with the rest of the site). A second gtag.js here was
+          downloading the Ads library twice and the click helper was never
+          attached to a phone link. */}
       <TopBar />
       {children}
       <QuoteModal />
