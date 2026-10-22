@@ -226,20 +226,14 @@ export default function PoolMaintenancePage() {
 
       <BookingModal />
 
-      <div className="flex flex-col">
-      <div className="order-2 md:order-none">
-      <Hero />
-      </div>
-
-      <div className="order-1 md:order-none">
       <section id="booking" className="bg-slate-50 px-6 py-8 md:px-10 md:py-20">
         <div className="mx-auto max-w-2xl">
           <BookingForm />
         </div>
       </section>
-      </div>
 
-      <div className="order-3 md:order-none">
+      <Hero />
+
       <ProblemStrip />
 
       {/* ----- Section 2: Intro ----- */}
@@ -463,8 +457,6 @@ export default function PoolMaintenancePage() {
       <PoolCtaBanner heading="Ready for a pool that takes care of itself?" href="#booking" />
 
       <LpFooter />
-      </div>
-      </div>
     </>
   );
 }

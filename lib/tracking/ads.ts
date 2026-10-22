@@ -84,129 +84,75 @@ export function isGhlLeadSuccess(event: {
   return isGhlLeadMessage(event.origin, event.data) && isFormFrameSource(event.source);
 }
 
-type Gtag = (...args: unknown[]) => void;
-
-function gtagFn(): Gtag {
-  const w = window as Window & { dataLayer?: unknown[]; gtag?: Gtag };
-  w.dataLayer = w.dataLayer || [];
-  if (typeof w.gtag !== "function") {
-    w.gtag = function gtag() {
-      // eslint-disable-next-line prefer-rest-params
-      w.dataLayer!.push(arguments);
-    };
-  }
-  return w.gtag;
-}
-
-/** Path only, so a thank-you redirect cannot forward contact fields in the query string. */
+/** Path only. Conversion events must not forward contact fields from the query string. */
 export function pageLocationWithoutQuery(): string {
+  if (typeof window === "undefined") return "";
   return `${window.location.origin}${window.location.pathname}`;
 }
 
-function readCookie(name: string): string {
-  const match = document.cookie.match(
-    new RegExp("(?:^|; )" + name.replace(/[.*+?^${}()|[\]\\]/g, "\\$&") + "=([^;]*)"),
+const PII_QUERY_KEYS = new Set([
+  "email",
+  "e-mail",
+  "mail",
+  "phone",
+  "tel",
+  "mobile",
+  "phone_number",
+  "name",
+  "first_name",
+  "last_name",
+  "firstname",
+  "lastname",
+  "full_name",
+  "fullname",
+  "fname",
+  "lname",
+  "address",
+  "street",
+  "city",
+  "zip",
+  "postal",
+  "postal_code",
+  "message",
+  "comments",
+]);
+
+function isKeptCampaignKey(key: string): boolean {
+  return (
+    /^(gclid|gbraid|wbraid|fbclid|msclkid|gad_source|gclsrc|gad_campaignid)$/i.test(key) ||
+    /^utm_/i.test(key)
   );
-  return match ? decodeURIComponent(match[1]) : "";
 }
 
-function gaClientId(): string {
-  const parts = readCookie("_ga").split(".");
-  if (parts.length >= 4 && parts[2] && parts[3]) return `${parts[2]}.${parts[3]}`;
-  return "";
-}
-
-function gaSession(): { sid: string; sct: string } {
-  const raw = readCookie(`_ga_${GA4_MEASUREMENT_ID.slice(2)}`);
-  const sid = raw.match(/(?:^|[.$])s(\d+)/)?.[1];
-  const sct = raw.match(/\$o(\d+)/)?.[1];
-  if (sid) return { sid, sct: sct || "1" };
-  return { sid: String(Math.floor(Date.now() / 1000)), sct: "1" };
-}
-
-function bodyText(body: unknown): string {
-  if (!body) return "";
-  if (typeof body === "string") return body;
-  if (typeof URLSearchParams !== "undefined" && body instanceof URLSearchParams) return body.toString();
-  return "";
+function valueLooksLikePii(value: string): boolean {
+  if (value.includes("@")) return true;
+  const digits = value.replace(/\D/g, "");
+  return digits.length >= 10;
 }
 
 /**
- * Asks gtag to send the event only to GA4. On this property the shared tag
- * (GA4 + Ads on one dataLayer) collects page_view, contact_us, and purchase,
- * and drops generate_lead and phone_click. If that request is not seen,
- * one collect beacon is sent with the same client id and no query string.
+ * Page location for gtag config (page_view and Ads remarketing).
+ * Keeps click ids and utm params. Drops contact-field names and values that
+ * look like an email or a phone number.
  */
-export function sendGa4Event(name: string, params: Record<string, string | number>) {
-  if (typeof window === "undefined") return;
-  const page_location = pageLocationWithoutQuery();
-  let seen = false;
-  const watch = (url: unknown, body: unknown) => {
-    const blob = `${typeof url === "string" ? url : ""} ${bodyText(body)}`;
-    if (blob.includes(`en=${name}`) && blob.includes(GA4_MEASUREMENT_ID)) seen = true;
-    if (blob.includes(`en=${encodeURIComponent(name)}`) && blob.includes(GA4_MEASUREMENT_ID)) seen = true;
-  };
-  const origFetch = window.fetch;
-  const origBeacon = navigator.sendBeacon?.bind(navigator);
-  window.fetch = function fetchWatch(input: RequestInfo | URL, init?: RequestInit) {
-    try {
-      const url = typeof input === "string" ? input : input instanceof URL ? input.href : input.url;
-      watch(url, init?.body);
-    } catch {
-      /* observation must not break the request */
-    }
-    return origFetch.call(this, input, init);
-  };
-  if (origBeacon) {
-    navigator.sendBeacon = function beaconWatch(url, data) {
-      watch(url, data);
-      return origBeacon(url, data);
-    };
+export function pageLocationForConfig(href?: string): string {
+  const raw = href ?? (typeof window !== "undefined" ? window.location.href : "");
+  let url: URL;
+  try {
+    url = new URL(raw);
+  } catch {
+    return raw;
   }
-
-  const restore = () => {
-    window.fetch = origFetch;
-    if (origBeacon) navigator.sendBeacon = origBeacon;
-  };
-
-  const fallback = () => {
-    restore();
-    if (seen) return;
-    const cid = gaClientId();
-    if (!cid) return;
-    const { sid, sct } = gaSession();
-    const query = new URLSearchParams({
-      v: "2",
-      tid: GA4_MEASUREMENT_ID,
-      cid,
-      sid,
-      sct,
-      seg: "1",
-      dl: page_location,
-      dt: document.title.slice(0, 120),
-      en: name,
-      _ee: "1",
-      gcd: "13l3l3l3l1l1",
-      npa: "0",
-    });
-    if (params.currency != null) query.set("cu", String(params.currency));
-    for (const [key, value] of Object.entries(params)) {
-      if (key === "currency") continue;
-      query.set(typeof value === "number" ? `epn.${key}` : `ep.${key}`, String(value));
+  const keep = new URLSearchParams();
+  url.searchParams.forEach((value, key) => {
+    if (isKeptCampaignKey(key)) {
+      keep.append(key, value);
+      return;
     }
-    const url = `https://analytics.google.com/g/collect?${query.toString()}`;
-    try {
-      if (origBeacon?.(url)) return;
-    } catch {
-      /* fetch below */
-    }
-    origFetch(url, { method: "POST", mode: "no-cors", keepalive: true }).catch(() => {});
-  };
-
-  gtagFn()("event", name, {
-    send_to: GA4_MEASUREMENT_ID,
-    page_location,
-    ...params,
+    if (PII_QUERY_KEYS.has(key.toLowerCase())) return;
+    if (valueLooksLikePii(value)) return;
+    keep.append(key, value);
   });
-  window.setTimeout(fallback, 1200);
+  const qs = keep.toString();
+  return `${url.origin}${url.pathname}${qs ? `?${qs}` : ""}`;
 }

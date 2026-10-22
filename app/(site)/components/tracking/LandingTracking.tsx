@@ -6,12 +6,14 @@ import {
   ADS_CALLS_FROM_WEBSITE_SEND_TO,
   ADS_LEAD_SEND_TO,
   ADS_PHONE_CLICK_SEND_TO,
+  GA4_MEASUREMENT_ID,
   GOOGLE_ADS_ID,
   isGhlLeadSuccess,
   LEAD_PENDING_STORAGE_KEY,
   LEAD_PENDING_TTL_MS,
   LP_PHONE_DISPLAY,
-  sendGa4Event,
+  pageLocationForConfig,
+  pageLocationWithoutQuery,
 } from "@/lib/tracking/ads";
 
 type Gtag = (...args: unknown[]) => void;
@@ -51,9 +53,19 @@ export function ensureAdsConfig() {
   adsConfigured = true;
   if (queued) return;
   const gtag = ensureGtag();
-  gtag("config", GOOGLE_ADS_ID);
+  const page_location = pageLocationForConfig();
+  gtag("config", GOOGLE_ADS_ID, { page_location });
   gtag("config", ADS_CALLS_FROM_WEBSITE_SEND_TO, {
     phone_conversion_number: LP_PHONE_DISPLAY,
+    page_location,
+  });
+}
+
+function trackGa4Event(name: string, params: Record<string, string | number>) {
+  ensureGtag()("event", name, {
+    send_to: GA4_MEASUREMENT_ID,
+    page_location: pageLocationWithoutQuery(),
+    ...params,
   });
 }
 
@@ -93,15 +105,30 @@ export function trackLeadConversion() {
     currency: "USD",
     transport_type: "beacon",
   });
-  sendGa4Event("generate_lead", { currency: "USD", value: 1, method: "form" });
+  trackGa4Event("generate_lead", { currency: "USD", value: 1, method: "form" });
 }
 
-let lastPhoneClickAt = 0;
+const lastPhoneClickAt = new WeakMap<Element, number>();
+const lastPhoneClickByNumber = new Map<string, number>();
 
-export function trackPhoneClick(href: string) {
+function phoneDigits(href: string): string {
+  return href.replace(/\D/g, "") || href;
+}
+
+export function trackPhoneClick(href: string, link?: Element | null) {
   const now = Date.now();
-  if (now - lastPhoneClickAt < 800) return;
-  lastPhoneClickAt = now;
+  // A second tap on the same link inside 800ms is one call. A different
+  // link, including a different number, is counted on its own.
+  if (link) {
+    const last = lastPhoneClickAt.get(link) ?? 0;
+    if (now - last < 800) return;
+    lastPhoneClickAt.set(link, now);
+  } else {
+    const key = phoneDigits(href);
+    const last = lastPhoneClickByNumber.get(key) ?? 0;
+    if (now - last < 800) return;
+    lastPhoneClickByNumber.set(key, now);
+  }
   ensureAdsConfig();
   const gtag = ensureGtag();
   gtag("event", "conversion", {
@@ -110,7 +137,7 @@ export function trackPhoneClick(href: string) {
     currency: "USD",
     transport_type: "beacon",
   });
-  sendGa4Event("phone_click", { method: "click_to_call", link_url: href });
+  trackGa4Event("phone_click", { method: "click_to_call", link_url: href });
 }
 
 function thankYouPath(pathname: string): string | null {
@@ -157,7 +184,7 @@ export function LandingTracking() {
       if (!link) return;
       // Google's calls-from-website config can swap the href for a forwarding
       // number. Every tel: link on these landing pages is a call we want.
-      trackPhoneClick(link.getAttribute("href") || "");
+      trackPhoneClick(link.getAttribute("href") || "", link);
     }
 
     document.addEventListener("click", onClick, true);

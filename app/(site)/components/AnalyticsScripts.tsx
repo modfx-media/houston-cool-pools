@@ -50,13 +50,38 @@ export function AnalyticsScripts() {
           function gtag(){dataLayer.push(arguments);}
           window.gtag = gtag;
           gtag('js', new Date());
-          gtag('config', '${GA4_MEASUREMENT_ID}');
+          var hcpPageLocation = (function () {
+            var pii = {
+              email: 1, "e-mail": 1, mail: 1, phone: 1, tel: 1, mobile: 1, phone_number: 1,
+              name: 1, first_name: 1, last_name: 1, firstname: 1, lastname: 1,
+              full_name: 1, fullname: 1, fname: 1, lname: 1,
+              address: 1, street: 1, city: 1, zip: 1, postal: 1, postal_code: 1,
+              message: 1, comments: 1
+            };
+            var params = new URLSearchParams(location.search);
+            var keep = new URLSearchParams();
+            params.forEach(function (value, key) {
+              var k = String(key).toLowerCase();
+              if (/^(gclid|gbraid|wbraid|fbclid|msclkid|gad_source|gclsrc|gad_campaignid)$/.test(k) || k.indexOf("utm_") === 0) {
+                keep.append(key, value);
+                return;
+              }
+              if (pii[k]) return;
+              if (String(value).indexOf("@") !== -1) return;
+              if ((String(value).match(/\\d/g) || []).length >= 10) return;
+              keep.append(key, value);
+            });
+            var qs = keep.toString();
+            return location.origin + location.pathname + (qs ? "?" + qs : "");
+          })();
+          gtag('config', '${GA4_MEASUREMENT_ID}', { page_location: hcpPageLocation });
           ${
             onLandingPage
               ? `
-          gtag('config', '${GOOGLE_ADS_ID}');
+          gtag('config', '${GOOGLE_ADS_ID}', { page_location: hcpPageLocation });
           gtag('config', '${ADS_CALLS_FROM_WEBSITE_SEND_TO}', {
-            'phone_conversion_number': '${LP_PHONE_DISPLAY}'
+            'phone_conversion_number': '${LP_PHONE_DISPLAY}',
+            page_location: hcpPageLocation
           });
           `
               : ""

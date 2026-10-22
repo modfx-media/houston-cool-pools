@@ -24,6 +24,11 @@ type MillCreekEmbedProps = {
    * actual content so this is only the initial value.
    */
   height?: number;
+  /**
+   * DOM id for the iframe. Defaults to `inline-${formId}`.
+   * A second copy of the same form (the booking popup) must pass its own id.
+   */
+  frameId?: string;
 };
 
 type MillCreekFormProps = MillCreekEmbedProps & {
@@ -53,13 +58,15 @@ export function MillCreekFormEmbed({
   formId = MILLCREEK_FORM_ID,
   formName = MILLCREEK_FORM_NAME,
   height = 1418,
+  frameId,
 }: MillCreekEmbedProps) {
   const src = `https://link.millcreekmktg.com/widget/form/${formId}`;
+  const id = frameId ?? `inline-${formId}`;
   return (
     <>
       <iframe
         src={src}
-        id={`inline-${formId}`}
+        id={id}
         data-layout='{"id":"INLINE"}'
         data-trigger-type="alwaysShow"
         data-trigger-value=""
@@ -69,7 +76,7 @@ export function MillCreekFormEmbed({
         data-deactivation-value=""
         data-form-name={formName}
         data-height={String(height)}
-        data-layout-iframe-id={`inline-${formId}`}
+        data-layout-iframe-id={id}
         data-form-id={formId}
         title={formName}
         height={height}
@@ -101,6 +108,7 @@ export function MillCreekForm({
   formId,
   formName,
   height = 1418,
+  frameId,
 }: MillCreekFormProps) {
   const isLp = variant === "lp";
 
@@ -196,7 +204,7 @@ export function MillCreekForm({
             form. The `data-height` attribute is only used as the initial
             height before the script kicks in. */}
         <div className="relative bg-white">
-          <MillCreekFormEmbed formId={formId} formName={formName} height={height} />
+          <MillCreekFormEmbed formId={formId} formName={formName} height={height} frameId={frameId} />
         </div>
 
         {/* Footer trust strip */}
