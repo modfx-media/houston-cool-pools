@@ -87,6 +87,10 @@ export const PLACE_NOTES: Record<string, string[]> = {
     "Magnolia is Montgomery County, northwest of Tomball along FM 1488. Lots are often larger, sometimes on wells, sometimes with long driveways that change how equipment is staged.",
     "A long driveway is not the same as good backyard access. Septic fields, where they exist, are a hard limit on where we can dig. Tell us if the house is on a septic system before we sketch a 40-foot lap pool through the field.",
   ],
+  pinehurst: [
+    "Pinehurst is an unincorporated community in Montgomery County, between Tomball and Magnolia on Highway 249. There is no city permit desk. Montgomery County reviews the address, and we confirm that before a drawing is treated as submittable.",
+    "Yards here mix older wooded lots with newer subdivision backs. Pines and oaks often set the outline, and a fenced side yard still has to pass a gunite hose. The office on Highway 249 is south of here, toward Tomball, so the drive is ordinary. The trees and the county permit are the part that changes the job.",
+  ],
   "missouri-city": [
     "Missouri City is Fort Bend, near Sugar Land, with suburban lots that usually accept a full gunite pool if the setbacks are respected. HOA review is common. So is a flat grade that needs an intentional deck slope.",
     "We will not pitch the deck toward the house to save a row of stone. Water leaves the pool and the walking surface toward a drain or a swale. That is a design item, and it is cheaper than a wet foundation.",

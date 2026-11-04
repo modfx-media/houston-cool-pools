@@ -1,6 +1,7 @@
 import { cmsMetadata } from "@/lib/cms/generateMeta";
 import type { Metadata } from "next";
-import { buildPageMetadata } from "../../lib/business";
+import { LOCATIONS } from "../../data/pseo/locations";
+import { buildPageMetadata, SERVICE_AREA_PAGES, serviceAreaSlug } from "../../lib/business";
 import { Hero } from "./components/home/Hero";
 import { About } from "./components/home/About";
 import { OwnerIntro } from "./components/home/OwnerIntro";
@@ -31,7 +32,22 @@ export async function generateMetadata(): Promise<Metadata> {
   return cmsMetadata("/", pageMetadata);
 }
 
+function assertServiceAreaPages() {
+  for (const page of SERVICE_AREA_PAGES) {
+    const slug = serviceAreaSlug(page.label);
+    const location = LOCATIONS.find((item) => item.slug === slug);
+    if (!location?.live || location.cityName !== page.label) {
+      throw new Error(`Service area "${page.label}" is missing a live city page.`);
+    }
+    const href = `/custom-pool-builder-${location.slug}-tx`;
+    if (page.href !== href) {
+      throw new Error(`Service area "${page.label}" does not link to ${href}.`);
+    }
+  }
+}
+
 export default function Home() {
+  assertServiceAreaPages();
   return (
     <>
       <Hero />

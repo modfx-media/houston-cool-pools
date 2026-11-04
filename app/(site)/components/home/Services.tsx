@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { motion } from "motion/react";
 import type { ReactNode } from "react";
+import { SERVICE_AREA_PAGES } from "../../../../lib/business";
 import { AnimatedDarkBackdrop } from "./AnimatedDarkBackdrop";
 
 const ease = [0.22, 1, 0.36, 1] as const;
@@ -104,20 +105,12 @@ export function Services() {
           </motion.div>
         </div>
 
-        <div className="relative mx-auto mt-12 max-w-4xl text-center">
+        <div className="relative mx-auto mt-12 max-w-6xl text-center">
           <p className="text-[11px] font-semibold uppercase tracking-[0.28em] text-white/50">
             Pool builder pages by city
           </p>
           <ul className="mt-4 flex flex-wrap items-center justify-center gap-x-5 gap-y-2">
-            {[
-              ["Houston", "/custom-pool-builder-houston-tx"],
-              ["Katy", "/custom-pool-builder-katy-tx"],
-              ["Cypress", "/custom-pool-builder-cypress-tx"],
-              ["The Woodlands", "/custom-pool-builder-the-woodlands-tx"],
-              ["Spring", "/custom-pool-builder-spring-tx"],
-              ["Tomball", "/custom-pool-builder-tomball-tx"],
-              ["Sugar Land", "/custom-pool-builder-sugar-land-tx"],
-            ].map(([label, href]) => (
+            {SERVICE_AREA_PAGES.map(({ label, href }) => (
               <li key={href}>
                 <Link
                   href={href}

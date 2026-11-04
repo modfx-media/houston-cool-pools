@@ -3,7 +3,7 @@
 import { motion } from "motion/react";
 import Image from "next/image";
 import Link from "next/link";
-import { BUSINESS } from "../../../lib/business";
+import { SERVICE_AREA_PAGES } from "../../../lib/business";
 import {
     PHONE_DISPLAY,
     PHONE_HREF,
@@ -19,8 +19,6 @@ const QUICK_LINKS = [
   { label: "Areas We Serve", href: "/areas-we-serve" },
   { label: "Contact", href: "/contact" },
 ];
-
-const SERVICE_AREAS = BUSINESS.areaServed;
 
 const poolInfoLinks = (
   PRIMARY_NAV.find((n) => n.label === "Pool Information")?.columns ?? []
@@ -139,11 +137,14 @@ export function Footer() {
         <motion.div custom={3} variants={fadeUp} className="sm:col-span-2 lg:col-span-3">
           <ColumnHeading>Service Areas</ColumnHeading>
           <ul className="flex flex-wrap gap-1.5">
-            {SERVICE_AREAS.map((area) => (
-              <li key={area}>
-                <span className="inline-flex items-center rounded-full bg-white/[0.04] px-2.5 py-1 text-[11px] text-white/65 ring-1 ring-white/10 transition-colors hover:bg-[var(--color-pool)]/15 hover:text-white hover:ring-[var(--color-pool)]/40">
-                  {area}
-                </span>
+            {SERVICE_AREA_PAGES.map((area) => (
+              <li key={area.href}>
+                <Link
+                  href={area.href}
+                  className="inline-flex items-center rounded-full bg-white/[0.04] px-2.5 py-1 text-[11px] text-white/65 ring-1 ring-white/10 transition-colors hover:bg-[var(--color-pool)]/15 hover:text-white hover:ring-[var(--color-pool)]/40"
+                >
+                  {area.label}
+                </Link>
               </li>
             ))}
           </ul>

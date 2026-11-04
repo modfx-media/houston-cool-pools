@@ -56,6 +56,24 @@ export const BUSINESS = {
   sameAs: [] as string[],
 } as const;
 
+/** URL slug for a service-area city. Matches `data/pseo/locations.ts` slugs. */
+export function serviceAreaSlug(city: string): string {
+  return city
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "");
+}
+
+/**
+ * Custom pool builder page for every city in `BUSINESS.areaServed`, in that
+ * order. The home city strip and the footer Service Areas list both read this
+ * so the names and destinations cannot drift apart.
+ */
+export const SERVICE_AREA_PAGES = BUSINESS.areaServed.map((label) => ({
+  label,
+  href: `/custom-pool-builder-${serviceAreaSlug(label)}-tx`,
+}));
+
 /**
  * Site-wide LocalBusiness JSON-LD. Pass the live Google reviews payload
  * (from getDisplayedGoogleReviews()) so aggregateRating and review[] reflect

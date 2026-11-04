@@ -289,6 +289,18 @@ export const LOCATIONS: PseoLocation[] = [
     landmarkNote: "Northwest of Tomball, along FM-1488",
   },
   {
+    slug: "pinehurst",
+    cityName: "Pinehurst",
+    state: "TX",
+    county: "Montgomery County",
+    tier: 3,
+    live: true,
+    nearbyLocations: ["tomball", "magnolia", "the-woodlands", "hockley"],
+    descriptor:
+      "Pinehurst is an unincorporated Montgomery County community between Tomball and Magnolia, with wooded lots and newer subdivision yards along Highway 249.",
+    landmarkNote: "Between Tomball and Magnolia on Highway 249",
+  },
+  {
     slug: "missouri-city",
     cityName: "Missouri City",
     state: "TX",
