@@ -24,10 +24,10 @@ export function PoolNerdHeader({
 
   return (
     <header
-      className={`fixed inset-x-0 top-0 z-50 transition-all duration-300 ${
+      className={`fixed inset-x-0 top-0 z-50 border-b bg-[var(--color-navy-deep)] transition-all duration-300 ${
         scrolled
-          ? "border-b border-white/10 bg-[var(--color-navy-deep)]/90 shadow-[0_10px_30px_-15px_rgba(0,0,0,0.6)] backdrop-blur-md"
-          : "border-b border-transparent bg-transparent"
+          ? "border-white/10 shadow-[0_10px_30px_-15px_rgba(0,0,0,0.6)]"
+          : "border-white/5"
       }`}
     >
       <div
