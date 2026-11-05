@@ -77,7 +77,7 @@ export const MIKE_LOPEZ: TeamMember = {
 
 export const MICHAEL_CHATELAIN: TeamMember = {
   id: "michael-chatelain",
-  name: "Michael Chatelain",
+  name: "Mike Chatelain",
   title: "Backyard Transformation Specialist",
   yearsExperience: "30+ years",
   portrait: "/images/team/michael-chatelain.jpg",

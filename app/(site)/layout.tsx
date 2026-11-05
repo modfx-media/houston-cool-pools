@@ -80,7 +80,7 @@ export default async function RootLayout({
             }}
           />
         )}
-        <ChromeGate>
+        <ChromeGate scope="header">
           <Header />
         </ChromeGate>
         {pathname ? <CMSRoute path={pathname}>{children}</CMSRoute> : children}

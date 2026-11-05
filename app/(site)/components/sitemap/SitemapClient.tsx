@@ -25,6 +25,7 @@ const SECTIONS: Section[] = [
       { label: "Home", href: "/" },
       { label: "About Us", href: "/about" },
       { label: "Meet The Team", href: "/about/team" },
+      { label: "The Pool Nerd — Mike Chatelain", href: "/the-pool-nerd" },
       { label: "Why Choose HCP", href: "/whychoosehcp" },
       { label: "Contact / Free Quote", href: "/contact" },
       { label: "Pool Gallery", href: "/gallery" },
