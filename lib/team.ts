@@ -27,6 +27,8 @@ export type TeamMember = {
   favoriteSaying?: string;
   /** Optional fun fact. */
   funFact?: string;
+  /** Optional link to a dedicated page about this member. */
+  link?: { label: string; href: string };
 };
 
 export const MIKE_LOPEZ: TeamMember = {
@@ -93,6 +95,7 @@ export const MICHAEL_CHATELAIN: TeamMember = {
       body: "Mike's world outside of work is filled with family, travel, and service. He loves quality time with his wife, kids, and their famous Corgi. Together, he and his wife explore the globe, favoring beach destinations and bareboat chartering in places most tourists haven't seen. On solo days you'll catch him canoeing, lending a helping hand through service work, or embracing his signature silver-haired style - yes, his hair is naturally almost black, but he bleaches it to keep the \"timeless, distinguished\" look. It's not just a choice - it's a vibe.",
     },
   ],
+  link: { label: "Meet The Pool Nerd", href: "/the-pool-nerd" },
   favoriteSaying: "Plan for the worst and hope for the best.",
   funFact:
     "His silver hair is dyed - naturally almost black - for that \"timeless, distinguished\" vibe.",

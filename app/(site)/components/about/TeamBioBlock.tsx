@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 import { motion } from "motion/react";
 import type { TeamMember } from "../../../../lib/team";
 
@@ -133,13 +134,24 @@ export function TeamBioBlock({
 
           {/* Bio paragraphs */}
           <div className="mt-7 space-y-5 text-[var(--color-navy-deep)]/75">
-            {member.bio.map((b) => (
+            {member.bio.map((b, i) => (
               <div key={b.heading}>
                 <h3 className="text-[11px] font-bold uppercase tracking-[0.22em] text-[var(--color-navy-deep)]/55">
                   {b.heading}
                 </h3>
                 <p className="mt-2 text-base leading-relaxed md:text-[1.05rem]">
                   {b.body}
+                  {member.link && i === member.bio.length - 1 ? (
+                    <>
+                      {" "}
+                      <Link
+                        href={member.link.href}
+                        className="font-semibold text-[var(--color-pool)] underline decoration-[var(--color-pool)]/40 underline-offset-4 transition-colors hover:text-[var(--color-pool-deep)] hover:decoration-current"
+                      >
+                        {member.link.label}
+                      </Link>
+                    </>
+                  ) : null}
                 </p>
               </div>
             ))}
