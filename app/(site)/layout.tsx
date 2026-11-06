@@ -11,6 +11,7 @@ import { BookNowBanner } from "./components/BookNowBanner";
 import { Footer } from "./components/Footer";
 import { TaglineBanner } from "./components/TaglineBanner";
 import { ChromeGate } from "./components/ChromeGate";
+import { isLeanChrome } from "./components/chrome-paths";
 import { AnalyticsScripts } from "./components/AnalyticsScripts";
 import { LandingTracking } from "./components/tracking/LandingTracking";
 import { CookieConsent } from "./components/CookieConsent";
@@ -51,6 +52,7 @@ export default async function RootLayout({
     headers(),
   ]);
   const pathname = headerList.get("x-pathname");
+  const leanChrome = pathname ? isLeanChrome(pathname) : false;
 
   return (
     <html
@@ -85,17 +87,25 @@ export default async function RootLayout({
         </ChromeGate>
         {pathname ? <CMSRoute path={pathname}>{children}</CMSRoute> : children}
         <ChromeGate>
-          <CookieConsent />
-          <TaglineBanner />
-          <Footer />
-          <BookNowBanner />
-          {process.env.NODE_ENV === "production" && (
-            <Script
-              id="dandy-chat-widget"
-              src="https://widget.chat.getdandy.com/widget/widget.js"
-              strategy="afterInteractive"
-            />
+          {leanChrome ? (
+            <TaglineBanner showPhone={false} />
+          ) : (
+            <ChromeGate scope="extras">
+              <CookieConsent />
+              <TaglineBanner />
+            </ChromeGate>
           )}
+          <Footer />
+          <ChromeGate scope="extras">
+            <BookNowBanner />
+            {process.env.NODE_ENV === "production" && (
+              <Script
+                id="dandy-chat-widget"
+                src="https://widget.chat.getdandy.com/widget/widget.js"
+                strategy="afterInteractive"
+              />
+            )}
+          </ChromeGate>
         </ChromeGate>
       </body>
     </html>

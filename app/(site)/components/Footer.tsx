@@ -3,7 +3,9 @@
 import { motion } from "motion/react";
 import Image from "next/image";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { SERVICE_AREA_PAGES } from "../../../lib/business";
+import { isLeanChrome } from "./ChromeGate";
 import {
     PHONE_DISPLAY,
     PHONE_HREF,
@@ -60,8 +62,45 @@ function LinkList({ items }: { items: { label: string; href: string }[] }) {
   );
 }
 
+function ModFxCredit() {
+  return (
+    <a
+      href="https://modfxmedia.com"
+      target="_blank"
+      rel="noopener noreferrer"
+      className="group inline-flex items-center gap-1 text-[11px] text-white/45 transition-colors hover:text-white"
+    >
+      Powered by
+      <span className="font-semibold text-white/65 transition-colors group-hover:text-[var(--color-gold-light)]">
+        ModFXMedia
+      </span>
+    </a>
+  );
+}
+
 export function Footer() {
   const year = new Date().getFullYear();
+  const leanChrome = isLeanChrome(usePathname() ?? "");
+
+  if (leanChrome) {
+    return (
+      <footer id="site-footer" className="border-t border-white/[0.06] bg-[var(--color-navy-deep)]">
+        <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-4 px-6 py-8 sm:flex-row">
+          <Link href="/" aria-label="Houston Cool Pools - Home">
+            <Image
+              src="/images/hcp-logo-print.png"
+              alt="Houston Cool Pools"
+              width={2365}
+              height={655}
+              sizes="180px"
+              className="h-10 w-auto"
+            />
+          </Link>
+          <ModFxCredit />
+        </div>
+      </footer>
+    );
+  }
 
   return (
     <footer id="site-footer" className="relative overflow-hidden bg-[var(--color-navy-deep)] text-white/80">
@@ -246,17 +285,7 @@ export function Footer() {
             &copy; {year} <span className="text-white/65">Houston Cool Pools</span>. All rights reserved.
           </p>
           <div className="flex items-center gap-4">
-            <a
-              href="https://modfxmedia.com"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="group inline-flex items-center gap-1 transition-colors hover:text-white"
-            >
-              Powered by
-              <span className="font-semibold text-white/65 transition-colors group-hover:text-[var(--color-gold-light)]">
-                ModFXMedia
-              </span>
-            </a>
+            <ModFxCredit />
             <span aria-hidden className="h-3 w-px bg-white/15" />
             <Link
               href="/sitemap"

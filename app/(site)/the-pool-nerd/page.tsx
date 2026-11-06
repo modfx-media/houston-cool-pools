@@ -685,20 +685,6 @@ export default function PoolNerdPage() {
                 PhD (Pool Hole Designer)
               </p>
             </div>
-            <div className="mt-10 flex flex-col gap-3 sm:flex-row">
-              <a
-                href={PHONE_HREF}
-                className="inline-flex items-center justify-center gap-2 rounded-full bg-[var(--color-pool)] px-7 py-4 text-sm font-semibold text-white shadow-[0_18px_40px_-14px_rgba(0,124,182,0.9)] transition hover:-translate-y-0.5 hover:bg-[var(--color-pool-deep)]"
-              >
-                Call or text Mike: {PHONE}
-              </a>
-              <a
-                href={`mailto:${EMAIL}`}
-                className="inline-flex items-center justify-center rounded-full border border-white/20 bg-white/5 px-7 py-4 text-sm font-semibold text-white backdrop-blur transition hover:bg-white/10"
-              >
-                {EMAIL}
-              </a>
-            </div>
           </Reveal>
 
           <Reveal delay={0.15} className="relative mx-auto w-full max-w-[360px]">
@@ -770,7 +756,7 @@ export default function PoolNerdPage() {
               ]}
             />
           </Reveal>
-          <p className="font-[family-name:var(--font-display)] mt-16 flex flex-wrap items-center justify-center gap-x-5 gap-y-1 text-center text-3xl font-semibold uppercase tracking-[0.12em] text-[var(--color-navy-deep)] md:text-5xl">
+          <p className="font-[family-name:var(--font-display)] mt-14 flex items-center justify-center gap-x-2.5 whitespace-nowrap text-center text-[1.35rem] font-semibold uppercase tracking-[0.08em] text-[var(--color-navy-deep)] min-[400px]:text-2xl sm:gap-x-5 sm:text-4xl sm:tracking-[0.12em] md:mt-16 md:text-5xl">
             <span>Dream</span>
             <span className="text-[var(--color-pool)]">/</span>
             <span className="text-transparent [-webkit-text-stroke:1.5px_var(--color-navy-deep)]">Design</span>
@@ -837,30 +823,6 @@ export default function PoolNerdPage() {
                 },
               ]}
             />
-          </Reveal>
-
-          <Reveal className="relative isolate mt-16 overflow-hidden rounded-[2.25rem] bg-[var(--color-navy-deep)] px-7 py-14 text-center text-white md:px-16 md:py-20">
-            <div className="absolute inset-0 -z-10 bg-[radial-gradient(ellipse_at_top,rgba(0,124,182,0.55),transparent_65%)]" />
-            <div className="absolute -bottom-40 left-1/2 -z-10 h-80 w-[700px] -translate-x-1/2 rounded-full bg-[var(--color-gold-light)]/20 blur-[120px]" />
-            <Eyebrow light>Let&apos;s talk about your backyard</Eyebrow>
-            <h2 className="font-[family-name:var(--font-display)] mx-auto mt-6 max-w-3xl text-4xl font-semibold leading-[1.05] tracking-[-0.02em] md:text-6xl">
-              Have an idea? I&apos;d love to hear it.
-            </h2>
-            <p className="mt-5 text-lg text-white/70">No need to have every detail figured out.</p>
-            <div className="mt-10 flex flex-col items-center justify-center gap-3 sm:flex-row">
-              <a
-                href={PHONE_HREF}
-                className="inline-flex items-center justify-center rounded-full bg-white px-8 py-4 text-base font-semibold text-[var(--color-navy-deep)] shadow-[0_18px_40px_-14px_rgba(79,195,224,0.8)] transition hover:-translate-y-0.5"
-              >
-                Call or text Mike: {PHONE}
-              </a>
-              <a
-                href={`mailto:${EMAIL}`}
-                className="inline-flex items-center justify-center rounded-full border border-white/25 px-8 py-4 text-base font-semibold text-white transition hover:bg-white/10"
-              >
-                {EMAIL}
-              </a>
-            </div>
           </Reveal>
         </div>
       </section>

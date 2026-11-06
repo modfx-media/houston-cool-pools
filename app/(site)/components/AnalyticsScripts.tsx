@@ -3,7 +3,7 @@
 import Script from "next/script";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
-import { isChromeHidden } from "./ChromeGate";
+import { isChromeHidden, isLeanChrome } from "./ChromeGate";
 import { COOKIE_CONSENT_EVENT, getStoredConsent } from "./CookieConsent";
 import {
   ADS_CALLS_FROM_WEBSITE_SEND_TO,
@@ -13,16 +13,17 @@ import {
 } from "@/lib/tracking/ads";
 
 // Loads the analytics/marketing pixels. On the standalone landing pages
-// (gated by ChromeGate) these always run, same as before the cookie
-// banner existed. Everywhere else they only load once the visitor has
-// accepted cookies.
+// (gated by ChromeGate) and the lean sales pages, which have no cookie
+// banner, these always run. Everywhere else they only load once the
+// visitor has accepted cookies.
 export function AnalyticsScripts() {
   const pathname = usePathname() ?? "";
   const onLandingPage = isChromeHidden(pathname);
-  const [consented, setConsented] = useState(onLandingPage);
+  const alwaysOn = onLandingPage || isLeanChrome(pathname);
+  const [consented, setConsented] = useState(alwaysOn);
 
   useEffect(() => {
-    if (onLandingPage) return;
+    if (alwaysOn) return;
     const frame = requestAnimationFrame(() => setConsented(getStoredConsent() === "accepted"));
     const onChange = (event: Event) => {
       setConsented((event as CustomEvent<string>).detail === "accepted");
@@ -32,7 +33,7 @@ export function AnalyticsScripts() {
       cancelAnimationFrame(frame);
       window.removeEventListener(COOKIE_CONSENT_EVENT, onChange);
     };
-  }, [onLandingPage]);
+  }, [alwaysOn]);
 
   if (!consented) return null;
 

@@ -8,7 +8,7 @@ import { PHONE_DISPLAY } from "../../../lib/navigation";
  * "Get Your Free Estimate / Call" CTA, so this strip is tagline-only to
  * avoid duplicate calls-to-action stacked back-to-back.
  */
-export function TaglineBanner() {
+export function TaglineBanner({ showPhone = true }: { showPhone?: boolean } = {}) {
   return (
     <section
       aria-label="Houston Cool Pools tagline"
@@ -40,7 +40,7 @@ export function TaglineBanner() {
           at a time.&rdquo;
         </p>
         <p className="text-[11px] font-semibold uppercase tracking-[0.28em] text-white/60">
-          Serving Houston since 1996 · {PHONE_DISPLAY}
+          Serving Houston since 1996{showPhone && ` · ${PHONE_DISPLAY}`}
         </p>
       </div>
     </section>
