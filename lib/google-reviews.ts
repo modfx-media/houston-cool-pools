@@ -7,7 +7,7 @@ import {
   type GoogleReviewsMeta,
 } from "./reviews";
 
-const REVIEWS_REVALIDATE_SECONDS = 60 * 60 * 24; // once a day
+const REVIEWS_REVALIDATE_SECONDS = 60 * 60 * 24 * 3; // every 3 days
 const PLACES_FIELD_MASK = "id,rating,userRatingCount,googleMapsUri,reviews";
 
 export type GoogleReviewsPayload = {
